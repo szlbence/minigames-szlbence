@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ShopService {
@@ -30,5 +31,9 @@ public class ShopService {
 
     public List<Product> getAllProducts() {
         return productDao.getAll();
+    }
+
+    public Product findProduct(UUID id) {
+        return productDao.find(id);
     }
 }

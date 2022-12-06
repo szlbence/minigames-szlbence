@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductMem implements ProductDao{
@@ -21,12 +23,19 @@ public class ProductMem implements ProductDao{
 
     @Override
     public void remove(UUID id) {
+        Product removableProduct = products.stream().filter(product -> product.getId().equals(id)).findAny().get();
+        products.remove(removableProduct);
 
     }
 
     @Override
     public Product find(UUID id) {
-        return null;
+        Optional<Product> foundProduct = products.stream().filter(product -> product.getId().equals(id)).findAny();
+        if (foundProduct.isPresent()) {
+            return foundProduct.get();
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     @Override
@@ -36,6 +45,6 @@ public class ProductMem implements ProductDao{
 
     @Override
     public List<Product> getByCategory(Category category) {
-        return null;
+        return products.stream().filter(product -> product.getCategory().equals(category)).collect(Collectors.toList());
     }
 }

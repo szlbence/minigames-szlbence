@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class AllController {
@@ -22,5 +23,10 @@ public class AllController {
         @GetMapping("/products")
         public List<Product> getAllProducts() {
                 return shopService.getAllProducts();
+        }
+
+        @PostMapping("/products/find")
+        public Product findProduct(@RequestBody UUID uuid) {
+            return shopService.findProduct(uuid);
         }
 }
