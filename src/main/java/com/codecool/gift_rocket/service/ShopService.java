@@ -7,6 +7,8 @@ import com.codecool.gift_rocket.repository.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShopService {
 
@@ -26,7 +28,7 @@ public class ShopService {
         productDao.add(product);
     }
 
-    public void getAllProducts() {
-        productDao.getAll();
+    public List<Product> getAllProducts() {
+        return productDao.getAll();
     }
 }

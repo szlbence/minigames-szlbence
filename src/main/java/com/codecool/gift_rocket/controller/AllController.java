@@ -20,7 +20,7 @@ public class AllController {
         }
 
         @GetMapping("/products")
-        public void getAllProducts() {
-                shopService.getAllProducts();
+        public List<Product> getAllProducts() {
+                return shopService.getAllProducts();
         }
 }

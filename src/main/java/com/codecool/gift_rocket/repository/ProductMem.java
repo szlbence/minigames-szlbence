@@ -16,7 +16,7 @@ public class ProductMem implements ProductDao{
 
     @Override
     public void add(Product product) {
-
+        products.add(product);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ProductMem implements ProductDao{
 
     @Override
     public List<Product> getAll() {
-        return null;
+       return products;
     }
 
     @Override
