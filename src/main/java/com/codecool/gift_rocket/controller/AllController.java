@@ -1,19 +1,26 @@
 package com.codecool.gift_rocket.controller;
 
+import com.codecool.gift_rocket.model.Product;
+import com.codecool.gift_rocket.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
 @RestController
 public class AllController {
 
-//        @Autowired
-//        public ShopService shopService;
+        @Autowired
+        public ShopService shopService;
 
-        @GetMapping
-        public void getDogs() {
-                System.out.println("hello world");
+        @PostMapping("/products/add")
+        public void addProduct(@RequestBody Product newProduct) {
+                shopService.addNewProduct(newProduct);
+        }
+
+        @GetMapping("/products")
+        public void getAllProducts() {
+                shopService.getAllProducts();
         }
 }

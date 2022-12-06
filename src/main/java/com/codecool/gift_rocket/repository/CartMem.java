@@ -2,13 +2,14 @@ package com.codecool.gift_rocket.repository;
 
 import com.codecool.gift_rocket.model.Cart;
 import com.codecool.gift_rocket.model.ProductBox;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
+@Repository
 public class CartMem implements CartDao{
 
     private List<Cart> carts = new ArrayList<>();
