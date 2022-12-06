@@ -13,7 +13,7 @@ public interface ProductBoxDao {
 
     void addNewProductBox(ProductBox productBox);
 
-    ProductBox find(UUID id);
+    ProductBox find(UUID boxId);
 
     void removeProduct(Product product, UUID boxId);
 

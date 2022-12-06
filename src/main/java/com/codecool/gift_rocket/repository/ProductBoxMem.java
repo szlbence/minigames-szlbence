@@ -27,7 +27,7 @@ public class ProductBoxMem implements ProductBoxDao{
     }
 
     @Override
-    public ProductBox find(UUID id) {
+    public ProductBox find(UUID boxId) {
         return null;
     }
 
