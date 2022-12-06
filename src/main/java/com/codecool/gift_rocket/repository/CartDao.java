@@ -1,5 +1,6 @@
 package com.codecool.gift_rocket.repository;
 
+import com.codecool.gift_rocket.model.Cart;
 import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.model.ProductBox;
 
