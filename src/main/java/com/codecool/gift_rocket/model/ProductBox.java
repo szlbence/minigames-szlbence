@@ -17,6 +17,7 @@ public class ProductBox {
 
     public ProductBox(BigDecimal packagingPrice, UUID id, String name, String description) {
         this.packagingPrice = packagingPrice;
+        this.totalPrice = packagingPrice;
         this.id = id;
         this.name = name;
         this.description = description;
