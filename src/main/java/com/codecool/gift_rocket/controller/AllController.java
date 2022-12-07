@@ -45,11 +45,16 @@ public class AllController {
         }
 
         @PostMapping("/productbox/addproduct")
-        public void addProductToProductBox(@RequestBody Product newProduct, @RequestBody UUID boxId) {
-                shopService.addProductToProductBox(newProduct, boxId);
+        public void addProductToProductBox(@RequestBody Map<String, UUID> ids) {
+                shopService.addProductToProductBox(ids.get("productId"), ids.get("boxId"));
         }
 
-        @PostMapping("/productbox/add/")
+        @GetMapping("/productbox/get")
+        public List<ProductBox> getAllProductBox() {
+              return  shopService.getAllProductBoxes();
+        }
+
+        @PostMapping("/productbox/add")
         public void addProductBox(@RequestBody ProductBox productBox) {
                 shopService.addNewProductBox(productBox);
         }
@@ -72,6 +77,11 @@ public class AllController {
         @PostMapping("/productbox/value")
         public BigDecimal getProductBoxValue(@RequestBody UUID uuid) {
                 return shopService.getProductBoxValue(uuid);
+        }
+
+        @DeleteMapping("/productbox/removeproduct")
+        public void removeProductFromProductBox(@RequestBody Map<String, UUID> ids) {
+                shopService.removeProductFromProductBox(ids.get("productId"), ids.get("boxId"));
         }
 
 

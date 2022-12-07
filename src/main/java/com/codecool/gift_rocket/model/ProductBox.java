@@ -1,5 +1,7 @@
 package com.codecool.gift_rocket.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -44,11 +46,11 @@ public class ProductBox {
     public String getDescription() {
         return description;
     }
-
+@JsonIgnore
     public Set<Category> getCategories() {
         return categories;
     }
-
+@JsonIgnore
     public Map<Product, Integer> getProducts() {
         return products;
     }
@@ -63,6 +65,12 @@ public class ProductBox {
     }
 
     public void removeProduct(Product product) {
-        products.remove(product);
+        products.put(product, products.get(product) - 1);
+        if (products.get(product) == 0){
+            products.remove(product);
+        }
+        totalPrice = totalPrice.subtract(product.getPrice());
     }
+
+
 }

@@ -4,6 +4,7 @@ import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.model.ProductBox;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,5 +25,5 @@ public interface ProductBoxDao {
     BigDecimal getProductBoxValue(UUID boxId);
 
 
-
+    List<ProductBox> getAllProductBoxes();
 }

@@ -33,7 +33,8 @@ public class ShopService {
         productDao.add(product);
     }
 
-    public void addProductToProductBox(Product product, UUID boxId) {
+    public void addProductToProductBox(UUID productId, UUID boxId) {
+        Product product = productDao.find(productId);
         productBoxDao.addProduct(product, boxId);
     }
 
@@ -71,5 +72,14 @@ public class ShopService {
 
     public BigDecimal getProductBoxValue(UUID uuid) {
        return productBoxDao.getProductBoxValue(uuid);
+    }
+
+    public List<ProductBox> getAllProductBoxes() {
+       return  productBoxDao.getAllProductBoxes();
+    }
+
+    public void removeProductFromProductBox(UUID productId, UUID boxId) {
+        Product product = productDao.find(productId);
+        productBoxDao.removeProduct(product, boxId);
     }
 }

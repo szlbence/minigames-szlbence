@@ -67,4 +67,9 @@ public class ProductBoxMem implements ProductBoxDao{
         }
         return BigDecimal.ZERO;
     }
+
+    @Override
+    public List<ProductBox> getAllProductBoxes() {
+        return productBoxes;
+    }
 }
