@@ -1,5 +1,6 @@
 package com.codecool.gift_rocket.service;
 
+import com.codecool.gift_rocket.model.Category;
 import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.repository.CartDao;
 import com.codecool.gift_rocket.repository.ProductBoxDao;
@@ -39,5 +40,9 @@ public class ShopService {
 
     public void removeProduct(UUID id){
         productDao.remove(id);
+    }
+
+    public List<Product> getProductsByCategory(Category category) {
+        return productDao.getByCategory(category);
     }
 }

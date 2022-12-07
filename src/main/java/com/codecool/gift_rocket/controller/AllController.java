@@ -1,5 +1,6 @@
 package com.codecool.gift_rocket.controller;
 
+import com.codecool.gift_rocket.model.Category;
 import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class AllController {
         @DeleteMapping("/products/remove")
         public void removeProduct(@RequestBody UUID uuid) {
                 shopService.removeProduct(uuid);
+        }
+
+        @PostMapping("/products/category")
+        public List<Product> getProductsByCategory(@RequestBody Category category) {
+                return shopService.getProductsByCategory(category);
         }
 }
