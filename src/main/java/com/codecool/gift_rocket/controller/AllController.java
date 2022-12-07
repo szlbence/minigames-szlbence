@@ -2,12 +2,14 @@ package com.codecool.gift_rocket.controller;
 
 import com.codecool.gift_rocket.model.Category;
 import com.codecool.gift_rocket.model.Product;
+import com.codecool.gift_rocket.model.ProductBox;
 import com.codecool.gift_rocket.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -40,4 +42,36 @@ public class AllController {
         public List<Product> getProductsByCategory(@RequestBody Category category) {
                 return shopService.getProductsByCategory(category);
         }
+
+        @PostMapping("/productbox/addproduct")
+        public void addProductToProductBox(@RequestBody Product newProduct, @RequestBody UUID boxId) {
+                shopService.addProductToProductBox(newProduct, boxId);
+        }
+
+        @PostMapping("/productbox/add/")
+        public void addProductBox(@RequestBody ProductBox productBox) {
+                shopService.addNewProductBox(productBox);
+        }
+
+        @PostMapping("/productbox/find")
+        public ProductBox findProductBox(@RequestBody UUID uuid) {
+                return shopService.findProductBox(uuid);
+        }
+
+        @DeleteMapping("/productbox/remove")
+        public void removeProductBox(@RequestBody UUID uuid) {
+                shopService.removeProductBox(uuid);
+        }
+
+        @PostMapping("/productbox/products")
+        public Map<Product, Integer> getAllProductsInBox(@RequestBody UUID boxID) {
+                return shopService.getAllProductsInBox(boxID);
+        }
+
+        @PostMapping("/productbox/value")
+        public ProductBox getProductBoxValue(@RequestBody UUID uuid) {
+                return shopService.getProductBoxValue(uuid);
+        }
+
+
 }

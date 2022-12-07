@@ -18,36 +18,53 @@ public class ProductBoxMem implements ProductBoxDao{
 
     @Override
     public void addProduct(Product product, UUID boxId) {
-
+        ProductBox foundBox = productBoxes.stream().filter(b -> b.getId().equals(boxId)).findAny().orElse(null);
+        if(foundBox != null){
+            foundBox.addProduct(product);
+        }
     }
 
     @Override
     public void addNewProductBox(ProductBox productBox) {
-
+        productBoxes.add(productBox);
     }
 
     @Override
     public ProductBox find(UUID boxId) {
-        return null;
+        return productBoxes.stream().filter(b -> b.getId().equals(boxId)).findAny().orElse(null);
     }
 
     @Override
     public void removeProduct(Product product, UUID boxId) {
-
+        ProductBox foundBox = productBoxes.stream().filter(b -> b.getId().equals(boxId)).findAny().orElse(null);
+        if(foundBox != null){
+            foundBox.removeProduct(product);
+        }
     }
 
     @Override
     public Map<Product, Integer> getAllProductsInProductBox(UUID boxId) {
+        ProductBox foundBox = productBoxes.stream().filter(b -> b.getId().equals(boxId)).findAny().orElse(null);
+        if(foundBox != null){
+            return foundBox.getProducts();
+        }
         return null;
     }
 
     @Override
     public void removeProductBox(UUID boxId) {
-
+        ProductBox foundBox = productBoxes.stream().filter(b -> b.getId().equals(boxId)).findAny().orElse(null);
+        if(foundBox != null){
+            productBoxes.remove(foundBox);
+        }
     }
 
     @Override
     public BigDecimal getProductBoxValue(UUID boxId) {
-        return null;
+        ProductBox foundBox = productBoxes.stream().filter(b -> b.getId().equals(boxId)).findAny().orElse(null);
+        if(foundBox != null){
+            return foundBox.getTotalPrice();
+        }
+        return BigDecimal.ZERO;
     }
 }
