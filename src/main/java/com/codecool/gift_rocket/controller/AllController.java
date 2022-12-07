@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -69,7 +70,7 @@ public class AllController {
         }
 
         @PostMapping("/productbox/value")
-        public ProductBox getProductBoxValue(@RequestBody UUID uuid) {
+        public BigDecimal getProductBoxValue(@RequestBody UUID uuid) {
                 return shopService.getProductBoxValue(uuid);
         }
 
