@@ -9,6 +9,7 @@ import com.codecool.gift_rocket.repository.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -68,7 +69,7 @@ public class ShopService {
         return productBoxDao.getAllProductsInProductBox(boxId);
     }
 
-    public ProductBox getProductBoxValue(UUID uuid) {
-        productBoxDao.getProductBoxValue(uuid);
+    public BigDecimal getProductBoxValue(UUID uuid) {
+       return productBoxDao.getProductBoxValue(uuid);
     }
 }
