@@ -96,6 +96,6 @@ public class ShopService {
     }
 
     public BigDecimal getCartValue(UUID uuid) {
-        return productBoxDao.getProductBoxValue(uuid);
+        return cartDao.getCartValue(uuid);
     }
 }
