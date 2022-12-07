@@ -29,4 +29,9 @@ public class AllController {
         public Product findProduct(@RequestBody UUID uuid) {
             return shopService.findProduct(uuid);
         }
+
+        @DeleteMapping("/products/remove")
+        public void removeProduct(@RequestBody UUID uuid) {
+                shopService.removeProduct(uuid);
+        }
 }

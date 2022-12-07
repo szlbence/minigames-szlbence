@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -30,12 +29,7 @@ public class ProductMem implements ProductDao{
 
     @Override
     public Product find(UUID id) {
-        Optional<Product> foundProduct = products.stream().filter(product -> product.getId().equals(id)).findAny();
-        if (foundProduct.isPresent()) {
-            return foundProduct.get();
-        } else {
-            throw new RuntimeException();
-        }
+        return products.stream().filter(product -> product.getId().equals(id)).findAny().orElse(null);
     }
 
     @Override

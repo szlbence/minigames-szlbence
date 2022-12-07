@@ -36,4 +36,8 @@ public class ShopService {
     public Product findProduct(UUID id) {
         return productDao.find(id);
     }
+
+    public void removeProduct(UUID id){
+        productDao.remove(id);
+    }
 }
