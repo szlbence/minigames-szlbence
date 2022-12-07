@@ -15,10 +15,10 @@ public class ProductBox {
     private Set<Category> categories;
     private Map<Product, Integer> products;
 
-    public ProductBox(BigDecimal packagingPrice, UUID id, String name, String description) {
+    public ProductBox(BigDecimal packagingPrice, String name, String description) {
         this.packagingPrice = packagingPrice;
         this.totalPrice = packagingPrice;
-        this.id = id;
+        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.categories = new HashSet<>();
@@ -54,7 +54,11 @@ public class ProductBox {
     }
 
     public void addProduct(Product product){
-        products.put(product, 1);
+        if (products.containsKey(product)) {
+            products.put(product, products.get(product) + 1);
+        } else {
+            products.put(product, 1);
+        }
         totalPrice = totalPrice.add(product.getPrice());
     }
 
