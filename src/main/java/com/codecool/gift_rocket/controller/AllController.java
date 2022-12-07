@@ -1,5 +1,6 @@
 package com.codecool.gift_rocket.controller;
 
+import com.codecool.gift_rocket.model.Cart;
 import com.codecool.gift_rocket.model.Category;
 import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.model.ProductBox;
@@ -74,5 +75,24 @@ public class AllController {
                 return shopService.getProductBoxValue(uuid);
         }
 
+        @PostMapping("/cart/add")
+        public void addCart(@RequestBody Cart newCart) {
+                shopService.addNewCart(newCart);
+        }
+
+        @GetMapping("/carts")
+        public List<Cart> getAllCarts() {
+                return shopService.getAllCarts();
+        }
+
+        @PostMapping("/cart/addproductbox")
+        public void addProductBoxToCart(@RequestBody UUID boxId, @RequestBody UUID cartId) {
+                shopService.addProductBoxToCart(boxId, cartId);
+        }
+
+        @PostMapping("/cart/find")
+        public Cart findCart(@RequestBody UUID cartId) {
+                return shopService.findCart(cartId);
+        }
 
 }

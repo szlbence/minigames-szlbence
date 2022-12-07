@@ -16,17 +16,22 @@ public class CartMem implements CartDao{
 
     @Override
     public void addProductBox(ProductBox productBox, UUID cartId) {
+        Cart foundCart = carts.stream().filter(b -> b.getId().equals(cartId)).findAny().orElse(null);
+        if(foundCart != null){
+            foundCart.addProductBox(productBox);
+        }
+
 
     }
 
     @Override
     public void addNewCart(Cart cart) {
-
+        carts.add(cart);
     }
 
     @Override
     public Cart find(UUID cartId) {
-        return null;
+        return carts.stream().filter(b -> b.getId().equals(cartId)).findAny().orElse(null);
     }
 
     @Override
@@ -47,5 +52,10 @@ public class CartMem implements CartDao{
     @Override
     public BigDecimal getCartValue(UUID cartId) {
         return null;
+    }
+
+    @Override
+    public List<Cart> getCarts() {
+        return carts;
     }
 }
