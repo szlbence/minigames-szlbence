@@ -46,7 +46,10 @@ public class CartMem implements CartDao{
 
     @Override
     public void removeCart(UUID cartId) {
-
+        Cart foundCart = carts.stream().filter(b -> b.getId().equals(cartId)).findAny().orElse(null);
+        if(foundCart != null){
+            carts.remove(foundCart);
+        }
     }
 
     @Override

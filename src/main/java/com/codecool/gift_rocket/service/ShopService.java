@@ -90,4 +90,8 @@ public class ShopService {
     public Cart findCart(UUID cartId) {
         return cartDao.find(cartId);
     }
+
+    public void removeCart(UUID uuid) {
+        cartDao.removeCart(uuid);
+    }
 }

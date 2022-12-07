@@ -85,7 +85,7 @@ public class AllController {
                 return shopService.getAllCarts();
         }
 
-        @PostMapping("/cart/addproductbox")
+        @PostMapping("/cart/add-product-box")
         public void addProductBoxToCart(@RequestBody UUID boxId, @RequestBody UUID cartId) {
                 shopService.addProductBoxToCart(boxId, cartId);
         }
@@ -93,6 +93,11 @@ public class AllController {
         @PostMapping("/cart/find")
         public Cart findCart(@RequestBody UUID cartId) {
                 return shopService.findCart(cartId);
+        }
+
+        @DeleteMapping("/cart/remove")
+        public void removeCart(@RequestBody UUID uuid) {
+                shopService.removeCart(uuid);
         }
 
 }
