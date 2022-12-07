@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class AllController {
@@ -20,7 +21,17 @@ public class AllController {
         }
 
         @GetMapping("/products")
-        public void getAllProducts() {
-                shopService.getAllProducts();
+        public List<Product> getAllProducts() {
+                return shopService.getAllProducts();
+        }
+
+        @PostMapping("/products/find")
+        public Product findProduct(@RequestBody UUID uuid) {
+            return shopService.findProduct(uuid);
+        }
+
+        @DeleteMapping("/products/remove")
+        public void removeProduct(@RequestBody UUID uuid) {
+                shopService.removeProduct(uuid);
         }
 }
