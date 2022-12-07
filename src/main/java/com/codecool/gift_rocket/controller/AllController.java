@@ -100,4 +100,9 @@ public class AllController {
                 shopService.removeCart(uuid);
         }
 
+        @PostMapping("/cart/value")
+        public BigDecimal getCartValue(@RequestBody UUID uuid) {
+                return shopService.getCartValue(uuid);
+        }
+
 }

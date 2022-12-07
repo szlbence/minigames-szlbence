@@ -94,4 +94,8 @@ public class ShopService {
     public void removeCart(UUID uuid) {
         cartDao.removeCart(uuid);
     }
+
+    public BigDecimal getCartValue(UUID uuid) {
+        return productBoxDao.getProductBoxValue(uuid);
+    }
 }

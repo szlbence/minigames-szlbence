@@ -54,7 +54,11 @@ public class CartMem implements CartDao{
 
     @Override
     public BigDecimal getCartValue(UUID cartId) {
-        return null;
+        Cart foundCart = carts.stream().filter(b -> b.getId().equals(cartId)).findAny().orElse(null);
+        if(foundCart != null){
+            return foundCart.getTotalPrice();
+        }
+        return BigDecimal.ZERO;
     }
 
     @Override
