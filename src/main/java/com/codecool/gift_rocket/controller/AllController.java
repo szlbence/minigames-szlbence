@@ -1,9 +1,6 @@
 package com.codecool.gift_rocket.controller;
 
-import com.codecool.gift_rocket.model.Cart;
-import com.codecool.gift_rocket.model.Category;
-import com.codecool.gift_rocket.model.Product;
-import com.codecool.gift_rocket.model.ProductBox;
+import com.codecool.gift_rocket.model.*;
 import com.codecool.gift_rocket.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +52,7 @@ public class AllController {
                 shopService.addNewProductBox(productBox);
         }
 
-        @PostMapping("/productbox/find")
+        @PostMapping("/productbox/find") //todo van valami convention, hogy mit milyen methoddal erdemes kuldeni? pl itt inkabb query parameterkent kellene az id, es akkor gettel?
         public ProductBox findProductBox(@RequestBody UUID uuid) {
                 return shopService.findProductBox(uuid);
         }
@@ -86,9 +83,13 @@ public class AllController {
         }
 
         @PostMapping("/cart/add-product-box")
-        public void addProductBoxToCart(@RequestBody UUID boxId, @RequestBody UUID cartId) {
+        public void addProductBoxToCart(@RequestBody UUIDDTO uuiddto) {
+                UUID boxId = uuiddto.getLowerLevelId();
+                UUID cartId = uuiddto.getHigherLevelId();
                 shopService.addProductBoxToCart(boxId, cartId);
         }
+
+        //todo add remove all productboxes or one PB from cart methods and also list all productboxes in specific cart
 
         @PostMapping("/cart/find")
         public Cart findCart(@RequestBody UUID cartId) {
