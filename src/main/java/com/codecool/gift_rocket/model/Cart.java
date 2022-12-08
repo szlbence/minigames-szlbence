@@ -15,7 +15,7 @@ public class Cart {
     public Cart() {
         this.id = UUID.randomUUID();
         this.productBoxes = new HashMap<>();
-        this.totalPrice = new BigDecimal(10);
+        this.totalPrice = new BigDecimal(0);
     }
 
 
