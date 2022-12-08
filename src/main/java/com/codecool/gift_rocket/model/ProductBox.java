@@ -66,11 +66,8 @@ public class ProductBox {
     }
 
     public void removeProduct(Product product) {
-        products.put(product, products.get(product) - 1);
-        if (products.get(product) == 0){
-            products.remove(product);
-        }
-        totalPrice = totalPrice.subtract(product.getPrice());
+        totalPrice = totalPrice.subtract(product.getPrice().multiply(BigDecimal.valueOf(products.get(product))));
+        products.remove(product);
         categories.remove(product.getCategory());
     }
 
