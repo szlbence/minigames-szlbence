@@ -38,10 +38,6 @@ public class ProductTest {
         assertEquals(TEST_PRODUCT_CATEGORY, product.getCategory());
     }
 
-    @Test
-    void testGetId() {
-        assertEquals(TEST_PRODUCT_CATEGORY, product.getCategory());
-    }
 
     @Test
     void testSetPrice(){
