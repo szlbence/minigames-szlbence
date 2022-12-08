@@ -62,6 +62,7 @@ public class ProductBox {
             products.put(product, 1);
         }
         totalPrice = totalPrice.add(product.getPrice());
+        categories.add(product.getCategory());
     }
 
     public void removeProduct(Product product) {
@@ -70,6 +71,7 @@ public class ProductBox {
             products.remove(product);
         }
         totalPrice = totalPrice.subtract(product.getPrice());
+        categories.remove(product.getCategory());
     }
 
 
