@@ -34,7 +34,8 @@ public class ShopService {
         productDao.add(product);
     }
 
-    public void addProductToProductBox(Product product, UUID boxId) {
+    public void addProductToProductBox(UUID productId, UUID boxId) {
+        Product product = productDao.find(productId);
         productBoxDao.addProduct(product, boxId);
     }
 
@@ -101,5 +102,14 @@ public class ShopService {
 
     public Map<ProductBox, Integer> getAllProductBoxesInCart(UUID cartId) {
         return cartDao.getAllProductBoxesInCart(cartId);
+    }
+
+    public List<ProductBox> getAllProductBoxes() {
+       return  productBoxDao.getAllProductBoxes();
+    }
+
+    public void removeProductFromProductBox(UUID productId, UUID boxId) {
+        Product product = productDao.find(productId);
+        productBoxDao.removeProduct(product, boxId);
     }
 }

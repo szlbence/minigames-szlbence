@@ -43,16 +43,21 @@ public class AllController {
         }
 
         @PostMapping("/productbox/addproduct")
-        public void addProductToProductBox(@RequestBody Product newProduct, @RequestBody UUID boxId) {
-                shopService.addProductToProductBox(newProduct, boxId);
+        public void addProductToProductBox(@RequestBody Map<String, UUID> ids) {
+                shopService.addProductToProductBox(ids.get("productId"), ids.get("boxId"));
         }
 
-        @PostMapping("/productbox/add/")
+        @GetMapping("/productbox/get")
+        public List<ProductBox> getAllProductBox() {
+              return  shopService.getAllProductBoxes();
+        }
+
+        @PostMapping("/productbox/add")
         public void addProductBox(@RequestBody ProductBox productBox) {
                 shopService.addNewProductBox(productBox);
         }
 
-        @PostMapping("/productbox/find") //todo van valami convention, hogy mit milyen methoddal erdemes kuldeni? pl itt inkabb query parameterkent kellene az id, es akkor gettel?
+        @PostMapping("/productbox/find")
         public ProductBox findProductBox(@RequestBody UUID uuid) {
                 return shopService.findProductBox(uuid);
         }
@@ -110,5 +115,10 @@ public class AllController {
         public BigDecimal getCartValue(@RequestBody UUID uuid) {
                 return shopService.getCartValue(uuid);
         }
+        @DeleteMapping("/productbox/removeproduct")
+        public void removeProductFromProductBox(@RequestBody Map<String, UUID> ids) {
+                shopService.removeProductFromProductBox(ids.get("productId"), ids.get("boxId"));
+        }
+
 
 }
