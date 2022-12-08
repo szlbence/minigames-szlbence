@@ -11,7 +11,7 @@ public class Cart {
 
     private static final String CURRENCY = "HUF";
     private final UUID id;
-    private Map<ProductBox, Integer> productBoxes;
+    private Map<ProductBox, Integer> productBoxes = new HashMap<>();
     public Cart() {
         this.id = UUID.randomUUID();
         this.productBoxes = new HashMap<>();
@@ -40,5 +40,14 @@ public class Cart {
             productBoxes.put(productBox, 1);
         }
         totalPrice = totalPrice.add(productBox.getTotalPrice());
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "totalPrice=" + totalPrice +
+                ", id=" + id +
+                ", productBoxes=" + productBoxes +
+                '}';
     }
 }

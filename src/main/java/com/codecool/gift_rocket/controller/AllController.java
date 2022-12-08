@@ -87,14 +87,12 @@ public class AllController {
                 return shopService.getAllCarts();
         }
 
-        @PostMapping("/cart/add-product-box")
-        public void addProductBoxToCart(@RequestBody UUIDDTO uuiddto) {
-                UUID boxId = uuiddto.getLowerLevelId();
-                UUID cartId = uuiddto.getHigherLevelId();
-                shopService.addProductBoxToCart(boxId, cartId);
+        @PostMapping("/cart/addproductbox")
+        public void addProductBoxToCart(@RequestBody Map<String, UUID> ids) {
+                shopService.addProductBoxToCart(ids.get("productBoxId"), ids.get("cartId"));
         }
 
-        @PostMapping("/cart/product-boxes")
+        @PostMapping("/cart/productboxes")
         public Map<ProductBox, Integer> getAllProductBoxesInCart(@RequestBody UUID cartId) {
                 return shopService.getAllProductBoxesInCart(cartId);
         }
