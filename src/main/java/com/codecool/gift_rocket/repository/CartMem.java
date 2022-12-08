@@ -20,8 +20,6 @@ public class CartMem implements CartDao{
         if(foundCart != null){
             foundCart.addProductBox(productBox);
         }
-
-
     }
 
     @Override
@@ -36,7 +34,8 @@ public class CartMem implements CartDao{
 
     @Override
     public void removeProductBox(ProductBox productBox, UUID cartId) {
-
+        Cart foundCart = find(cartId);
+        foundCart.removeProductBox(productBox);
     }
 
     @Override

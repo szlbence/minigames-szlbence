@@ -97,7 +97,10 @@ public class AllController {
                 return shopService.getAllProductBoxesInCart(cartId);
         }
 
-        //todo add remove all productboxes or one PB from cart methods and also list all productboxes in specific cart
+        @DeleteMapping("/cart/removeproductbox")
+        public void removeProductBoxFromCart(@RequestBody Map<String, UUID> ids) {
+                shopService.removeProductBoxFromCart(ids.get("productBoxId"), ids.get("cartId"));
+        }
 
         @PostMapping("/cart/find")
         public Cart findCart(@RequestBody UUID cartId) {
@@ -113,6 +116,7 @@ public class AllController {
         public BigDecimal getCartValue(@RequestBody UUID uuid) {
                 return shopService.getCartValue(uuid);
         }
+
         @DeleteMapping("/productbox/removeproduct")
         public void removeProductFromProductBox(@RequestBody Map<String, UUID> ids) {
                 shopService.removeProductFromProductBox(ids.get("productId"), ids.get("boxId"));

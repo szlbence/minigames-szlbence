@@ -112,4 +112,9 @@ public class ShopService {
         Product product = productDao.find(productId);
         productBoxDao.removeProduct(product, boxId);
     }
+
+    public void removeProductBoxFromCart(UUID productBoxId, UUID cartId) {
+        ProductBox productbox = productBoxDao.find(productBoxId);
+        cartDao.removeProductBox(productbox, cartId);
+    }
 }

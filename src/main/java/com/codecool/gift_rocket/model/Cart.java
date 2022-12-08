@@ -42,6 +42,16 @@ public class Cart {
         totalPrice = totalPrice.add(productBox.getTotalPrice());
     }
 
+    public void removeProductBox(ProductBox productBox) {
+        if (productBoxes.containsKey(productBox)) {
+            productBoxes.put(productBox, productBoxes.get(productBox) - 1);
+            totalPrice = totalPrice.subtract(productBox.getTotalPrice());
+            if (productBoxes.get(productBox) == 0){
+                productBoxes.remove(productBox);
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
