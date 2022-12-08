@@ -89,6 +89,11 @@ public class AllController {
                 shopService.addProductBoxToCart(boxId, cartId);
         }
 
+        @PostMapping("/cart/product-boxes")
+        public Map<ProductBox, Integer> getAllProductBoxesInCart(@RequestBody UUID cartId) {
+                return shopService.getAllProductBoxesInCart(cartId);
+        }
+
         //todo add remove all productboxes or one PB from cart methods and also list all productboxes in specific cart
 
         @PostMapping("/cart/find")

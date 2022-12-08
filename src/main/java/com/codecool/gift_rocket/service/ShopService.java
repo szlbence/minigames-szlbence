@@ -98,4 +98,8 @@ public class ShopService {
     public BigDecimal getCartValue(UUID uuid) {
         return cartDao.getCartValue(uuid);
     }
+
+    public Map<ProductBox, Integer> getAllProductBoxesInCart(UUID cartId) {
+        return cartDao.getAllProductBoxesInCart(cartId);
+    }
 }
