@@ -5,6 +5,7 @@ import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.model.ProductBox;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -23,5 +24,7 @@ public interface CartDao {
     void removeCart(UUID cartId);
 
     BigDecimal getCartValue(UUID cartId);
+
+    public List<Cart> getCarts();
 
 }

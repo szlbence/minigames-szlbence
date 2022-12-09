@@ -1,20 +1,63 @@
 package com.codecool.gift_rocket.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Cart {
 
     private BigDecimal totalPrice;
+
     private static final String CURRENCY = "HUF";
     private final UUID id;
-    private List<ProductBox> productBoxes;
-
-    public Cart(UUID id) {
-        this.id = id;
-        this.productBoxes = new ArrayList<>();
+    private Map<ProductBox, Integer> productBoxes = new HashMap<>();
+    public Cart() {
+        this.id = UUID.randomUUID();
+        this.productBoxes = new HashMap<>();
         this.totalPrice = new BigDecimal(0);
+    }
+
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+
+    public UUID getId() {
+        return id;
+    }
+
+    @JsonIgnore
+    public Map<ProductBox, Integer> getProductBoxes() {
+        return productBoxes;
+    }
+
+    public void addProductBox(ProductBox productBox) {
+        if (productBoxes.containsKey(productBox)) {
+            productBoxes.put(productBox, productBoxes.get(productBox) + 1);
+        } else {
+            productBoxes.put(productBox, 1);
+        }
+        totalPrice = totalPrice.add(productBox.getTotalPrice());
+    }
+
+    public void removeProductBox(ProductBox productBox) {
+        if (productBoxes.containsKey(productBox)) {
+            productBoxes.put(productBox, productBoxes.get(productBox) - 1);
+            totalPrice = totalPrice.subtract(productBox.getTotalPrice());
+            if (productBoxes.get(productBox) == 0){
+                productBoxes.remove(productBox);
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "totalPrice=" + totalPrice +
+                ", id=" + id +
+                ", productBoxes=" + productBoxes +
+                '}';
     }
 }

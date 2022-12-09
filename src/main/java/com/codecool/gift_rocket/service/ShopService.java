@@ -1,5 +1,6 @@
 package com.codecool.gift_rocket.service;
 
+import com.codecool.gift_rocket.model.Cart;
 import com.codecool.gift_rocket.model.Category;
 import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.model.ProductBox;
@@ -74,6 +75,35 @@ public class ShopService {
        return productBoxDao.getProductBoxValue(uuid);
     }
 
+    public void addNewCart(Cart cart) {
+        cartDao.addNewCart(cart);
+    }
+
+    public List<Cart> getAllCarts() {
+        return cartDao.getCarts();
+    }
+
+    public void addProductBoxToCart(UUID boxId, UUID cartId) {
+        ProductBox foundBox = productBoxDao.find(boxId);
+        cartDao.addProductBox(foundBox, cartId);
+    }
+
+    public Cart findCart(UUID cartId) {
+        return cartDao.find(cartId);
+    }
+
+    public void removeCart(UUID uuid) {
+        cartDao.removeCart(uuid);
+    }
+
+    public BigDecimal getCartValue(UUID uuid) {
+        return cartDao.getCartValue(uuid);
+    }
+
+    public Map<ProductBox, Integer> getAllProductBoxesInCart(UUID cartId) {
+        return cartDao.getAllProductBoxesInCart(cartId);
+    }
+
     public List<ProductBox> getAllProductBoxes() {
        return  productBoxDao.getAllProductBoxes();
     }
@@ -81,5 +111,10 @@ public class ShopService {
     public void removeProductFromProductBox(UUID productId, UUID boxId) {
         Product product = productDao.find(productId);
         productBoxDao.removeProduct(product, boxId);
+    }
+
+    public void removeProductBoxFromCart(UUID productBoxId, UUID cartId) {
+        ProductBox productbox = productBoxDao.find(productBoxId);
+        cartDao.removeProductBox(productbox, cartId);
     }
 }
