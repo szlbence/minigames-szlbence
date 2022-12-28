@@ -56,9 +56,4 @@ public class CartController {
     public BigDecimal getCartValue(@RequestBody UUID uuid) {
         return shopService.getCartValue(uuid);
     }
-
-    @DeleteMapping("/productbox/removeproduct")
-    public void removeProductFromProductBox(@RequestBody Map<String, UUID> ids) {
-        shopService.removeProductFromProductBox(ids.get("productId"), ids.get("boxId"));
-    }
 }

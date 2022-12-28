@@ -46,12 +46,12 @@ public class ProductBoxController {
         return shopService.getAllProductsInBox(id);
     }
 
-    @PostMapping("/productbox/{id}/{productId}")
+    @PostMapping("/productbox/{id}/add/{productId}")
     public void addProductToProductBox(@PathVariable UUID id, @PathVariable UUID productId) {
         shopService.addProductToProductBox(productId, id);
     }
 
-    @DeleteMapping("/productbox/{id}/{productId}")
+    @DeleteMapping("/productbox/{id}/remove/{productId}")
     public void removeProductFromProductBox(@PathVariable UUID id, @PathVariable UUID productId) {
         shopService.removeProductFromProductBox(productId, id);
     }
