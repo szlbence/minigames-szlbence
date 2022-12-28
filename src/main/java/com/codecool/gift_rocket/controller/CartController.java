@@ -17,43 +17,43 @@ public class CartController {
     @Autowired
     public ShopService shopService;
 
-    @PostMapping("/cart/add")
-    public void addCart(@RequestBody Cart newCart) {
-        shopService.addNewCart(newCart);
-    }
-
-    @GetMapping("/carts")
+    @GetMapping("/cart")
     public List<Cart> getAllCarts() {
         return shopService.getAllCarts();
     }
 
-    @PostMapping("/cart/addproductbox")
-    public void addProductBoxToCart(@RequestBody Map<String, UUID> ids) {
-        shopService.addProductBoxToCart(ids.get("productBoxId"), ids.get("cartId"));
+    @PostMapping("/cart")
+    public void addCart(@RequestBody Cart newCart) {
+        shopService.addNewCart(newCart);
     }
 
-    @PostMapping("/cart/productboxes")
-    public Map<ProductBox, Integer> getAllProductBoxesInCart(@RequestBody UUID cartId) {
-        return shopService.getAllProductBoxesInCart(cartId);
+    @GetMapping("/cart/{id}")
+    public Cart findCart(@PathVariable UUID id) {
+        return shopService.findCart(id);
     }
 
-    @DeleteMapping("/cart/removeproductbox")
-    public void removeProductBoxFromCart(@RequestBody Map<String, UUID> ids) {
-        shopService.removeProductBoxFromCart(ids.get("productBoxId"), ids.get("cartId"));
+    @DeleteMapping("/cart/{id}")
+    public void removeCart(@PathVariable UUID id) {
+        shopService.removeCart(id);
     }
 
-    @PostMapping("/cart/find")
-    public Cart findCart(@RequestBody UUID cartId) {
-        return shopService.findCart(cartId);
+    @GetMapping("/cart/{id}/value")
+    public BigDecimal getCartValue(@PathVariable UUID id) {
+        return shopService.getCartValue(id);
     }
 
-    @DeleteMapping("/cart/remove")
-    public void removeCart(@RequestBody UUID uuid) {
-        shopService.removeCart(uuid);
+    @GetMapping("/cart/{id}/productboxes")
+    public Map<ProductBox, Integer> getAllProductBoxesInCart(@PathVariable UUID id) {
+        return shopService.getAllProductBoxesInCart(id);
     }
 
-    @PostMapping("/cart/value")
-    public BigDecimal getCartValue(@RequestBody UUID uuid) {
-        return shopService.getCartValue(uuid);
+    @PostMapping("/cart/{id}/add/{productBoxId}")
+    public void addProductBoxToCart(@PathVariable UUID id, @PathVariable UUID productBoxId) {
+        shopService.addProductBoxToCart(productBoxId, id);
+    }
+
+    @DeleteMapping("/cart/{id}/remove/{productBoxId}")
+    public void removeProductBoxFromCart(@PathVariable UUID id, @PathVariable UUID productBoxId) {
+        shopService.removeProductBoxFromCart(productBoxId,id);
     }
 }

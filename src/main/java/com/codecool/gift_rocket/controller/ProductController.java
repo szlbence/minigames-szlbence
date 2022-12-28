@@ -15,28 +15,28 @@ public class ProductController {
         @Autowired
         public ShopService shopService;
 
-        @GetMapping("/products")
+        @GetMapping("/product")
         public List<Product> getAllProducts() {
                 return shopService.getAllProducts();
         }
 
-        @PostMapping("/products")
+        @PostMapping("/product")
         public void addProduct(@RequestBody Product newProduct) {
                 shopService.addNewProduct(newProduct);
         }
 
 
-        @GetMapping("/products/{id}")
+        @GetMapping("/product/{id}")
         public Product findProduct(@PathVariable UUID id) {
             return shopService.findProduct(id);
         }
 
-        @DeleteMapping("/products/{id}")
+        @DeleteMapping("/product/{id}")
         public void removeProduct(@PathVariable UUID id) {
                 shopService.removeProduct(id);
         }
 
-        @GetMapping("/products/category/{category}")
+        @GetMapping("/product/category/{category}")
         public List<Product> getProductsByCategory(@PathVariable Category category) {
                 return shopService.getProductsByCategory(category);
         }
