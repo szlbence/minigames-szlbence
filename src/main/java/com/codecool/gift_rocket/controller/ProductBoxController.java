@@ -16,38 +16,38 @@ public class ProductBoxController {
     @Autowired
     public ShopService shopService;
 
+    @GetMapping("/productbox")
+    public List<ProductBox> getAllProductBox() {
+        return  shopService.getAllProductBoxes();
+    }
+
+    @PostMapping("/productbox")
+    public void addProductBox(@RequestBody ProductBox productBox) {
+        shopService.addNewProductBox(productBox);
+    }
+
+    @GetMapping("/productbox/{id}")
+    public ProductBox findProductBox(@PathVariable UUID id) {
+        return shopService.findProductBox(id);
+    }
+
+    @DeleteMapping("/productbox/{id}")
+    public void removeProductBox(@PathVariable UUID id) {
+        shopService.removeProductBox(id);
+    }
+
+    @PostMapping("/productbox/{id}/value")
+    public BigDecimal getProductBoxValue(@PathVariable UUID id) {
+        return shopService.getProductBoxValue(id);
+    }
+
     @PostMapping("/productbox/addproduct")
     public void addProductToProductBox(@RequestBody Map<String, UUID> ids) {
         shopService.addProductToProductBox(ids.get("productId"), ids.get("boxId"));
     }
 
-    @GetMapping("/productbox/get")
-    public List<ProductBox> getAllProductBox() {
-        return  shopService.getAllProductBoxes();
-    }
-
-    @PostMapping("/productbox/add")
-    public void addProductBox(@RequestBody ProductBox productBox) {
-        shopService.addNewProductBox(productBox);
-    }
-
-    @PostMapping("/productbox/find")
-    public ProductBox findProductBox(@RequestBody UUID uuid) {
-        return shopService.findProductBox(uuid);
-    }
-
-    @DeleteMapping("/productbox/remove")
-    public void removeProductBox(@RequestBody UUID uuid) {
-        shopService.removeProductBox(uuid);
-    }
-
     @PostMapping("/productbox/products")
     public Map<Product, Integer> getAllProductsInBox(@RequestBody UUID boxID) {
         return shopService.getAllProductsInBox(boxID);
-    }
-
-    @PostMapping("/productbox/value")
-    public BigDecimal getProductBoxValue(@RequestBody UUID uuid) {
-        return shopService.getProductBoxValue(uuid);
     }
 }
