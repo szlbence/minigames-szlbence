@@ -36,18 +36,23 @@ public class ProductBoxController {
         shopService.removeProductBox(id);
     }
 
-    @PostMapping("/productbox/{id}/value")
+    @GetMapping("/productbox/{id}/value")
     public BigDecimal getProductBoxValue(@PathVariable UUID id) {
         return shopService.getProductBoxValue(id);
     }
 
-    @PostMapping("/productbox/addproduct")
-    public void addProductToProductBox(@RequestBody Map<String, UUID> ids) {
-        shopService.addProductToProductBox(ids.get("productId"), ids.get("boxId"));
+    @GetMapping("/productbox/{id}/products")
+    public Map<Product, Integer> getAllProductsInBox(@PathVariable UUID id) {
+        return shopService.getAllProductsInBox(id);
     }
 
-    @PostMapping("/productbox/products")
-    public Map<Product, Integer> getAllProductsInBox(@RequestBody UUID boxID) {
-        return shopService.getAllProductsInBox(boxID);
+    @PostMapping("/productbox/{id}/{productId}")
+    public void addProductToProductBox(@PathVariable UUID id, @PathVariable UUID productId) {
+        shopService.addProductToProductBox(productId, id);
+    }
+
+    @DeleteMapping("/productbox/{id}/{productId}")
+    public void removeProductFromProductBox(@PathVariable UUID id, @PathVariable UUID productId) {
+        shopService.removeProductFromProductBox(productId, id);
     }
 }
