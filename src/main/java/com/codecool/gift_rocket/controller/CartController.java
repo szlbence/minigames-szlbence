@@ -12,47 +12,48 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/cart")
 public class CartController {
 
     @Autowired
     public ShopService shopService;
 
-    @GetMapping("/cart")
+    @GetMapping
     public List<Cart> getAllCarts() {
         return shopService.getAllCarts();
     }
 
-    @PostMapping("/cart")
+    @PostMapping
     public void addCart(@RequestBody Cart newCart) {
         shopService.addNewCart(newCart);
     }
 
-    @GetMapping("/cart/{id}")
+    @GetMapping("/{id}")
     public Cart findCart(@PathVariable UUID id) {
         return shopService.findCart(id);
     }
 
-    @DeleteMapping("/cart/{id}")
+    @DeleteMapping("/{id}")
     public void removeCart(@PathVariable UUID id) {
         shopService.removeCart(id);
     }
 
-    @GetMapping("/cart/{id}/value")
+    @GetMapping("/{id}/value")
     public BigDecimal getCartValue(@PathVariable UUID id) {
         return shopService.getCartValue(id);
     }
 
-    @GetMapping("/cart/{id}/productboxes")
+    @GetMapping("/{id}/productboxes")
     public Map<ProductBox, Integer> getAllProductBoxesInCart(@PathVariable UUID id) {
         return shopService.getAllProductBoxesInCart(id);
     }
 
-    @PostMapping("/cart/{id}/add/{productBoxId}")
+    @PostMapping("/{id}/add/{productBoxId}")
     public void addProductBoxToCart(@PathVariable UUID id, @PathVariable UUID productBoxId) {
         shopService.addProductBoxToCart(productBoxId, id);
     }
 
-    @DeleteMapping("/cart/{id}/remove/{productBoxId}")
+    @DeleteMapping("/{id}/remove/{productBoxId}")
     public void removeProductBoxFromCart(@PathVariable UUID id, @PathVariable UUID productBoxId) {
         shopService.removeProductBoxFromCart(productBoxId,id);
     }

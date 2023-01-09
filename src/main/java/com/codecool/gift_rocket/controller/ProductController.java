@@ -10,33 +10,34 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/product")
 public class ProductController {
 
         @Autowired
         public ShopService shopService;
 
-        @GetMapping("/product")
+        @GetMapping
         public List<Product> getAllProducts() {
                 return shopService.getAllProducts();
         }
 
-        @PostMapping("/product")
+        @PostMapping
         public void addProduct(@RequestBody Product newProduct) {
                 shopService.addNewProduct(newProduct);
         }
 
 
-        @GetMapping("/product/{id}")
+        @GetMapping("/{id}")
         public Product findProduct(@PathVariable UUID id) {
             return shopService.findProduct(id);
         }
 
-        @DeleteMapping("/product/{id}")
+        @DeleteMapping("/{id}")
         public void removeProduct(@PathVariable UUID id) {
                 shopService.removeProduct(id);
         }
 
-        @GetMapping("/product/category/{category}")
+        @GetMapping("/category/{category}")
         public List<Product> getProductsByCategory(@PathVariable Category category) {
                 return shopService.getProductsByCategory(category);
         }
