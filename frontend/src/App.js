@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Routes, Route}
 import ContactPage from "./pages/ContactPage";
 import PremadeBoxesPage from "./pages/PremadeBoxesPage";
 import CustomBoxesPage from "./pages/CustomBoxesPage";
-import Home from './pages/HomePage'
 import HomePage from "./pages/HomePage";
+import Footer from "./Footer";
 
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
                 <Route path='/premade-boxes' element={<PremadeBoxesPage/>} />
                 <Route path='/custom-boxes' element={<CustomBoxesPage/>} />
             </Routes>
+            <Footer />
         </Router>
     );
 }

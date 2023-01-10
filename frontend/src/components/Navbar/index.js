@@ -1,12 +1,14 @@
 import React from "react";
 import { Nav, NavLink, NavMenu }
     from "./NavBarElements";
+import image from "./corporation-removebg-preview.png"
 
 const Navbar = () => {
     return (
         <>
             <Nav>
                 <NavMenu>
+                    <img src={image} style={{width:130, height:130}}/>
                     <NavLink to="/" activeStyle>
                         Home
                     </NavLink>
