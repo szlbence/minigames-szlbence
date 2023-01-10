@@ -1,34 +1,27 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Routes, Route}
+    from 'react-router-dom';
+import ContactPage from "./pages/ContactPage";
+import PremadeBoxesPage from "./pages/PremadeBoxesPage";
+import CustomBoxesPage from "./pages/CustomBoxesPage";
+import Home from './pages/HomePage'
+import HomePage from "./pages/HomePage";
 
-class App extends Component {
-    state = {};
 
-    componentDidMount() {
-        this.dadJokes()
-    }
-
-    dadJokes = () => {
-        fetch('/cart/api/dadjokes')
-            .then(response => response.text())
-            .then(message => {
-                this.setState({message: message});
-            });
-    };
-  render() {
+function App() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-            <h3 className="App-title">{this.state.message}</h3>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <Router>
+            <Navbar />
+            <Routes>
+                <Route exact path='/' exact element={<HomePage/>} />
+                <Route path='/contact' element={<ContactPage/>} />
+                <Route path='/premade-boxes' element={<PremadeBoxesPage/>} />
+                <Route path='/custom-boxes' element={<CustomBoxesPage/>} />
+            </Routes>
+        </Router>
     );
-  }
 }
 
 export default App;
