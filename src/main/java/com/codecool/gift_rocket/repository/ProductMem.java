@@ -6,13 +6,18 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Repository
 public class ProductMem implements ProductDao{
 
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products;
+
+    public ProductMem(List<Product> products) {
+        this.products = products;
+    }
 
 
     @Override

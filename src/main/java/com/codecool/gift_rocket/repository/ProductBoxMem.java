@@ -14,7 +14,9 @@ import java.util.UUID;
 @Repository
 public class ProductBoxMem implements ProductBoxDao{
 
-    private List<ProductBox> productBoxes = new ArrayList<>();
+    private List<ProductBox> productBoxes;
+
+    public ProductBoxMem(List<ProductBox> productBoxes){this.productBoxes = productBoxes;}
 
     @Override
     public void addProduct(Product product, UUID boxId) {
