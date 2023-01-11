@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class ProductBoxCreator {
+public class ProdAndProdBoxCreator {
 
     private ProductBoxMem productBoxMem;
+    private ProductMem productMem;
 
     public void initialize() {
         ProductBox productBox1 = new ProductBox(BigDecimal.valueOf(10), "Big product box", "A red box");
@@ -25,13 +26,17 @@ public class ProductBoxCreator {
         productBox1.addProduct(product2);
         productBox2.addProduct(product2);
         productBox2.addProduct(product3);
+        productMem.add(product1);
+        productMem.add(product2);
+        productMem.add(product3);
         productBoxMem.addNewProductBox(productBox1);
         productBoxMem.addNewProductBox(productBox2);
     }
 
     @Autowired
-    public ProductBoxCreator(ProductBoxMem productBoxMem) {
+    public ProdAndProdBoxCreator(ProductBoxMem productBoxMem, ProductMem productMem) {
         this.productBoxMem = productBoxMem;
+        this.productMem = productMem;
         initialize();
     }
 }
