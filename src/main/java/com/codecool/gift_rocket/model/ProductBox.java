@@ -50,7 +50,7 @@ public class ProductBox {
     public Set<Category> getCategories() {
         return categories;
     }
-@JsonIgnore
+//@JsonIgnore
     public Map<Product, Integer> getProducts() {
         return products;
     }
@@ -71,16 +71,16 @@ public class ProductBox {
     }
 
 
-    @Override
-    public String toString() {
-        return "ProductBox{" +
-                "packagingPrice=" + packagingPrice +
-                ", totalPrice=" + totalPrice +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", categories=" + categories +
-                ", products=" + products +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "ProductBox{" +
+//                "packagingPrice=" + packagingPrice +
+//                ", totalPrice=" + totalPrice +
+//                ", id=" + id +
+//                ", name='" + name + '\'' +
+//                ", description='" + description + '\'' +
+//                ", categories=" + categories +
+//                ", products=" + this.getProducts() +
+//                '}';
+//    }
 }

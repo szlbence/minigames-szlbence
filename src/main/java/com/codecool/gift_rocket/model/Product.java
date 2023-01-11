@@ -55,14 +55,14 @@ public class Product {
         this.category = category;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "price=" + price +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", category=" + category +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Product{" +
+//                "price=" + price +
+//                ", id=" + id +
+//                ", name='" + name + '\'' +
+//                ", description='" + description + '\'' +
+//                ", category=" + category +
+//                '}';
+//    }
 }

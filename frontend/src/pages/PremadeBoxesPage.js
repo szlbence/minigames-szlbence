@@ -1,6 +1,7 @@
 
 import React from "react";
 import {useEffect, useState} from "react";
+import {json} from "react-router-dom";
 
 const PremadeBoxes = () => {
 
@@ -31,7 +32,7 @@ const PremadeBoxes = () => {
             <ul>
                 {items.map(item => (
                     <li key={item.id}>
-                        {item.name} {item.totalPrice}
+                        {item.name} {item.totalPrice} {item.description}
                     </li>
                 ))}
             </ul>
