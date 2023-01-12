@@ -14,7 +14,7 @@ const CartPage = () => {
     async function AddToCart(id, name) {
         const productBoxId = (await getProductBoxId(name));
         const newId = productBoxId.replace(`"`, '');
-        const finalId = newId.slice(0,newId.length-1);
+        const finalId = newId.slice(0, newId.length - 1);
         console.log(productBoxId);
         console.log(newId);
         console.log(finalId);
@@ -27,12 +27,13 @@ const CartPage = () => {
                 },
             });
         })();
+    }
 
       async function getProductBoxId(name) {
           const response = await fetch(`http://localhost:8080/productbox/name/${name}`);
           return response.text();
       }
-    }
+
 
         useEffect(() => {
         fetch(URL)

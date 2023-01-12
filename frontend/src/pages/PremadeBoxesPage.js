@@ -61,7 +61,7 @@ const PremadeBoxes = () => {
                                     <p className="price">Total price: {item.totalPrice}</p>
                                     <p className="description">Description: {item.description}</p>
                                     <p className="description">Products: {Object.keys(item.products).join(", ")}</p>
-                                    <button type="submit" onClick={() => {  AddToCart(carts[0].id, item.id)}} text="Add to cart"/>
+                                    <button type="submit" onClick={() => {  AddToCart(carts[0].id, item.id)}}>Add To Cart</button>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
