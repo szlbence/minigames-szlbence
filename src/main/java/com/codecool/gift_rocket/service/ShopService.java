@@ -117,4 +117,8 @@ public class ShopService {
         ProductBox productbox = productBoxDao.find(productBoxId);
         cartDao.removeProductBox(productbox, cartId);
     }
+
+    public UUID getProductBoxId(String name) {
+        return productBoxDao.getBoxByName(name);
+    }
 }

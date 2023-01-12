@@ -74,4 +74,9 @@ public class ProductBoxMem implements ProductBoxDao{
     public List<ProductBox> getAllProductBoxes() {
         return productBoxes;
     }
+
+    @Override
+    public UUID getBoxByName(String name) {
+        return productBoxes.stream().filter(productBox -> productBox.getName().equals(name)).findAny().get().getId();
+    }
 }
