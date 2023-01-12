@@ -8,7 +8,7 @@ const CartPage = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
-    const URL = "http://localhost:8080/cart";
+    const URL = "/cart";
 
     useEffect(() => {
         fetch(URL)
@@ -40,6 +40,16 @@ const CartPage = () => {
                             </Card.Body>
                         </Card>
                     )}
+                    <Card style={{width: '36rem'}} className="checkout">
+                        {/*<Card.Header></Card.Header>*/}
+                        <Card.Body>
+                            <Card.Title></Card.Title>
+                            <Card.Text>
+                                <p>Total Price: {items[0].totalPrice}</p>
+                            </Card.Text>
+                            <button type="button">Checkout</button>
+                        </Card.Body>
+                    </Card>
                 </div>
             </div>
         );
