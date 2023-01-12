@@ -71,16 +71,8 @@ public class ProductBox {
     }
 
 
-//    @Override
-//    public String toString() {
-//        return "ProductBox{" +
-//                "packagingPrice=" + packagingPrice +
-//                ", totalPrice=" + totalPrice +
-//                ", id=" + id +
-//                ", name='" + name + '\'' +
-//                ", description='" + description + '\'' +
-//                ", categories=" + categories +
-//                ", products=" + this.getProducts() +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return name;
+    }
 }

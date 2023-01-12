@@ -32,6 +32,8 @@ public class ProdAndProdBoxAndCartCreator {
         productBox2.addProduct(product2);
         productBox2.addProduct(product3);
         cartMem.addNewCart(cart);
+        cartMem.addProductBox(productBox1 ,cart.getId());
+        cartMem.addProductBox(productBox2, cart.getId());
         productMem.add(product1);
         productMem.add(product2);
         productMem.add(product3);
