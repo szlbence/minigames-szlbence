@@ -1,8 +1,10 @@
 package com.codecool.gift_rocket.data_sample;
 
+import com.codecool.gift_rocket.model.Cart;
 import com.codecool.gift_rocket.model.Category;
 import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.model.ProductBox;
+import com.codecool.gift_rocket.repository.CartMem;
 import com.codecool.gift_rocket.repository.ProductBoxMem;
 import com.codecool.gift_rocket.repository.ProductMem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,15 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class ProdAndProdBoxCreator {
+public class ProdAndProdBoxAndCartCreator {
 
     private ProductBoxMem productBoxMem;
     private ProductMem productMem;
 
+    private CartMem cartMem;
+
     public void initialize() {
+        Cart cart = new Cart("cart");
         ProductBox productBox1 = new ProductBox(BigDecimal.valueOf(10), "Big product box", "A red box");
         ProductBox productBox2 = new ProductBox(BigDecimal.valueOf(10), "Small product box", "A blue box");
         Product product1 = new Product(BigDecimal.valueOf(40), "Wine", "A bottle of top shelf wine. Tasty!", Category.ALCOHOL);
@@ -26,6 +31,7 @@ public class ProdAndProdBoxCreator {
         productBox1.addProduct(product2);
         productBox2.addProduct(product2);
         productBox2.addProduct(product3);
+        cartMem.addNewCart(cart);
         productMem.add(product1);
         productMem.add(product2);
         productMem.add(product3);
@@ -34,9 +40,10 @@ public class ProdAndProdBoxCreator {
     }
 
     @Autowired
-    public ProdAndProdBoxCreator(ProductBoxMem productBoxMem, ProductMem productMem) {
+    public ProdAndProdBoxAndCartCreator(ProductBoxMem productBoxMem, ProductMem productMem, CartMem cartMem) {
         this.productBoxMem = productBoxMem;
         this.productMem = productMem;
+        this.cartMem = cartMem;
         initialize();
     }
 }
