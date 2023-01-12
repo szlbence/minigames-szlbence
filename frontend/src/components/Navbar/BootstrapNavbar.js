@@ -17,6 +17,7 @@ function BootstrapNavbar() {
                         <Nav.Link href="/premade-boxes">Pre-made Boxes</Nav.Link>
                         <Nav.Link href="/custom-boxes">Custom Boxes</Nav.Link>
                         <Nav.Link href="/contact">Contact Us</Nav.Link>
+                        <Nav.Link href="/cart">Cart</Nav.Link>
                         {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">*/}
                         {/*    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>*/}
                         {/*    <NavDropdown.Item href="#action/3.2">*/}

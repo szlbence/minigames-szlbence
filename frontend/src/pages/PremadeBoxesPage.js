@@ -1,7 +1,6 @@
 import React from "react";
 import {useEffect, useState} from "react";
 import "../App.css"
-import Button from "../components/Button";
 import Card from "react-bootstrap/Card";
 
 
@@ -36,7 +35,7 @@ const PremadeBoxes = () => {
                                     <p className="price">Total price: {item.totalPrice}</p>
                                     <p className="description">Description: {item.description}</p>
                                     <p className="description">Products: {Object.keys(item.products).join(", ")}</p>
-                                    <Button text="Add to cart"/>
+                                    <button type="button">button</button>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
