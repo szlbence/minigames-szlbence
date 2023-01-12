@@ -1,9 +1,8 @@
 import React from "react";
 
 import {useEffect, useState} from "react";
-import "../PremadeBoxes.css"
-import image from "../gift-box.jpg";
-import Button from "../components/Button";
+import "../App.css"
+import Card from "react-bootstrap/Card";
 
 
 function AddToCart(id, productBoxId) {
@@ -47,34 +46,27 @@ const PremadeBoxes = () => {
                 }
             )
     }, [items])
-
-
-
-
-
     if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
         return (
-            // <ul>
-            //     {items.map(item => (
-            //         <li key={item.id}>
-            //             {item.name} {item.totalPrice} {item.description} {}
-            //         </li>
-            //     ))}
-            // </ul>
             <div className="container">
+                <div className="grid">
                     {items.map(item =>
-                    <div className="card" key={item.id}>
-                        <img src={image} width={200}/>
-                        <p className="name">Name: {item.name} </p>
-                        <p className="price">Total price: {item.totalPrice}</p>
-                        <p className="description">Description: {item.description}</p>
-                        <p className="description">Products: {Object.keys(item.products).join(", ")}</p>
-                        <button type="submit" onClick={() => {  AddToCart(carts[0].id, item.id)}} text="Add to cart"/>
-                    </div>
+                        <Card style={{width: '36rem'}}>
+                            <Card.Header><Card.Img variant="top" src="holder.js/100px180"/></Card.Header>
+                            <Card.Body>
+                                <Card.Title>{item.name}</Card.Title>
+                                <Card.Text>
+                                    <p className="price">Total price: {item.totalPrice}</p>
+                                    <p className="description">Description: {item.description}</p>
+                                    <p className="description">Products: {Object.keys(item.products).join(", ")}</p>
+                                    <button type="submit" onClick={() => {  AddToCart(carts[0].id, item.id)}} text="Add to cart"/>
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
                     )}
-
+                </div>
             </div>
         );
     }

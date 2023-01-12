@@ -35,7 +35,7 @@ public class Cart {
         return id;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public Map<ProductBox, Integer> getProductBoxes() {
         return productBoxes;
     }
@@ -61,10 +61,8 @@ public class Cart {
 
     @Override
     public String toString() {
-        return "Cart{" +
-                "totalPrice=" + totalPrice +
-                ", id=" + id +
-                ", productBoxes=" + productBoxes +
-                '}';
+        return name;
     }
+
+
 }
