@@ -15,7 +15,7 @@ function App() {
         <Router>
             <Navbar />
             <Routes>
-                <Route exact path='/' exact element={<HomePage/>} />
+                <Route exact path='/' element={<HomePage/>} />
                 <Route path='/contact' element={<ContactPage/>} />
                 <Route path='/premade-boxes' element={<PremadeBoxesPage/>} />
                 <Route path='/custom-boxes' element={<CustomBoxesPage/>} />
