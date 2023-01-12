@@ -9,18 +9,25 @@ public class Cart {
 
     private BigDecimal totalPrice;
 
+    private final String name;
+
     private static final String CURRENCY = "HUF";
+
     private final UUID id;
     private Map<ProductBox, Integer> productBoxes = new HashMap<>();
-    public Cart() {
+    public Cart(String name) {
         this.id = UUID.randomUUID();
         this.productBoxes = new HashMap<>();
         this.totalPrice = new BigDecimal(0);
+        this.name = name;
     }
-
 
     public BigDecimal getTotalPrice() {
         return totalPrice;
+    }
+
+    public String getName() {
+        return name;
     }
 
 
