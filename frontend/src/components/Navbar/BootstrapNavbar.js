@@ -6,8 +6,8 @@ import React from "react";
 
 function BootstrapNavbar() {
     return (
-        <Navbar className="navbarColor"  expand="sm">
-            <Container>
+        <Navbar className="navbarColor">
+            <Container fluid>
                 <img src={image} style={{width:100, height:100}}/>
                 <Navbar.Brand>Gift Rocket</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
