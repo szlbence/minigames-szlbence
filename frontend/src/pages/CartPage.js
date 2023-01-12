@@ -29,6 +29,24 @@ const CartPage = () => {
         })();
     }
 
+    async function RemoveFromCart(id, name) {
+        const productBoxId = (await getProductBoxId(name));
+        const newId = productBoxId.replace(`"`, '');
+        const finalId = newId.slice(0, newId.length - 1);
+        console.log(productBoxId);
+        console.log(newId);
+        console.log(finalId);
+        await (async () => {
+            await fetch(`http://localhost:8080/cart/${id}/remove/${finalId}`, {
+                method: 'DELETE',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            });
+        })();
+    }
+
       async function getProductBoxId(name) {
           const response = await fetch(`http://localhost:8080/productbox/name/${name}`);
           return response.text();
@@ -63,7 +81,7 @@ const CartPage = () => {
                                         Total quantity of products  : {value}
                                     </Card.Text>
                                     <button type="submit" onClick={() => AddToCart(items[0].id, key)}>+</button>
-                                <button type="button">-</button>
+                                <button type="submit" onClick={() => RemoveFromCart(items[0].id, key)}>-</button>
                                 <button type="button"><FontAwesomeIcon icon={faTrash} /></button>
                                 </div>
                             </Card.Body>
