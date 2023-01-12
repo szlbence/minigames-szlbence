@@ -23,7 +23,7 @@ public class ProductBoxController {
         return  shopService.getAllProductBoxes();
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/name/{name}")
     public UUID getProductBoxId(@PathVariable String name) {
         return shopService.getProductBoxId(name);
     }

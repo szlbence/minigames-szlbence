@@ -3,19 +3,19 @@ import "../App.css"
 import Card from "react-bootstrap/Card";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
-import uuid from 'react-uuid';
 
 const CartPage = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
-    const [boxId, setBoxId] = useState(uuid);
     const URL = "http://localhost:8080/cart";
+
 
     async function AddToCart(id, name) {
         const productBoxId = (await getProductBoxId(name));
+        const newId = productBoxId.replace(`"`, '');
         await (async () => {
-            await fetch(`http://localhost:8080/cart/${id}/add/${productBoxId}`, {
+            await fetch(`http://localhost:8080/cart/${id}/add/${newId}`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -24,11 +24,10 @@ const CartPage = () => {
             });
         })();
 
-     async function getProductBoxId(name) {
-            return await  fetch(`http://localhost:8080/productbox/${name}`).then(res => res.json()).then((result) => {
-                setBoxId(result);
-            }, boxId);
-        }
+      async function getProductBoxId(name) {
+          const response = await fetch(`http://localhost:8080/productbox/name/${name}`);
+          return response.text();
+      }
     }
 
         useEffect(() => {
@@ -58,7 +57,7 @@ const CartPage = () => {
                                     <Card.Text>
                                         Total quantity of products  : {value}
                                     </Card.Text>
-                                    <button type="submit" onClick={AddToCart(items[0].id, key)}>+</button>
+                                    <button type="submit" onClick={() => AddToCart(items[0].id, key)}>+</button>
                                 <button type="button">-</button>
                                 <button type="button"><FontAwesomeIcon icon={faTrash} /></button>
                                 </div>
