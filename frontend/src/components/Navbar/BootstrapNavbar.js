@@ -9,7 +9,7 @@ function BootstrapNavbar() {
         <Navbar className="navbarColor"  expand="sm">
             <Container>
                 <img src={image} style={{width:100, height:100}}/>
-                <Navbar.Brand href="#home">Gift Rocket</Navbar.Brand>
+                <Navbar.Brand>Gift Rocket</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
