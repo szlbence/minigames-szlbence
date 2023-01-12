@@ -87,11 +87,18 @@ const CartPage = () => {
                             </Card.Body>
                         </Card>
                     )}
-                    </div>
-                    <div align="center"><br/><br/><br/><br/><br/><br/><br/><br/>
-                    Total value of your cart : {items[0].totalPrice}
-                    </div>
+                    <Card style={{width: '36rem'}} className="checkout">
+                        {/*<Card.Header></Card.Header>*/}
+                        <Card.Body>
+                            <Card.Title></Card.Title>
+                            <Card.Text>
+                                <p>Total Price: {items[0].totalPrice}</p>
+                            </Card.Text>
+                            <button type="button">Checkout</button>
+                        </Card.Body>
+                    </Card>
                 </div>
+            </div>
         );
     }
 };
