@@ -21,14 +21,19 @@
 footer {
   margin-top: 1rem;
   padding: 1rem;
-  background-color: rgb(235, 195, 64);
+  background-color: #F3E5AB;
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
+  text-align: center;
 }
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.navbarColor {
+  background-color: #F3E5AB;
 }
