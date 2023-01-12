@@ -14,8 +14,12 @@ const CartPage = () => {
     async function AddToCart(id, name) {
         const productBoxId = (await getProductBoxId(name));
         const newId = productBoxId.replace(`"`, '');
+        const finalId = newId.slice(0,newId.length-1);
+        console.log(productBoxId);
+        console.log(newId);
+        console.log(finalId);
         await (async () => {
-            await fetch(`http://localhost:8080/cart/${id}/add/${newId}`, {
+            await fetch(`http://localhost:8080/cart/${id}/add/${finalId}`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
