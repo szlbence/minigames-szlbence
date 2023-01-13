@@ -20,7 +20,7 @@ const PremadeBoxes = () => {
                     setItems(result);
                 }
             )
-    }, [items])
+    }, [])
     if (!isLoaded) {
         return <div>Loading...</div>;
     } else {

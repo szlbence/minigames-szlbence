@@ -34,7 +34,7 @@ const PremadeBoxes = () => {
                     setCarts(result);
                 }
             )
-    }, [carts])
+    }, [])
 
     useEffect(() => {
         fetch(PRODUCTBOX_URL)
@@ -45,7 +45,7 @@ const PremadeBoxes = () => {
                     setItems(result);
                 }
             )
-    }, [items])
+    }, [])
     if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
