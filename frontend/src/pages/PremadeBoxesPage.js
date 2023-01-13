@@ -38,15 +38,41 @@ const PremadeBoxes = () => {
     }, [])
 
     useEffect(() => {
+        // since we need to load something we are definitely not loaded yet
         setIsLoaded({...isLoaded, productBox: false});
-        fetch(PRODUCTBOX_URL)
-            .then(res => res.json())
+
+        // we might navigate somewhere else before the loading is
+        // done.  In that case let's have a way to cancel the loading.
+        const abortController = new AbortController();
+
+        fetch(PRODUCTBOX_URL,
+              {
+                  // way to communicate with ongoing fetch from "outside"
+                  signal: abortController.signal
+              })
+            .then(res => {
+                // check if we really got back the data
+                if (res.status == 200) {
+                    return res.json();
+                } else {
+                    // TODO: display error on UI
+                }
+            })
             .then(
                 (result) => {
+                    // now the data is definitely loaded
                     setIsLoaded({...isLoaded, productBox: true});
                     setItems(result);
                 }
             )
+
+        // create a callback that can abort the fetch
+        const cleanUp = () => {
+            abortController.abort();
+        }
+
+        // register the clean-up callback with the React app
+        return cleanUp;
     }, [])
     // TODO: only skip rendering in parts of component
     if (!isLoaded.cart || !isLoaded.productBox) {
