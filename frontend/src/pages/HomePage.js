@@ -11,7 +11,7 @@ const Home = () => {
                 <img className="homeImg" src={image} style={{objectFit: "cover", width: 2000}}/>
             </div>
             <div className="page">
-                <h1 align="center" style={{fontSize: 50}}>Welcome to GiftRocket</h1>
+                <h1 style={{fontSize: 50, align: "center"}}>Welcome to GiftRocket</h1>
                 <br/>
                 <p style={{fontSize: 35}}>Our company is established to make sure that every person can
                     choose their desired gifts which can be given to their person of choice</p>
@@ -21,7 +21,7 @@ const Home = () => {
                         <Card.Body>
                             <Card.Title>Pre-made Boxes</Card.Title>
                             <Card.Text>
-                                If you don't have a specific idea about your gift
+                              {"If you don't have a specific idea about your gift"}
                             </Card.Text>
                         </Card.Body>
                     </Card>

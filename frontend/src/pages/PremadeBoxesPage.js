@@ -52,8 +52,8 @@ const PremadeBoxes = () => {
         return (
             <div className="container">
                 <div className="grid">
-                    {items.map(item =>
-                        <Card style={{width: '36rem'}}>
+                    {items.map((item, index) =>
+                        <Card key={`${item.name}--${index}`} style={{width: '36rem'}}>
                             <Card.Header><Card.Img variant="top" src="holder.js/100px180"/></Card.Header>
                             <Card.Body>
                                 <Card.Title>{item.name}</Card.Title>

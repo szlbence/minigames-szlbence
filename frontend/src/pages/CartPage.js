@@ -71,8 +71,8 @@ const CartPage = () => {
             <div className="container">
                 <div className="grid">
                     {/*{items[0].productBoxes.map(item =>*/}
-                    {Object.entries(items[0].productBoxes).map(([key, value]) =>
-                        <Card style={{width: '36rem'}}>
+                    {Object.entries(items[0].productBoxes).map(([key, value], index) =>
+                        <Card key={`${key}--${index}`} style={{width: '36rem'}}>
                             <Card.Header><Card.Img variant="top" src="holder.js/100px180"/></Card.Header>
                             <Card.Body>
                                 <Card.Title>{key}</Card.Title>

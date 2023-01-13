@@ -9,7 +9,6 @@ import CartPage from "./pages/CartPage";
 import HomePage from "./pages/HomePage";
 import { MDBFooter } from 'mdb-react-ui-kit';
 import BootstrapNavbar from "./components/Navbar/BootstrapNavbar";
-import Nav from "react-bootstrap/Nav";
 
 
 function App() {
@@ -19,7 +18,7 @@ function App() {
                 <Router>
                     <BootstrapNavbar/>
                     <Routes>
-                        <Route exact path='/' exact element={<HomePage/>}/>
+                        <Route exact path='/' element={<HomePage/>}/>
                         <Route path='/contact' element={<ContactPage/>}/>
                         <Route path='/premade-boxes' element={<PremadeBoxesPage/>}/>
                         <Route path='/custom-boxes' element={<CustomBoxesPage/>}/>
