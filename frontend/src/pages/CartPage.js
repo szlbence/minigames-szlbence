@@ -47,13 +47,13 @@ const CartPage = () => {
         })();
     }
 
-      async function getProductBoxId(name) {
-          const response = await fetch(`/productbox/name/${name}`);
-          return response.text();
-      }
+    async function getProductBoxId(name) {
+        const response = await fetch(`/productbox/name/${name}`);
+        return response.text();
+    }
 
 
-        useEffect(() => {
+    useEffect(() => {
         fetch(URL)
             .then(res => res.json())
             .then(
@@ -81,8 +81,8 @@ const CartPage = () => {
                                         Total quantity of products  : {value}
                                     </Card.Text>
                                     <button type="submit" onClick={() => AddToCart(items[0].id, key)}>+</button>
-                                <button type="submit" onClick={() => RemoveFromCart(items[0].id, key)}>-</button>
-                                <button type="button"><FontAwesomeIcon icon={faTrash} /></button>
+                                    <button type="submit" onClick={() => RemoveFromCart(items[0].id, key)}>-</button>
+                                    <button type="button"><FontAwesomeIcon icon={faTrash} /></button>
                                 </div>
                             </Card.Body>
                         </Card>
