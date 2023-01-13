@@ -35,7 +35,7 @@ const PremadeBoxes = () => {
                                 <Card.Text>
                                         <p className="price">Total price: {item.price}</p>
                                         <p className="description">Description: {item.description}</p>
-                                        <button type="button">button</button>
+                                        <button type="button">Add to box</button>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
