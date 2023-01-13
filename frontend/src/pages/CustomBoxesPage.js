@@ -12,6 +12,7 @@ const PremadeBoxes = () => {
 
 
     useEffect(() => {
+        setIsLoaded(false);
         fetch(URL)
             .then(res => res.json())
             .then(

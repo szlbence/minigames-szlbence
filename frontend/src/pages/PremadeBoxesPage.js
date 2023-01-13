@@ -19,34 +19,37 @@ function AddToCart(id, productBoxId) {
 }
 const PremadeBoxes = () => {
 
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState({cart: false, productBox: false});
     const [items, setItems] = useState([]);
     const [carts, setCarts] = useState([])
     const PRODUCTBOX_URL = "/productbox";
     const CART_URL = "/cart";
 
     useEffect(() => {
+        setIsLoaded({...isLoaded, cart: false});
         fetch(CART_URL)
             .then(res => res.json())
             .then(
                 (result) => {
-                    setIsLoaded(true);
+                    setIsLoaded({...isLoaded, cart: true});
                     setCarts(result);
                 }
             )
     }, [])
 
     useEffect(() => {
+        setIsLoaded({...isLoaded, productBox: false});
         fetch(PRODUCTBOX_URL)
             .then(res => res.json())
             .then(
                 (result) => {
-                    setIsLoaded(true);
+                    setIsLoaded({...isLoaded, productBox: true});
                     setItems(result);
                 }
             )
     }, [])
-    if (!isLoaded) {
+    // TODO: only skip rendering in parts of component
+    if (!isLoaded.cart || !isLoaded.productBox) {
         return <div>Loading...</div>;
     } else {
         return (
