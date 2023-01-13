@@ -7,7 +7,7 @@ import Card from "react-bootstrap/Card";
 
 function AddToCart(id, productBoxId) {
     (async () => {
-        await fetch(`http://localhost:8080/cart/${id}/add/${productBoxId}`, {
+        await fetch(`/cart/${id}/add/${productBoxId}`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -22,8 +22,8 @@ const PremadeBoxes = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
     const [carts, setCarts] = useState([])
-    const PRODUCTBOX_URL = "http://localhost:8080/productbox";
-    const CART_URL = "http://localhost:8080/cart";
+    const PRODUCTBOX_URL = "/productbox";
+    const CART_URL = "/cart";
 
     useEffect(() => {
         fetch(CART_URL)

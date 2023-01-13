@@ -8,7 +8,7 @@ const CartPage = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
-    const URL = "http://localhost:8080/cart";
+    const URL = "/cart";
 
 
     async function AddToCart(id, name) {
@@ -19,7 +19,7 @@ const CartPage = () => {
         console.log(newId);
         console.log(finalId);
         await (async () => {
-            await fetch(`http://localhost:8080/cart/${id}/add/${finalId}`, {
+            await fetch(`/cart/${id}/add/${finalId}`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -37,7 +37,7 @@ const CartPage = () => {
         console.log(newId);
         console.log(finalId);
         await (async () => {
-            await fetch(`http://localhost:8080/cart/${id}/remove/${finalId}`, {
+            await fetch(`/cart/${id}/remove/${finalId}`, {
                 method: 'DELETE',
                 headers: {
                     Accept: 'application/json',
@@ -48,7 +48,7 @@ const CartPage = () => {
     }
 
       async function getProductBoxId(name) {
-          const response = await fetch(`http://localhost:8080/productbox/name/${name}`);
+          const response = await fetch(`/productbox/name/${name}`);
           return response.text();
       }
 

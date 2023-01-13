@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/productbox")
-@CrossOrigin(origins = "*")
 public class ProductBoxController {
     @Autowired
     public ShopService shopService;
