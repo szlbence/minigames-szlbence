@@ -31,11 +31,9 @@ const PremadeBoxes = () => {
                             <Card.Header></Card.Header>
                             <Card.Body>
                                 <Card.Title>{item.name}</Card.Title>
-                                <Card.Text>
-                                    <p className="price">Total price: {item.price}</p>
-                                    <p className="description">Description: {item.description}</p>
-                                    <button type="button">Add to box</button>
-                                </Card.Text>
+                                <p className="price">Total price: {item.price}</p>
+                                <p className="description">Description: {item.description}</p>
+                                <button type="button">Add to box</button>
                             </Card.Body>
                         </Card>
                     )}

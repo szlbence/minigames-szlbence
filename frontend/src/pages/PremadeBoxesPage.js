@@ -46,12 +46,10 @@ const PremadeBoxes = () => {
                             <Card.Header></Card.Header>
                             <Card.Body>
                                 <Card.Title>{item.name}</Card.Title>
-                                <Card.Text>
-                                    <p className="price">Total price: {item.totalPrice}</p>
-                                    <p className="description">Description: {item.description}</p>
-                                    <p className="description">Products: {Object.keys(item.products).join(", ")}</p>
-                                    <button type="submit" onClick={() => {  AddToCart(carts[0].id, item.name)}}>Add To Cart</button>
-                                </Card.Text>
+                                <p className="price">Total price: {item.totalPrice}</p>
+                                <p className="description">Description: {item.description}</p>
+                                <p className="description">Products: {Object.keys(item.products).join(", ")}</p>
+                                <button type="submit" onClick={() => {  AddToCart(carts[0].id, item.name)}}>Add To Cart</button>
                             </Card.Body>
                         </Card>
                     )}

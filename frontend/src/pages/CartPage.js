@@ -49,9 +49,7 @@ const CartPage = () => {
                             <Card.Body>
                                 <Card.Title>{key}</Card.Title>
                                 <div className="grid">
-                                    <Card.Text>
-                                        Total quantity of products : {value}
-                                    </Card.Text>
+                                    <p>Total quantity of products : {value}</p>
                                     <button type="submit" onClick={() => increaseProductBoxQuantity(items[0].id, key)}>+</button>
                                     <button type="submit" onClick={() => decreaseProductBoxQuantity(items[0].id, key)}>-</button>
                                     <button type="button"><FontAwesomeIcon icon={faTrash}/></button>
@@ -63,9 +61,7 @@ const CartPage = () => {
                         {/*<Card.Header></Card.Header>*/}
                         <Card.Body>
                             <Card.Title></Card.Title>
-                            <Card.Text>
-                                <p>Total Price: {items[0].totalPrice}</p>
-                            </Card.Text>
+                            <p>Total Price: {items[0].totalPrice}</p>
                             <button type="button">Checkout</button>
                         </Card.Body>
                     </Card>
