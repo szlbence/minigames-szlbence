@@ -3,86 +3,58 @@ import "../App.css"
 import Card from "react-bootstrap/Card";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import DataService from "../components/DataService"
 
 const CartPage = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
-    const URL = "http://localhost:8080/cart";
+    const CART_URL = "/cart";
+    const PRODUCTBOX_URL = "/productbox/name";
 
 
-    async function AddToCart(id, name) {
-        const productBoxId = (await getProductBoxId(name));
-        const newId = productBoxId.replace(`"`, '');
-        const finalId = newId.slice(0, newId.length - 1);
-        console.log(productBoxId);
-        console.log(newId);
-        console.log(finalId);
-        await (async () => {
-            await fetch(`http://localhost:8080/cart/${id}/add/${finalId}`, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-            });
-        })();
+
+    async function increaseProductBoxQuantity(id, name) {
+        const productBoxId = await DataService.getProductBoxId(PRODUCTBOX_URL, name);
+        await DataService.postData(`${CART_URL}/${id}/add/${productBoxId}`)
+        await getCarts();
     }
 
-    async function RemoveFromCart(id, name) {
-        const productBoxId = (await getProductBoxId(name));
-        const newId = productBoxId.replace(`"`, '');
-        const finalId = newId.slice(0, newId.length - 1);
-        console.log(productBoxId);
-        console.log(newId);
-        console.log(finalId);
-        await (async () => {
-            await fetch(`http://localhost:8080/cart/${id}/remove/${finalId}`, {
-                method: 'DELETE',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-            });
-        })();
+    async function decreaseProductBoxQuantity(id, name) {
+        const productBoxId = await DataService.getProductBoxId(PRODUCTBOX_URL, name);
+        await DataService.sendDelete(`${CART_URL}/${id}/remove/${productBoxId}`);
+        await getCarts();
     }
 
-      async function getProductBoxId(name) {
-          const response = await fetch(`http://localhost:8080/productbox/name/${name}`);
-          return response.text();
-      }
+    async function getCarts() {
+        const carts = await DataService.getData(CART_URL);
+        setIsLoaded(true);
+        setItems(carts.data);
+    }
 
 
-        useEffect(() => {
-        fetch(URL)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    // console.log(result);
-                    setIsLoaded(true);
-                    setItems(result);
-                }
-            )
-    }, [items])
+    useEffect(() => {
+        getCarts();
+    }, [])
+
     if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
         return (
             <div className="container">
                 <div className="grid">
-                    {/*{items[0].productBoxes.map(item =>*/}
                     {Object.entries(items[0].productBoxes).map(([key, value]) =>
-                        <Card style={{width: '36rem'}}>
-                            <Card.Header><Card.Img variant="top" src="holder.js/100px180"/></Card.Header>
+                        <Card key={key} style={{width: '36rem'}}>
+                            <Card.Header></Card.Header>
                             <Card.Body>
                                 <Card.Title>{key}</Card.Title>
                                 <div className="grid">
                                     <Card.Text>
-                                        Total quantity of products  : {value}
+                                        Total quantity of products : {value}
                                     </Card.Text>
-                                    <button type="submit" onClick={() => AddToCart(items[0].id, key)}>+</button>
-                                <button type="submit" onClick={() => RemoveFromCart(items[0].id, key)}>-</button>
-                                <button type="button"><FontAwesomeIcon icon={faTrash} /></button>
+                                    <button type="submit" onClick={() => increaseProductBoxQuantity(items[0].id, key)}>+</button>
+                                    <button type="submit" onClick={() => decreaseProductBoxQuantity(items[0].id, key)}>-</button>
+                                    <button type="button"><FontAwesomeIcon icon={faTrash}/></button>
                                 </div>
                             </Card.Body>
                         </Card>
