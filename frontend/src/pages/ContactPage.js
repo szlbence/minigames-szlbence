@@ -3,7 +3,7 @@ import React from 'react';
 const Contact = () => {
     return (
         <div>
-            <h1>Mail us on feedback@geeksforgeeks.org</h1>
+            <h1>Coming Soon! Members are Daniel Dudas, Gabor Nagy, Andras Csovari, Bence Szlavik</h1>
         </div>
     );
 };

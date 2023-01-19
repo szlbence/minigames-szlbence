@@ -26,4 +26,6 @@ public interface ProductBoxDao {
 
 
     List<ProductBox> getAllProductBoxes();
+
+    UUID getBoxByName(String name);
 }

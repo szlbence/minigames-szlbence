@@ -1,9 +1,8 @@
 import React from 'react';
-import "./HomePage.css";
+import "../App.css";
 import image from "../pexels-andrea-piacquadio-1050256.jpg"
 import Card from 'react-bootstrap/Card';
 
-//logo, login, image, description
 const Home = () => {
     return (
         <div className="main">
@@ -17,7 +16,7 @@ const Home = () => {
                     choose their desired gifts which can be given to their person of choice</p>
                 <div className="grid">
                     <Card style={{ width: '36rem' }}>
-                        <Card.Header><Card.Img variant="top" src="holder.js/100px180" /></Card.Header>
+                        <Card.Header></Card.Header>
                         <Card.Body>
                             <Card.Title>Pre-made Boxes</Card.Title>
                             <Card.Text>
@@ -26,7 +25,7 @@ const Home = () => {
                         </Card.Body>
                     </Card>
                     <Card style={{ width: '36rem' }}>
-                        <Card.Header><Card.Img variant="top" src="holder.js/100px180" /></Card.Header>
+                        <Card.Header></Card.Header>
                         <Card.Body>
                             <Card.Title>Custom Boxes</Card.Title>
                             <Card.Text>
