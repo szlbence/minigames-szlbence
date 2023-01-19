@@ -20,6 +20,7 @@ const Home = () => {
                         <Card.Header></Card.Header>
                         <Card.Body>
                             <Card.Title><Nav.Link href="/premade-boxes">Pre-made Boxes</Nav.Link></Card.Title>
+                            <img className="homeImg" src="premade.png" style={{objectFit: "cover", width: 2000}}/>
                             <Card.Text>
                                 If you don't have a specific idea about your gift
                             </Card.Text>
@@ -29,6 +30,7 @@ const Home = () => {
                         <Card.Header></Card.Header>
                         <Card.Body>
                             <Card.Title><Nav.Link href="/custom-boxes">Custom Boxes</Nav.Link></Card.Title>
+                            <img className="homeImg" src="empty.png" style={{objectFit: "cover", width: 2000}}/>
                             <Card.Text>
                                 You can create your own gift box
                             </Card.Text>
