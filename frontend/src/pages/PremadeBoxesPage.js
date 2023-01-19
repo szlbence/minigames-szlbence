@@ -12,12 +12,13 @@ const PremadeBoxes = () => {
     const [items, setItems] = useState([]);
     const [carts, setCarts] = useState([])
     const PRODUCTBOX_URL = "/productbox";
-    const PRODUCTBOX_NAME_URL = "/productbox/name";
+    // const PRODUCTBOX_NAME_URL = "/productbox/name";
     const CART_URL = "/cart";
 
-    async function AddToCart(id, name) {
-        const productBoxId = await DataService.getProductBoxId(PRODUCTBOX_NAME_URL, name);
-        await DataService.postData(`${CART_URL}/${id}/add/${productBoxId}`)
+    async function AddToCart(cartId, productBoxId) {
+        //No need for id fetching anymore!
+        // const productBoxId = await DataService.getProductBoxId(PRODUCTBOX_NAME_URL, name);
+        await DataService.postData(`${CART_URL}/${cartId}/add/${productBoxId}`)
     }
     async function getCarts() {
         const carts = await DataService.getData(CART_URL);
@@ -48,8 +49,8 @@ const PremadeBoxes = () => {
                                 <Card.Title>{item.name}</Card.Title>
                                 <p className="price">Total price: {item.totalPrice}</p>
                                 <p className="description">Description: {item.description}</p>
-                                <p className="description">Products: {Object.keys(item.products).join(", ")}</p>
-                                <button type="submit" onClick={() => {  AddToCart(carts[0].id, item.name)}}>Add To Cart</button>
+                                <p className="products">Products: {item.products.map(product => product.name).join(", ")}</p>
+                                <button type="submit" onClick={() => {AddToCart(carts[0].id, item.id)}}>Add To Cart</button>
                             </Card.Body>
                         </Card>
                     )}

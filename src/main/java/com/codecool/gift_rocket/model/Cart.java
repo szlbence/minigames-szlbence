@@ -1,62 +1,32 @@
 package com.codecool.gift_rocket.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 import java.math.BigDecimal;
 import java.util.*;
-
+@Entity
+@NoArgsConstructor
+@Data
+@Table(name = "carts")
 public class Cart {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "total_price")
     private BigDecimal totalPrice;
 
-    private final String name;
-
+    private String name;
+    @Column(name = "currency")
     private static final String CURRENCY = "HUF";
-
-    private final UUID id;
-    private Map<ProductBox, Integer> productBoxes = new HashMap<>();
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<ProductBox> productBoxes;
     public Cart(String name) {
-        this.id = UUID.randomUUID();
-        this.productBoxes = new HashMap<>();
+        this.productBoxes = new ArrayList<>();
         this.totalPrice = new BigDecimal(0);
         this.name = name;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-
-    public UUID getId() {
-        return id;
-    }
-
-//    @JsonIgnore
-    public Map<ProductBox, Integer> getProductBoxes() {
-        return productBoxes;
-    }
-
-    public void addProductBox(ProductBox productBox) {
-        if (productBoxes.containsKey(productBox)) {
-            productBoxes.put(productBox, productBoxes.get(productBox) + 1);
-        } else {
-            productBoxes.put(productBox, 1);
-        }
-        totalPrice = totalPrice.add(productBox.getTotalPrice());
-    }
-
-    public void removeProductBox(ProductBox productBox) {
-        if (productBoxes.containsKey(productBox)) {
-            productBoxes.put(productBox, productBoxes.get(productBox) - 1);
-            totalPrice = totalPrice.subtract(productBox.getTotalPrice());
-            if (productBoxes.get(productBox) == 0){
-                productBoxes.remove(productBox);
-            }
-        }
     }
 
     @Override
@@ -65,4 +35,25 @@ public class Cart {
     }
 
 
+    public void addProductBox(ProductBox productBox) {
+        productBoxes.add(productBox);
+        productBox.setCart(this);
+        totalPrice = totalPrice.add(productBox.getTotalPrice());
+    }
+
+    public void removeLastProductBox(ProductBox productBox) {
+//        productBoxes.remove(productBoxes.lastIndexOf(productBox));
+        productBoxes.remove(productBox);
+        productBox.setCart(this);
+        totalPrice = totalPrice.subtract(productBox.getTotalPrice());
+    }
+
+    public void removeProductBox(ProductBox productBox) {
+        productBoxes.removeAll(List.of(productBox));
+        productBox.setCart(null);
+        totalPrice = productBoxes.stream()
+                .map(ProductBox::getTotalPrice)
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
+    }
 }

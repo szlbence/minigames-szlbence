@@ -1,19 +1,34 @@
 package com.codecool.gift_rocket.model;
 
-import java.math.BigDecimal;
-import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+@Entity
+@NoArgsConstructor
+@Data
+@Table(name = "products")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    private Long id;
     private BigDecimal price;
+    @Column(name = "currency")
     private static final String CURRENCY = "HUF";
-    private final UUID id;
     private String name;
     private String description;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_box_id")
+    @JsonIgnore
+    private ProductBox productBox;
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     public Product(BigDecimal price, String name, String description, Category category) {
         this.price = price;
-        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.category = category;
@@ -23,7 +38,7 @@ public class Product {
         return price;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
