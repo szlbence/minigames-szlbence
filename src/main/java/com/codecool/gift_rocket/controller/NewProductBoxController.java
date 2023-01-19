@@ -21,10 +21,6 @@ public class NewProductBoxController {
         return  productBoxService.getAllProductBoxes();
     }
 
-//    @GetMapping("/name/{name}")
-//    public UUID getProductBoxId(@PathVariable String name) {
-//        return shopService.getProductBoxId(name);
-//    }
 
     @PostMapping
     public void addProductBox(@RequestBody ProductBox productBox) {

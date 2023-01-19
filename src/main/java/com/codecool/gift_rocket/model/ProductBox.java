@@ -27,7 +27,6 @@ public class ProductBox {
     @JoinColumn(name = "cart_id")
     @JsonIgnore
     private Cart cart;
-    //one-to-many relation with enum?
 //    @OneToMany(mappedBy = "productBox", cascade = CascadeType.ALL)
 //    private Set<Category> categories;
     @OneToMany(mappedBy = "productBox", cascade = CascadeType.ALL)

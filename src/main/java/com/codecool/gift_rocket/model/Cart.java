@@ -42,7 +42,7 @@ public class Cart {
     }
 
     public void removeLastProductBox(ProductBox productBox) {
-//        productBoxes.remove(productBoxes.lastIndexOf(productBox));
+        productBoxes.remove(productBoxes.lastIndexOf(productBox));
         productBoxes.remove(productBox);
         productBox.setCart(this);
         totalPrice = totalPrice.subtract(productBox.getTotalPrice());
@@ -50,6 +50,7 @@ public class Cart {
 
     public void removeProductBox(ProductBox productBox) {
         productBoxes.removeAll(List.of(productBox));
+        //TODO set all carts to null in productboxes
         productBox.setCart(null);
         totalPrice = productBoxes.stream()
                 .map(ProductBox::getTotalPrice)
