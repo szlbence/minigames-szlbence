@@ -26,6 +26,7 @@ const CartPage = () => {
 
     async function deleteProductBox(cartId, productBoxId) {
         await DataService.sendDelete(`${CART_URL}/${cartId}/remove/${productBoxId}`);
+        await getTotalPrice();
         await getCarts();
     }
 
