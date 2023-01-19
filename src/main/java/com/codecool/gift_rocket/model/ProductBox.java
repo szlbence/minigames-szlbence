@@ -1,78 +1,61 @@
 package com.codecool.gift_rocket.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.*;
-
+@Entity
+@NoArgsConstructor
+@Data
+@Table(name = "product_boxes")
 public class ProductBox {
-    // price of packaging
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "packaging_price")
     private BigDecimal packagingPrice;
-    // price of packaging plus the product prices
+    @Column(name = "total_price")
     private BigDecimal totalPrice;
+    @Column(name = "currency")
     private static final String CURRENCY = "HUF";
-    private final UUID id;
     private String name;
     private String description;
-    private Set<Category> categories;
-    private Map<Product, Integer> products;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    @JsonIgnore
+    private Cart cart;
+//    @OneToMany(mappedBy = "productBox", cascade = CascadeType.ALL)
+//    private Set<Category> categories;
+    @OneToMany(mappedBy = "productBox", cascade = CascadeType.ALL)
+    private List<Product> products;
 
     public ProductBox(BigDecimal packagingPrice, String name, String description) {
         this.packagingPrice = packagingPrice;
         this.totalPrice = packagingPrice;
-        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
-        this.categories = new HashSet<>();
-        this.products = new HashMap<>();
-    }
-
-    public BigDecimal getPackagingPrice() {
-        return packagingPrice;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-@JsonIgnore
-    public Set<Category> getCategories() {
-        return categories;
-    }
-//@JsonIgnore
-    public Map<Product, Integer> getProducts() {
-        return products;
-    }
-
-    public void addProduct(Product product){
-        if (products.containsKey(product)) {
-            products.put(product, products.get(product) + 1);
-        } else {
-            products.put(product, 1);
-        }
-        totalPrice = totalPrice.add(product.getPrice());
-    }
-
-    public void removeProduct(Product product) {
-        totalPrice = totalPrice.subtract(product.getPrice().multiply(BigDecimal.valueOf(products.get(product))));
-        products.remove(product);
-        categories.remove(product.getCategory());
+//        this.categories = new HashSet<>();
+        this.products = new ArrayList<>();
     }
 
 
     @Override
     public String toString() {
         return name;
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
+        product.setProductBox(this);
+        totalPrice = totalPrice.add(product.getPrice());
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
+        product.setProductBox(null);
+        totalPrice = totalPrice.subtract(product.getPrice());
     }
 }

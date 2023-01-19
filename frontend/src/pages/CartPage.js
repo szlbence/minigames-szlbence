@@ -9,20 +9,24 @@ const CartPage = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+    const [totalPrice, setTotalPrice] = useState([]);
     const CART_URL = "/cart";
-    const PRODUCTBOX_URL = "/productbox/name";
+    const CART_TOTAL_PRICE_URL = "/cart/value";
 
 
-
-    async function increaseProductBoxQuantity(id, name) {
-        const productBoxId = await DataService.getProductBoxId(PRODUCTBOX_URL, name);
-        await DataService.postData(`${CART_URL}/${id}/add/${productBoxId}`)
-        await getCarts();
+    async function increaseProductBoxQuantity(cartId, productBoxId) {
+        await DataService.postData(`${CART_URL}/${cartId}/add/${productBoxId}`)
+        await getTotalPrice();
     }
 
-    async function decreaseProductBoxQuantity(id, name) {
-        const productBoxId = await DataService.getProductBoxId(PRODUCTBOX_URL, name);
-        await DataService.sendDelete(`${CART_URL}/${id}/remove/${productBoxId}`);
+    async function decreaseProductBoxQuantity(cartId, productBoxId) {
+        await DataService.sendPut(`${CART_URL}/${cartId}/remove/${productBoxId}`);
+        await getTotalPrice();
+    }
+
+    async function deleteProductBox(cartId, productBoxId) {
+        await DataService.sendDelete(`${CART_URL}/${cartId}/remove/${productBoxId}`);
+        await getTotalPrice();
         await getCarts();
     }
 
@@ -32,9 +36,15 @@ const CartPage = () => {
         setItems(carts.data);
     }
 
+    async function getTotalPrice() {
+        const carts = await DataService.getData(`${CART_TOTAL_PRICE_URL}/1`);
+        setTotalPrice(carts.data);
+    }
+
 
     useEffect(() => {
         getCarts();
+        getTotalPrice();
     }, [])
 
     if (!isLoaded) {
@@ -43,16 +53,16 @@ const CartPage = () => {
         return (
             <div className="container">
                 <div className="grid">
-                    {Object.entries(items[0].productBoxes).map(([key, value]) =>
-                        <Card key={key} style={{width: '36rem'}}>
+                    {items[0].productBoxes.map(item =>
+                        <Card key={item.id} style={{width: '36rem'}}>
                             <Card.Header></Card.Header>
                             <Card.Body>
-                                <Card.Title>{key}</Card.Title>
+                                <Card.Title>{item.name}</Card.Title>
                                 <div className="grid">
-                                    <p>Total quantity of products : {value}</p>
-                                    <button type="submit" onClick={() => increaseProductBoxQuantity(items[0].id, key)}>+</button>
-                                    <button type="submit" onClick={() => decreaseProductBoxQuantity(items[0].id, key)}>-</button>
-                                    <button type="button"><FontAwesomeIcon icon={faTrash}/></button>
+                                    <p>Total quantity of products : </p>
+                                    <button type="submit" onClick={async() => await increaseProductBoxQuantity(items[0].id, item.id)}>+</button>
+                                    <button type="submit" onClick={async() =>await decreaseProductBoxQuantity(items[0].id, item.id)}>-</button>
+                                    <button type="button" onClick={async() =>await deleteProductBox(items[0].id, item.id)}><FontAwesomeIcon icon={faTrash}/></button>
                                 </div>
                             </Card.Body>
                         </Card>
@@ -61,7 +71,7 @@ const CartPage = () => {
                         {/*<Card.Header></Card.Header>*/}
                         <Card.Body>
                             <Card.Title></Card.Title>
-                            <p>Total Price: {items[0].totalPrice}</p>
+                            <p>Total Price: {totalPrice}</p>
                             <button type="button">Checkout</button>
                         </Card.Body>
                     </Card>
