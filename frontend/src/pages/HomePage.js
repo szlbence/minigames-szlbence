@@ -2,6 +2,7 @@ import React from 'react';
 import "../App.css";
 import image from "../pexels-andrea-piacquadio-1050256.jpg"
 import Card from 'react-bootstrap/Card';
+import Nav from "react-bootstrap/Nav";
 
 const Home = () => {
     return (
@@ -18,7 +19,7 @@ const Home = () => {
                     <Card style={{ width: '36rem' }}>
                         <Card.Header></Card.Header>
                         <Card.Body>
-                            <Card.Title>Pre-made Boxes</Card.Title>
+                            <Card.Title><Nav.Link href="/premade-boxes">Pre-made Boxes</Nav.Link></Card.Title>
                             <Card.Text>
                                 If you don't have a specific idea about your gift
                             </Card.Text>
@@ -27,7 +28,7 @@ const Home = () => {
                     <Card style={{ width: '36rem' }}>
                         <Card.Header></Card.Header>
                         <Card.Body>
-                            <Card.Title>Custom Boxes</Card.Title>
+                            <Card.Title><Nav.Link href="/custom-boxes">Custom Boxes</Nav.Link></Card.Title>
                             <Card.Text>
                                 You can create your own gift box
                             </Card.Text>
