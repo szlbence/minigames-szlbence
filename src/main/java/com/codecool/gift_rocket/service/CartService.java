@@ -123,14 +123,17 @@ public class CartService {
 
     public void deleteProductFromCart(Long productId, Long cartId) {
         Optional<Cart> foundCart = cartRepository.findById(cartId);
-        Optional<Product> foundProductBox = productRepository.findById(productId);
+        Optional<Product> foundProduct = productRepository.findById(productId);
 
         if(foundCart.isPresent()){
-            if(foundProductBox.isPresent()){
+            if(foundProduct.isPresent()){
                 CartProductId foundCartProductId = new CartProductId(cartId, productId);
-                Optional<CartProduct> foundCartBox = cartProductRepository.findById(foundCartProductId);
-                if(foundCartBox.isPresent()){
-                        cartProductRepository.delete(foundCartBox.get());
+                Optional<CartProduct> foundCartProduct = cartProductRepository.findById(foundCartProductId);
+                if(foundCartProduct.isPresent()){
+                        cartProductRepository.delete(foundCartProduct.get());
+                        foundCart.get().setTotalPrice(foundCart.get().getTotalPrice().subtract(foundProduct.get()
+                                .getPrice().multiply(BigDecimal.valueOf(foundCartProduct.get().getQuantity()))));
+                        cartRepository.save(foundCart.get());
                 }
             }
             else {
