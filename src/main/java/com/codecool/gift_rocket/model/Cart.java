@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -41,10 +40,10 @@ public class Cart {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<CartBox> carts;
+    private List<CartProduct> products;
 
     public Cart(String name) {
-        this.carts = new ArrayList<>();
+        this.products = new ArrayList<>();
         this.totalPrice = new BigDecimal(0);
         this.name = name;
     }
@@ -84,11 +83,11 @@ public class Cart {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cart cart = (Cart) o;
-        return id.equals(cart.id) && totalPrice.equals(cart.totalPrice) && name.equals(cart.name) && carts.equals(cart.carts);
+        return id.equals(cart.id) && totalPrice.equals(cart.totalPrice) && name.equals(cart.name) && products.equals(cart.products);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, totalPrice, name, carts);
+        return Objects.hash(id, totalPrice, name, products);
     }
 }

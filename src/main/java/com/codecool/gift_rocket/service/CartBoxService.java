@@ -1,7 +1,7 @@
 package com.codecool.gift_rocket.service;
 
 import com.codecool.gift_rocket.model.Cart;
-import com.codecool.gift_rocket.model.CartBox;
+import com.codecool.gift_rocket.model.CartProduct;
 import com.codecool.gift_rocket.model.CartBoxId;
 import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.repository.JPA.CartBoxRepository;
@@ -36,9 +36,9 @@ public class CartBoxService {
             if(foundProductBox.isPresent()){
                 CartBoxId foundCartBoxId = new CartBoxId(cartId, productBoxId);
 //                CartBox cartBox = new CartBox(foundCart.get(), foundProductBox.get());
-                CartBox foundCartBox = cartBoxRepository.findById(foundCartBoxId).get();
-                foundCartBox.setQuantity(20);
-                cartBoxRepository.save(foundCartBox);
+                CartProduct foundCartProduct = cartBoxRepository.findById(foundCartBoxId).get();
+                foundCartProduct.setQuantity(20);
+                cartBoxRepository.save(foundCartProduct);
             }
             else {
                 throw new NoSuchElementException("No product box found by given id");
