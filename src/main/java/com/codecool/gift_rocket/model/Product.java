@@ -6,72 +6,69 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-
+import java.util.*;
 @Entity
 @NoArgsConstructor
 @Data
-@Table(name = "products")
+@Table(name = "product_boxes")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "price")
     private BigDecimal price;
+
     @Column(name = "currency")
     private static final String CURRENCY = "HUF";
     private String name;
     private String description;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_box_id")
+
+    @OneToMany(
+            mappedBy = "box",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+//    todo you may want to remove tranisent
+//    @Transient
     @JsonIgnore
-    private ProductBox productBox;
-    @Enumerated(EnumType.STRING)
-    private Category category;
+    private List<CartBox> boxes;
 
-    public Product(BigDecimal price, String name, String description, Category category) {
+
+    public Product(BigDecimal price, String name, String description) {
         this.price = price;
         this.name = name;
         this.description = description;
-        this.category = category;
+        this.boxes = new ArrayList<>();
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     @Override
     public String toString() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product that = (Product) o;
+        return id.equals(that.id) && price.equals(that.price) && name.equals(that.name) && description.equals(that.description) && boxes.equals(that.boxes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, price, name, description, boxes);
+    }
+
+    //    public void addProduct(Product product) {
+//        products.add(product);
+//        product.setProductBox(this);
+//        totalPrice = totalPrice.add(product.getPrice());
+//    }
+//
+//    public void removeProduct(Product product) {
+//        products.remove(product);
+//        product.setProductBox(null);
+//        totalPrice = totalPrice.subtract(product.getPrice());
+//    }
 }

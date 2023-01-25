@@ -1,16 +1,9 @@
 package com.codecool.gift_rocket.service;
 
-import com.codecool.gift_rocket.model.Cart;
-import com.codecool.gift_rocket.model.ProductBox;
 import com.codecool.gift_rocket.repository.JPA.CartRepository;
-import com.codecool.gift_rocket.repository.JPA.ProductBoxRepository;
+import com.codecool.gift_rocket.repository.JPA.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class CartService {
@@ -18,7 +11,7 @@ public class CartService {
     CartRepository cartRepository;
 
     @Autowired
-    ProductBoxRepository productBoxRepository;
+    ProductRepository productRepository;
 //    public List<Cart> getAllCarts() {
 //        return (List<Cart>) cartRepository.findAll();
 //    }

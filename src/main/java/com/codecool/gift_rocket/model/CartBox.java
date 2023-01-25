@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.jmx.export.annotation.ManagedNotifications;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -26,12 +25,12 @@ public class CartBox {
 
         @ManyToOne(fetch = FetchType.LAZY)
         @MapsId("boxId")
-        private ProductBox box;
+        private Product box;
 
         @Column(name = "quantity")
         private int quantity = 1;
 
-        public CartBox(Cart cart, ProductBox box) {
+        public CartBox(Cart cart, Product box) {
             this.cart = cart;
             this.box = box;
             this.id = new CartBoxId(cart.getId(), box.getId());

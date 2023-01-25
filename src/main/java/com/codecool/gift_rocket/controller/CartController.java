@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cart")
-public class NewestAndBestestCartController {
+public class CartController {
 
     @Autowired
     public CartService cartService;

@@ -3,10 +3,10 @@ package com.codecool.gift_rocket.service;
 import com.codecool.gift_rocket.model.Cart;
 import com.codecool.gift_rocket.model.CartBox;
 import com.codecool.gift_rocket.model.CartBoxId;
-import com.codecool.gift_rocket.model.ProductBox;
+import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.repository.JPA.CartBoxRepository;
 import com.codecool.gift_rocket.repository.JPA.CartRepository;
-import com.codecool.gift_rocket.repository.JPA.ProductBoxRepository;
+import com.codecool.gift_rocket.repository.JPA.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +19,18 @@ public class CartBoxService {
 
     CartRepository cartRepository;
 
-    ProductBoxRepository productBoxRepository;
+    ProductRepository productRepository;
 
     @Autowired
-    public CartBoxService(CartBoxRepository cartBoxRepository, CartRepository cartRepository, ProductBoxRepository productBoxRepository) {
+    public CartBoxService(CartBoxRepository cartBoxRepository, CartRepository cartRepository, ProductRepository productRepository) {
         this.cartBoxRepository = cartBoxRepository;
         this.cartRepository = cartRepository;
-        this.productBoxRepository = productBoxRepository;
+        this.productRepository = productRepository;
     }
 
         public void addProductBoxToCart(Long productBoxId, Long cartId) { //todo get or else throw
         Optional<Cart> foundCart = cartRepository.findById(cartId);
-        Optional<ProductBox> foundProductBox = productBoxRepository.findById(productBoxId);
+        Optional<Product> foundProductBox = productRepository.findById(productBoxId);
 
         if(foundCart.isPresent()){
             if(foundProductBox.isPresent()){
