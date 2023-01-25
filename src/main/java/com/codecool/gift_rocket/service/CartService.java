@@ -19,103 +19,103 @@ public class CartService {
 
     @Autowired
     ProductBoxRepository productBoxRepository;
-    public List<Cart> getAllCarts() {
-        return (List<Cart>) cartRepository.findAll();
-    }
+//    public List<Cart> getAllCarts() {
+//        return (List<Cart>) cartRepository.findAll();
+//    }
 
-    public void addNewCart(Cart newCart) {
-        newCart.setTotalPrice(BigDecimal.ZERO);
-        cartRepository.save(newCart);
-    }
-
-    public Cart findCartById(Long id) {
-        Optional<Cart> foundCart = cartRepository.findById(id);
-        if(foundCart.isPresent()){
-            return foundCart.get();
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
-        }
-    }
-
-    public void removeCartById(Long id) {
-        Optional<Cart> foundCart = cartRepository.findById(id);
-        if(foundCart.isPresent()){
-            cartRepository.delete(foundCart.get());
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
-        }
-    }
-
-    public BigDecimal getCartValue(Long cartId) {
-        Optional<Cart> foundCart = cartRepository.findById(cartId);
-        if(foundCart.isPresent()){
-            return foundCart.get().getTotalPrice();
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
-        }
-    }
-
-    public List<ProductBox> getAllProductBoxesInCart(Long cartId) {
-        Optional<Cart> foundCart = cartRepository.findById(cartId);
-        if(foundCart.isPresent()){
-            return foundCart.get().getProductBoxes();
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
-        }
-    }
-
-    public void addProductBoxToCart(Long productBoxId, Long cartId) {
-        Optional<Cart> foundCart = cartRepository.findById(cartId);
-        Optional<ProductBox> foundProductBox = productBoxRepository.findById(productBoxId);
-        if(foundCart.isPresent()){
-            if(foundProductBox.isPresent()){
-                foundCart.get().addProductBox(foundProductBox.get());
-                cartRepository.save(foundCart.get());
-            }
-            else {
-                throw new NoSuchElementException("No product box found by given id");
-            }
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
-        }
-    }
-
-    public void removeLastProductBoxFromCart(Long productBoxId, Long cartId) {
-        Optional<Cart> foundCart = cartRepository.findById(cartId);
-        Optional<ProductBox> foundProductBox = productBoxRepository.findById(productBoxId);
-        if(foundCart.isPresent()){
-            if(foundProductBox.isPresent()){
-                foundCart.get().removeLastProductBox(foundProductBox.get());
-                cartRepository.save(foundCart.get());
-            }
-            else {
-                throw new NoSuchElementException("No product box found by given id");
-            }
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
-        }
-    }
-
-    public void removeProductBoxFromCart(Long productBoxId, Long cartId) {
-        Optional<Cart> foundCart = cartRepository.findById(cartId);
-        Optional<ProductBox> foundProductBox = productBoxRepository.findById(productBoxId);
-        if(foundCart.isPresent()){
-            if(foundProductBox.isPresent()){
-                foundCart.get().removeProductBox(foundProductBox.get());
-                cartRepository.save(foundCart.get());
-            }
-            else {
-                throw new NoSuchElementException("No product box found by given id");
-            }
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
-        }
-    }
+//    public void addNewCart(Cart newCart) {
+//        newCart.setTotalPrice(BigDecimal.ZERO);
+//        cartRepository.save(newCart);
+//    }
+//
+//    public Cart findCartById(Long id) {
+//        Optional<Cart> foundCart = cartRepository.findById(id);
+//        if(foundCart.isPresent()){
+//            return foundCart.get();
+//        }
+//        else {
+//            throw new NoSuchElementException("No cart found by given id");
+//        }
+//    }
+//
+//    public void removeCartById(Long id) {
+//        Optional<Cart> foundCart = cartRepository.findById(id);
+//        if(foundCart.isPresent()){
+//            cartRepository.delete(foundCart.get());
+//        }
+//        else {
+//            throw new NoSuchElementException("No cart found by given id");
+//        }
+//    }
+//
+//    public BigDecimal getCartValue(Long cartId) {
+//        Optional<Cart> foundCart = cartRepository.findById(cartId);
+//        if(foundCart.isPresent()){
+//            return foundCart.get().getTotalPrice();
+//        }
+//        else {
+//            throw new NoSuchElementException("No cart found by given id");
+//        }
+//    }
+//
+//    public List<ProductBox> getAllProductBoxesInCart(Long cartId) {
+//        Optional<Cart> foundCart = cartRepository.findById(cartId);
+//        if(foundCart.isPresent()){
+//            return foundCart.get().getProductBoxes();
+//        }
+//        else {
+//            throw new NoSuchElementException("No cart found by given id");
+//        }
+//    }
+//
+//    public void addProductBoxToCart(Long productBoxId, Long cartId) {
+//        Optional<Cart> foundCart = cartRepository.findById(cartId);
+//        Optional<ProductBox> foundProductBox = productBoxRepository.findById(productBoxId);
+//        if(foundCart.isPresent()){
+//            if(foundProductBox.isPresent()){
+//                foundCart.get().addProductBox(foundProductBox.get());
+//                cartRepository.save(foundCart.get());
+//            }
+//            else {
+//                throw new NoSuchElementException("No product box found by given id");
+//            }
+//        }
+//        else {
+//            throw new NoSuchElementException("No cart found by given id");
+//        }
+//    }
+//
+//    public void removeLastProductBoxFromCart(Long productBoxId, Long cartId) {
+//        Optional<Cart> foundCart = cartRepository.findById(cartId);
+//        Optional<ProductBox> foundProductBox = productBoxRepository.findById(productBoxId);
+//        if(foundCart.isPresent()){
+//            if(foundProductBox.isPresent()){
+//                foundCart.get().removeLastProductBox(foundProductBox.get());
+//                cartRepository.save(foundCart.get());
+//            }
+//            else {
+//                throw new NoSuchElementException("No product box found by given id");
+//            }
+//        }
+//        else {
+//            throw new NoSuchElementException("No cart found by given id");
+//        }
+//    }
+//
+//    public void removeProductBoxFromCart(Long productBoxId, Long cartId) {
+//        Optional<Cart> foundCart = cartRepository.findById(cartId);
+//        Optional<ProductBox> foundProductBox = productBoxRepository.findById(productBoxId);
+//        if(foundCart.isPresent()){
+//            if(foundProductBox.isPresent()){
+//                foundCart.get().removeProductBox(foundProductBox.get());
+//                cartRepository.save(foundCart.get());
+//            }
+//            else {
+//                throw new NoSuchElementException("No product box found by given id");
+//            }
+//        }
+//        else {
+//            throw new NoSuchElementException("No cart found by given id");
+//        }
+//    }
 }

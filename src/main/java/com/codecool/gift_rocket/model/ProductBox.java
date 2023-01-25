@@ -23,14 +23,25 @@ public class ProductBox {
     private static final String CURRENCY = "HUF";
     private String name;
     private String description;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id")
+
+    @OneToMany(
+            mappedBy = "box",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+//    todo you may want to remove tranisent
+//    @Transient
     @JsonIgnore
-    private Cart cart;
+    private List<CartBox> boxes; 
+
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "cart_id")
+//    @JsonIgnore
+//    private Cart cart;
+////    @OneToMany(mappedBy = "productBox", cascade = CascadeType.ALL)
+////    private Set<Category> categories;
 //    @OneToMany(mappedBy = "productBox", cascade = CascadeType.ALL)
-//    private Set<Category> categories;
-    @OneToMany(mappedBy = "productBox", cascade = CascadeType.ALL)
-    private List<Product> products;
+//    private List<Product> products;
 
     public ProductBox(BigDecimal packagingPrice, String name, String description) {
         this.packagingPrice = packagingPrice;
@@ -38,7 +49,7 @@ public class ProductBox {
         this.name = name;
         this.description = description;
 //        this.categories = new HashSet<>();
-        this.products = new ArrayList<>();
+        this.boxes = new ArrayList<>();
     }
 
 
@@ -47,15 +58,28 @@ public class ProductBox {
         return name;
     }
 
-    public void addProduct(Product product) {
-        products.add(product);
-        product.setProductBox(this);
-        totalPrice = totalPrice.add(product.getPrice());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductBox that = (ProductBox) o;
+        return id.equals(that.id) && packagingPrice.equals(that.packagingPrice) && totalPrice.equals(that.totalPrice) && name.equals(that.name) && description.equals(that.description) && boxes.equals(that.boxes);
     }
 
-    public void removeProduct(Product product) {
-        products.remove(product);
-        product.setProductBox(null);
-        totalPrice = totalPrice.subtract(product.getPrice());
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, packagingPrice, totalPrice, name, description, boxes);
     }
+
+    //    public void addProduct(Product product) {
+//        products.add(product);
+//        product.setProductBox(this);
+//        totalPrice = totalPrice.add(product.getPrice());
+//    }
+//
+//    public void removeProduct(Product product) {
+//        products.remove(product);
+//        product.setProductBox(null);
+//        totalPrice = totalPrice.subtract(product.getPrice());
+//    }
 }
