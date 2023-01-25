@@ -22,6 +22,8 @@ public class Product {
     private static final String CURRENCY = "HUF";
     private String name;
     private String description;
+    @Enumerated(value = EnumType.STRING)
+    private Category category;
 
     @OneToMany(
             mappedBy = "box",
@@ -34,11 +36,12 @@ public class Product {
     private List<CartBox> boxes;
 
 
-    public Product(BigDecimal price, String name, String description) {
+    public Product(BigDecimal price, String name, String description, Category category) {
         this.price = price;
         this.name = name;
         this.description = description;
         this.boxes = new ArrayList<>();
+        this.category = category;
     }
 
 
