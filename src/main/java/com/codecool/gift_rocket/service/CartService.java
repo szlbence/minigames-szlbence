@@ -101,15 +101,16 @@ public class CartService {
                         cartRepository.save(foundCart.get());
                         cartProductRepository.save(foundCartProduct.get());
                     if (foundCartProduct.get().getQuantity() == 0){
-                        cartProductRepository.delete(foundCartProduct.get());
+                        cartProductRepository.deleteById(foundCartProduct.get().getId());
                     }
                 }
                 else{
+                    if(quantity >=0){
                     CartProduct cartProduct = new CartProduct(foundCart.get(), foundProduct.get());
                     cartProductRepository.save(cartProduct);
                     foundCart.get().setTotalPrice(foundCart.get().getTotalPrice().
                             add(foundProduct.get().getPrice().multiply(BigDecimal.valueOf(quantity))));
-                    cartRepository.save(foundCart.get());
+                    cartRepository.save(foundCart.get());}
                 }
             }
             else {
@@ -130,10 +131,10 @@ public class CartService {
                 CartProductId foundCartProductId = new CartProductId(cartId, productId);
                 Optional<CartProduct> foundCartProduct = cartProductRepository.findById(foundCartProductId);
                 if(foundCartProduct.isPresent()){
-                        cartProductRepository.delete(foundCartProduct.get());
                         foundCart.get().setTotalPrice(foundCart.get().getTotalPrice().subtract(foundProduct.get()
                                 .getPrice().multiply(BigDecimal.valueOf(foundCartProduct.get().getQuantity()))));
-                        cartRepository.save(foundCart.get());
+                    cartRepository.save(foundCart.get());
+                    cartProductRepository.delete(foundCartProduct.get());
                 }
             }
             else {

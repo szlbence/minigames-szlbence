@@ -36,7 +36,7 @@ public class Cart {
 
     @OneToMany(
             mappedBy = "cart",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.REFRESH,
             orphanRemoval = true
     )
     private List<CartProduct> products;

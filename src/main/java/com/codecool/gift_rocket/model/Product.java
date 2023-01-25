@@ -35,7 +35,7 @@ public class Product {
 
     @OneToMany(
             mappedBy = "product",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.REFRESH,
             orphanRemoval = true,
             fetch = EAGER
     )
