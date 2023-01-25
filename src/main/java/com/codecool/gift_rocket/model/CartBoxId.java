@@ -16,11 +16,11 @@ import java.util.Objects;
 public class CartBoxId implements Serializable {
         private Long cartId;
 
-        private Long boxId;
+        private Long productId;
 
-    public CartBoxId(Long cartId, Long boxId) {
+    public CartBoxId(Long cartId, Long productId) {
         this.cartId = cartId;
-        this.boxId = boxId;
+        this.productId = productId;
     }
 
     @Override
@@ -28,12 +28,12 @@ public class CartBoxId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartBoxId that = (CartBoxId) o;
-        return cartId.equals(that.cartId) && boxId.equals(that.boxId);
+        return cartId.equals(that.cartId) && productId.equals(that.productId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartId, boxId);
+        return Objects.hash(cartId, productId);
     }
 }
 

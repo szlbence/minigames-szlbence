@@ -14,7 +14,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cart_box")
+@Table(name = "cart_product")
 public class CartBox {
         @EmbeddedId
         private CartBoxId id;
@@ -24,16 +24,20 @@ public class CartBox {
         private Cart cart;
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @MapsId("boxId")
-        private Product box;
+        @MapsId("productId")
+        private Product product;
 
-        @Column(name = "quantity")
+    public void changeQuantity(int quantity) {
+        this.quantity = this.quantity+quantity;
+    }
+
+    @Column(name = "quantity")
         private int quantity = 1;
 
-        public CartBox(Cart cart, Product box) {
+        public CartBox(Cart cart, Product product) {
             this.cart = cart;
-            this.box = box;
-            this.id = new CartBoxId(cart.getId(), box.getId());
+            this.product = product;
+            this.id = new CartBoxId(cart.getId(), product.getId());
         }
 
     @Override
@@ -41,11 +45,11 @@ public class CartBox {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartBox cartBox = (CartBox) o;
-        return quantity == cartBox.quantity && id.equals(cartBox.id) && Objects.equals(cart, cartBox.cart) && Objects.equals(box, cartBox.box);
+        return quantity == cartBox.quantity && id.equals(cartBox.id) && Objects.equals(cart, cartBox.cart) && Objects.equals(product, cartBox.product);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cart, box, quantity);
+        return Objects.hash(id, cart, product, quantity);
     }
 }

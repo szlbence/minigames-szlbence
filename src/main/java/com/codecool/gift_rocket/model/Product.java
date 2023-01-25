@@ -24,21 +24,21 @@ public class Product {
     private String description;
 
     @OneToMany(
-            mappedBy = "box",
+            mappedBy = "product",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
 //    todo you may want to remove tranisent
 //    @Transient
     @JsonIgnore
-    private List<CartBox> boxes;
+    private List<CartBox> carts;
 
 
     public Product(BigDecimal price, String name, String description) {
         this.price = price;
         this.name = name;
         this.description = description;
-        this.boxes = new ArrayList<>();
+        this.carts = new ArrayList<>();
     }
 
 
@@ -52,12 +52,12 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product that = (Product) o;
-        return id.equals(that.id) && price.equals(that.price) && name.equals(that.name) && description.equals(that.description) && boxes.equals(that.boxes);
+        return id.equals(that.id) && price.equals(that.price) && name.equals(that.name) && description.equals(that.description) && carts.equals(that.carts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, price, name, description, boxes);
+        return Objects.hash(id, price, name, description, carts);
     }
 
     //    public void addProduct(Product product) {
