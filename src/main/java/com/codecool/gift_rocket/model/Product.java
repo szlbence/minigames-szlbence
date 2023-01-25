@@ -23,6 +23,7 @@ public class Product {
     private String name;
     private String description;
     @Enumerated(value = EnumType.STRING)
+    @Column(name="category")
     private Category category;
 
     @OneToMany(
