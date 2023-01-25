@@ -39,6 +39,7 @@ public class ProductController {
     public BigDecimal getProductValue(@PathVariable Long productId) {
         return productService.getProductValue(productId);
     }
+
     @GetMapping("/category/{category}")
     public List<Product> getAllProductsInBox(@PathVariable Category category) {
         return productService.getProductsByCategory(category);
