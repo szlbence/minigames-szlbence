@@ -53,7 +53,7 @@ const CartPage = () => {
         return (
             <div className="container">
                 <div className="grid">
-                    {items[0].productBoxes.map(item =>
+                    {items[0].productBoxes.map(item => //items[0] only until we have user login. until then only 1 cart is available.
                         <Card key={item.id} style={{width: '36rem'}}>
                             <Card.Header></Card.Header>
                             <Card.Body>
