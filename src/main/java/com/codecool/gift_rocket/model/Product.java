@@ -1,15 +1,23 @@
 package com.codecool.gift_rocket.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.*;
+
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Table(name = "products")
 public class Product {
     @Id
@@ -18,8 +26,7 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "currency")
-    private static final String CURRENCY = "HUF";
+//    private static final String CURRENCY = "HUF";
     private String name;
     private String description;
     @Enumerated(value = EnumType.STRING)
@@ -29,10 +36,12 @@ public class Product {
     @OneToMany(
             mappedBy = "product",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = EAGER
     )
 //    todo you may want to remove tranisent
 //    @Transient
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonIgnore
     private List<CartProduct> carts;
 
@@ -46,10 +55,10 @@ public class Product {
     }
 
 
-    @Override
-    public String toString() {
-        return name;
-    }
+//    @Override
+//    public String toString() {
+//        return name;
+//    }
 
     @Override
     public boolean equals(Object o) {

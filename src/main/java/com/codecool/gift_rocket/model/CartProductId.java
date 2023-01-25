@@ -1,6 +1,5 @@
 package com.codecool.gift_rocket.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,12 +12,12 @@ import java.util.Objects;
 @Getter
 @Setter
 @Embeddable
-public class CartBoxId implements Serializable {
+public class CartProductId implements Serializable {
         private Long cartId;
 
         private Long productId;
 
-    public CartBoxId(Long cartId, Long productId) {
+    public CartProductId(Long cartId, Long productId) {
         this.cartId = cartId;
         this.productId = productId;
     }
@@ -27,7 +26,7 @@ public class CartBoxId implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CartBoxId that = (CartBoxId) o;
+        CartProductId that = (CartProductId) o;
         return cartId.equals(that.cartId) && productId.equals(that.productId);
     }
 

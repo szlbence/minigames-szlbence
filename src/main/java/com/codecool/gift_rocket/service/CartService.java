@@ -2,9 +2,9 @@ package com.codecool.gift_rocket.service;
 
 import com.codecool.gift_rocket.model.Cart;
 import com.codecool.gift_rocket.model.CartProduct;
-import com.codecool.gift_rocket.model.CartBoxId;
+import com.codecool.gift_rocket.model.CartProductId;
 import com.codecool.gift_rocket.model.Product;
-import com.codecool.gift_rocket.repository.JPA.CartBoxRepository;
+import com.codecool.gift_rocket.repository.JPA.CartProductRepository;
 import com.codecool.gift_rocket.repository.JPA.CartRepository;
 import com.codecool.gift_rocket.repository.JPA.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,14 @@ public class CartService {
 
     CartRepository cartRepository;
 
-    CartBoxRepository cartBoxRepository;
+    CartProductRepository cartProductRepository;
     ProductRepository productRepository;
 
     @Autowired
-    public CartService(CartRepository cartRepository, ProductRepository productRepository, CartBoxRepository cartBoxRepository) {
+    public CartService(CartRepository cartRepository, ProductRepository productRepository, CartProductRepository cartProductRepository) {
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
-        this.cartBoxRepository = cartBoxRepository;
+        this.cartProductRepository = cartProductRepository;
     }
 
     public List<Cart> getAllCarts() {
@@ -88,21 +88,28 @@ public class CartService {
 
     public void changeProductInCart(Long productId, Long cartId, int quantity) {
         Optional<Cart> foundCart = cartRepository.findById(cartId);
-        Optional<Product> foundProductBox = productRepository.findById(productId);
+        Optional<Product> foundProduct = productRepository.findById(productId);
 
         if(foundCart.isPresent()){
-            if(foundProductBox.isPresent()){
-                CartBoxId foundCartBoxId = new CartBoxId(cartId, productId);
-                Optional<CartProduct> foundCartBox = cartBoxRepository.findById(foundCartBoxId);
-                if(foundCartBox.isPresent()){
-                        foundCartBox.get().changeQuantity(quantity);
-                    cartBoxRepository.save(foundCartBox.get());
-                    if (foundCartBox.get().getQuantity() == 0){
-                        cartBoxRepository.delete(foundCartBox.get());}
+            if(foundProduct.isPresent()){
+                CartProductId foundCartProductId = new CartProductId(cartId, productId);
+                Optional<CartProduct> foundCartProduct = cartProductRepository.findById(foundCartProductId);
+                if(foundCartProduct.isPresent()){
+                        foundCartProduct.get().changeQuantity(quantity);
+                        foundCart.get().setTotalPrice(foundCart.get().getTotalPrice().
+                                add(foundProduct.get().getPrice().multiply(BigDecimal.valueOf(quantity))));
+                        cartRepository.save(foundCart.get());
+                        cartProductRepository.save(foundCartProduct.get());
+                    if (foundCartProduct.get().getQuantity() == 0){
+                        cartProductRepository.delete(foundCartProduct.get());
+                    }
                 }
                 else{
-                    CartProduct cartProduct = new CartProduct(foundCart.get(), foundProductBox.get());
-                    cartBoxRepository.save(cartProduct);
+                    CartProduct cartProduct = new CartProduct(foundCart.get(), foundProduct.get());
+                    cartProductRepository.save(cartProduct);
+                    foundCart.get().setTotalPrice(foundCart.get().getTotalPrice().
+                            add(foundProduct.get().getPrice().multiply(BigDecimal.valueOf(quantity))));
+                    cartRepository.save(foundCart.get());
                 }
             }
             else {
@@ -120,10 +127,10 @@ public class CartService {
 
         if(foundCart.isPresent()){
             if(foundProductBox.isPresent()){
-                CartBoxId foundCartBoxId = new CartBoxId(cartId, productId);
-                Optional<CartProduct> foundCartBox = cartBoxRepository.findById(foundCartBoxId);
+                CartProductId foundCartProductId = new CartProductId(cartId, productId);
+                Optional<CartProduct> foundCartBox = cartProductRepository.findById(foundCartProductId);
                 if(foundCartBox.isPresent()){
-                        cartBoxRepository.delete(foundCartBox.get());
+                        cartProductRepository.delete(foundCartBox.get());
                 }
             }
             else {

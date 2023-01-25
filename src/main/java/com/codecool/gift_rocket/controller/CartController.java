@@ -2,7 +2,6 @@ package com.codecool.gift_rocket.controller;
 
 import com.codecool.gift_rocket.model.Cart;
 import com.codecool.gift_rocket.model.Product;
-import com.codecool.gift_rocket.service.CartBoxService;
 import com.codecool.gift_rocket.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +18,6 @@ public class CartController {
     private final int ADDPRODUCTTOCART = 1;
     @Autowired
     public CartService cartService;
-
-    @Autowired
-    public CartBoxService cartBoxService;
 
     @GetMapping
    public List<Cart> getAllCarts() {

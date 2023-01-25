@@ -18,16 +18,15 @@ import java.util.Objects;
 @Table(name = "cart_product")
 public class CartProduct {
         @EmbeddedId
-        private CartBoxId id;
+        private CartProductId id;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @MapsId("cartId")
         @JsonIgnore
         private Cart cart;
 
-        @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.EAGER)
         @MapsId("productId")
-        @JsonIgnore
         private Product product;
 
     public void changeQuantity(int quantity) {
@@ -40,7 +39,7 @@ public class CartProduct {
         public CartProduct(Cart cart, Product product) {
             this.cart = cart;
             this.product = product;
-            this.id = new CartBoxId(cart.getId(), product.getId());
+            this.id = new CartProductId(cart.getId(), product.getId());
         }
 
     @Override

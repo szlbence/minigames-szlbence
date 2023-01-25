@@ -29,8 +29,7 @@ public class Cart {
 
     @NaturalId
     private String name;
-    @Column(name = "currency")
-    private static final String CURRENCY = "HUF";
+//    private static final String CURRENCY = "HUF";
 
 //    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
 //    private List<ProductBox> productBoxes;
