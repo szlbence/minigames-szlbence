@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -41,7 +40,7 @@ public class Cart {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<CartBox> products;
+    private List<CartProduct> products;
 
     public Cart(String name) {
         this.products = new ArrayList<>();

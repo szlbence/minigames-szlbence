@@ -62,7 +62,7 @@ public class CartController {
         cartService.changeProductInCart(productId,cartId, REMOVEPRODUCTFROMCART);
     }
 
-    @DeleteMapping("/{cartId}/remove/{producId}")
+    @DeleteMapping("/{cartId}/remove/{productId}")
     public void deleteProductFromCart(@PathVariable Long cartId, @PathVariable Long productId) {
         cartService.deleteProductFromCart(productId,cartId);
     }

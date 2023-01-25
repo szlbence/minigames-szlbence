@@ -1,2 +1,2 @@
 INSERT INTO carts(name) VALUES ('cart one');
-INSERT INTO products(description, name, price) VALUES ('description sample', 'box one',100);
+INSERT INTO products(price, name, description) VALUES (100, 'box one', 'A chocolate');

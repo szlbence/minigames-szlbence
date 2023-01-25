@@ -1,3 +1,3 @@
-drop TABLE if EXISTS carts;
-drop TABLE if EXISTS product_boxes;
-drop TABLE if EXISTS products;
+drop TABLE if EXISTS carts CASCADE ;
+drop TABLE if EXISTS products CASCADE ;
+drop TABLE if EXISTS cart_product CASCADE ;

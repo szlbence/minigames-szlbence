@@ -1,5 +1,6 @@
 package com.codecool.gift_rocket.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,16 +16,18 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "cart_product")
-public class CartBox {
+public class CartProduct {
         @EmbeddedId
         private CartBoxId id;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @MapsId("cartId")
+        @JsonIgnore
         private Cart cart;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @MapsId("productId")
+        @JsonIgnore
         private Product product;
 
     public void changeQuantity(int quantity) {
@@ -34,7 +37,7 @@ public class CartBox {
     @Column(name = "quantity")
         private int quantity = 1;
 
-        public CartBox(Cart cart, Product product) {
+        public CartProduct(Cart cart, Product product) {
             this.cart = cart;
             this.product = product;
             this.id = new CartBoxId(cart.getId(), product.getId());
@@ -44,8 +47,8 @@ public class CartBox {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CartBox cartBox = (CartBox) o;
-        return quantity == cartBox.quantity && id.equals(cartBox.id) && Objects.equals(cart, cartBox.cart) && Objects.equals(product, cartBox.product);
+        CartProduct cartProduct = (CartProduct) o;
+        return quantity == cartProduct.quantity && id.equals(cartProduct.id) && Objects.equals(cart, cartProduct.cart) && Objects.equals(product, cartProduct.product);
     }
 
     @Override

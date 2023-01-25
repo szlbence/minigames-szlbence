@@ -10,7 +10,7 @@ import java.util.*;
 @Entity
 @NoArgsConstructor
 @Data
-@Table(name = "product_boxes")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class Product {
 //    todo you may want to remove tranisent
 //    @Transient
     @JsonIgnore
-    private List<CartBox> carts;
+    private List<CartProduct> carts;
 
 
     public Product(BigDecimal price, String name, String description, Category category) {

@@ -1,7 +1,7 @@
 package com.codecool.gift_rocket.service;
 
 import com.codecool.gift_rocket.model.Cart;
-import com.codecool.gift_rocket.model.CartBox;
+import com.codecool.gift_rocket.model.CartProduct;
 import com.codecool.gift_rocket.model.CartBoxId;
 import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.repository.JPA.CartBoxRepository;
@@ -74,10 +74,10 @@ public class CartService {
         Optional<Cart> foundCart = cartRepository.findById(cartId);
         if(foundCart.isPresent()){
             List<Product> products = new ArrayList<>();
-            List<CartBox> cartBoxes= foundCart.get().getProducts();
-            for (CartBox cartBox: cartBoxes
+            List<CartProduct> cartProducts = foundCart.get().getProducts();
+            for (CartProduct cartProduct : cartProducts
                  ) {
-                products.add(cartBox.getProduct());
+                products.add(cartProduct.getProduct());
             }
             return products;
         }
@@ -93,7 +93,7 @@ public class CartService {
         if(foundCart.isPresent()){
             if(foundProductBox.isPresent()){
                 CartBoxId foundCartBoxId = new CartBoxId(cartId, productId);
-                Optional<CartBox> foundCartBox = cartBoxRepository.findById(foundCartBoxId);
+                Optional<CartProduct> foundCartBox = cartBoxRepository.findById(foundCartBoxId);
                 if(foundCartBox.isPresent()){
                         foundCartBox.get().changeQuantity(quantity);
                     cartBoxRepository.save(foundCartBox.get());
@@ -101,8 +101,8 @@ public class CartService {
                         cartBoxRepository.delete(foundCartBox.get());}
                 }
                 else{
-                    CartBox cartBox = new CartBox(foundCart.get(), foundProductBox.get());
-                    cartBoxRepository.save(cartBox);
+                    CartProduct cartProduct = new CartProduct(foundCart.get(), foundProductBox.get());
+                    cartBoxRepository.save(cartProduct);
                 }
             }
             else {
@@ -121,7 +121,7 @@ public class CartService {
         if(foundCart.isPresent()){
             if(foundProductBox.isPresent()){
                 CartBoxId foundCartBoxId = new CartBoxId(cartId, productId);
-                Optional<CartBox> foundCartBox = cartBoxRepository.findById(foundCartBoxId);
+                Optional<CartProduct> foundCartBox = cartBoxRepository.findById(foundCartBoxId);
                 if(foundCartBox.isPresent()){
                         cartBoxRepository.delete(foundCartBox.get());
                 }
