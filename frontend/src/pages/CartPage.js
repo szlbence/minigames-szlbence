@@ -14,20 +14,20 @@ const CartPage = () => {
     const CART_TOTAL_PRICE_URL = "/cart/value";
 
 
-    async function increaseProductBoxQuantity(cartId, productBoxId) {
-        await DataService.postData(`${CART_URL}/${cartId}/add/${productBoxId}`)
+    async function increaseProductQuantity(cartId, productId) {
+        await DataService.postData(`${CART_URL}/${cartId}/add/${productId}`)
         await getTotalPrice();
         await getCarts();
     }
 
-    async function decreaseProductBoxQuantity(cartId, productBoxId) {
-        await DataService.sendPut(`${CART_URL}/${cartId}/remove/${productBoxId}`);
+    async function decreaseProductQuantity(cartId, productId) {
+        await DataService.sendPut(`${CART_URL}/${cartId}/remove/${productId}`);
         await getTotalPrice();
         await getCarts();
     }
 
-    async function deleteProductBox(cartId, productBoxId) {
-        await DataService.sendDelete(`${CART_URL}/${cartId}/remove/${productBoxId}`);
+    async function deleteProduct(cartId, productId) {
+        await DataService.sendDelete(`${CART_URL}/${cartId}/remove/${productId}`);
         await getTotalPrice();
         await getCarts();
     }
@@ -62,9 +62,9 @@ const CartPage = () => {
                                 <Card.Title>{cartProduct.product.name}</Card.Title>
                                 <div className="grid">
                                     <p>Total quantity of products : {cartProduct.quantity} </p>
-                                    <button type="submit" onClick={async() => await increaseProductBoxQuantity(items[0].id, cartProduct.product.id)}>+</button>
-                                    <button type="submit" onClick={async() =>await decreaseProductBoxQuantity(items[0].id, cartProduct.product.id)}>-</button>
-                                    <button type="button" onClick={async() =>await deleteProductBox(items[0].id, cartProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></button>
+                                    <button type="submit" onClick={async() => await increaseProductQuantity(items[0].id, cartProduct.product.id)}>+</button>
+                                    <button type="submit" onClick={async() =>await decreaseProductQuantity(items[0].id, cartProduct.product.id)}>-</button>
+                                    <button type="button" onClick={async() =>await deleteProduct(items[0].id, cartProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></button>
                                 </div>
                             </Card.Body>
                         </Card>
