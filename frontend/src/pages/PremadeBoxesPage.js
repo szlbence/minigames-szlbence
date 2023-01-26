@@ -14,6 +14,7 @@ const PremadeBoxes = () => {
     const PRODUCT_URL = "/product";
     // const PRODUCTBOX_NAME_URL = "/productbox/name";
     const CART_URL = "/cart";
+    const GET_PRODUCTS_URL = "/cart"
 
     async function AddToCart(cartId, productId) {
         //No need for id fetching anymore!
