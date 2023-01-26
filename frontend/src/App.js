@@ -25,11 +25,9 @@ function App() {
                     </Routes>
                 </Router>
             </div>
-            <footer  className='text-center text-lg-left'>
-                <div className='text-center p-4' style={{ backgroundColor: "#F3E5AB" }}>
+            <footer  className='text-center p-4'>
                     &copy; {new Date().getFullYear()} Copyright:{' '}
                     GiftRocket Team
-                </div>
             </footer>
         </>
     );

@@ -64,6 +64,7 @@ const CartPage = () => {
                             <Card.Header></Card.Header>
                             <Card.Body>
                                 <Card.Title>{cartProduct.product.name}</Card.Title>
+                                <img className="homeImg" src={`${cartProduct.product.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
                                 <div className="grid">
                                     <p>Total quantity of products : {cartProduct.quantity} </p>
                                     <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, cartProduct.product.id)}>+</Button>
@@ -77,6 +78,9 @@ const CartPage = () => {
                 <div className="checkoutButton">
                     <Button type="button" bsPrefix="custom-button" style={{text: "center"}}>Checkout</Button>
                 </div>
+                <br></br>
+                <br></br>
+                <br></br>
             </div>
         );
     }

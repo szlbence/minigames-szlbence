@@ -4,8 +4,7 @@ import {useEffect, useState} from "react";
 import "../App.css"
 import Card from "react-bootstrap/Card";
 import DataService from "../components/DataService";
-import Button from "react-bootstrap/Button"
-
+import Button from "react-bootstrap/Button";
 
 const ProductsPage = () => {
 
@@ -49,6 +48,8 @@ const ProductsPage = () => {
                             <Card.Header></Card.Header>
                             <Card.Body>
                                 <Card.Title>{item.name}</Card.Title>
+                                <img className="homeImg" src={`${item.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
+
                                 <p className="price">Total price: {item.price}</p>
                                 <p className="description">Description: {item.description}</p>
                                 <Button type="submit" bsPrefix="product-button"   onClick={() => {AddToCart(carts[0].id, item.id)}}>Add To Cart</Button>
@@ -56,6 +57,8 @@ const ProductsPage = () => {
                         </Card>
                     )}
                 </div>
+                <br></br>
+                <br></br>
             </div>
         );
     }
