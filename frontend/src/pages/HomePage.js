@@ -15,10 +15,10 @@ const Home = () => {
                 <br/>
                 <p style={{fontSize: 35}}>Our company is established to make sure that every person can
                     choose their desired gifts which can be given to their person of choice</p>
-                <div className="grid">
-                    <Card style={{ width: '36rem' }}>
+                <div className="homeGrid">
+                    <Card className="homeCard" style={{ width: '36rem' }}>
                         <Card.Header></Card.Header>
-                        <Card.Body>
+                        <Card.Body className="homeCardBody">
                             <Card.Title><Nav.Link href="/product">Products</Nav.Link></Card.Title>
                             <img className="homeImg" src="premade.png" style={{objectFit: "cover", width: 2000}}/>
                             <Card.Text>
