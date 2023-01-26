@@ -48,7 +48,7 @@ const ProductsPage = () => {
                                 <Card.Header></Card.Header>
                                 <Card.Body>
                                     <Card.Title>{item.name}</Card.Title>
-
+                                    <img className="homeImg" src={`${item.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
                                     <p className="price">Total price: {item.price}</p>
                                     <p className="description">Description: {item.description}</p>
                                     <Button type="submit" bsPrefix="product-button" onClick={() => {
