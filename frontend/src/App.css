@@ -29,12 +29,15 @@
 
 .grid {
   display: flex;
-
   align-self: center;
   gap: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
   flex-wrap: wrap;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
 }
 
 .checkoutButton {
@@ -42,6 +45,18 @@
   margin: auto;
   max-width: 30%;
   text-align: center;
+}
+
+.custom-button {
+  background-color: #F3E5AB;
+  border-radius: 5px;
+  border-color: #F3E5AB;
+}
+.product-button {
+  background-color: #F3E5AB;
+  border-radius: 5px;
+  border-color: #F3E5AB;
+  margin-top: auto;
 }
 
 

@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import "../App.css"
 import Card from "react-bootstrap/Card";
 import DataService from "../components/DataService";
+import Button from "react-bootstrap/Button"
 
 
 const ProductsPage = () => {
@@ -50,7 +51,7 @@ const ProductsPage = () => {
                                 <Card.Title>{item.name}</Card.Title>
                                 <p className="price">Total price: {item.price}</p>
                                 <p className="description">Description: {item.description}</p>
-                                <button type="submit" onClick={() => {AddToCart(carts[0].id, item.id)}}>Add To Cart</button>
+                                <Button type="submit" bsPrefix="product-button"   onClick={() => {AddToCart(carts[0].id, item.id)}}>Add To Cart</Button>
                             </Card.Body>
                         </Card>
                     )}
