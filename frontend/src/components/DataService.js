@@ -15,5 +15,9 @@ class DataService{
         await axios.put(url)
     }
 
+    async getProductsByCategory(url){
+        return await axios.get(url);
+    }
+
 }
 export default new DataService();

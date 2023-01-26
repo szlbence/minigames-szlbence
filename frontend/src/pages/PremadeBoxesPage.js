@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import "../App.css"
 import Card from "react-bootstrap/Card";
 import DataService from "../components/DataService";
+import DropDown from "../components/DropDown";
 
 
 const PremadeBoxes = () => {
@@ -21,6 +22,7 @@ const PremadeBoxes = () => {
         // const productBoxId = await DataService.getProductBoxId(PRODUCTBOX_NAME_URL, name);
         await DataService.postData(`${CART_URL}/${cartId}/add/${productId}`)
     }
+
     async function getCarts() {
         const carts = await DataService.getData(CART_URL);
         setCarts(carts.data);
@@ -42,6 +44,7 @@ const PremadeBoxes = () => {
     } else {
         return (
             <div className="container">
+                <DropDown items = {items}/>
                 <div className="grid">
                     {items.map(item =>
                         <Card key={item.id} style={{width: '36rem'}}>
@@ -50,7 +53,10 @@ const PremadeBoxes = () => {
                                 <Card.Title>{item.name}</Card.Title>
                                 <p className="price">Total price: {item.price}</p>
                                 <p className="description">Description: {item.description}</p>
-                                <button type="submit" onClick={() => {AddToCart(carts[0].id, item.id)}}>Add To Cart</button>
+                                <button type="submit" onClick={() => {
+                                    AddToCart(carts[0].id, item.id)
+                                }}>Add To Cart
+                                </button>
                             </Card.Body>
                         </Card>
                     )}
