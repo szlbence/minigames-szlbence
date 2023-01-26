@@ -27,12 +27,12 @@ function App() {
                     </Routes>
                 </Router>
             </div>
-            <MDBFooter  className='text-center text-lg-left fixed-bottom'>
+            <footer  className='text-center text-lg-left'>
                 <div className='text-center p-4' style={{ backgroundColor: "#F3E5AB" }}>
                     &copy; {new Date().getFullYear()} Copyright:{' '}
                     GiftRocket Team
                 </div>
-            </MDBFooter>
+            </footer>
         </>
     );
 }
