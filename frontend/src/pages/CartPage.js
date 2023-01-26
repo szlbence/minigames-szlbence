@@ -53,7 +53,10 @@ const CartPage = () => {
         return <div>Loading...</div>;
     } else {
         return (
+
             <div className="container">
+
+                <h1 style={{textAlign: "center"}}>Total Price: {totalPrice}</h1>
                 <div className="grid">
                     {items[0].products.map(cartProduct => //items[0] only until we have user login. until then only 1 cart is available.
                         <Card key={cartProduct.product.id} style={{width: '36rem'}}>
@@ -69,14 +72,9 @@ const CartPage = () => {
                             </Card.Body>
                         </Card>
                     )}
-                    <Card style={{width: '36rem'}} className="checkout">
-                        {/*<Card.Header></Card.Header>*/}
-                        <Card.Body>
-                            <Card.Title></Card.Title>
-                            <p>Total Price: {totalPrice}</p>
-                            <button type="button">Checkout</button>
-                        </Card.Body>
-                    </Card>
+                </div>
+                <div className="checkoutButton">
+                    <button type="button" style={{text: "center"}}>Checkout</button>
                 </div>
             </div>
         );
