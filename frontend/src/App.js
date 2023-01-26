@@ -3,8 +3,7 @@ import './App.css';
 import {BrowserRouter as Router, Routes, Route}
     from 'react-router-dom';
 import ContactPage from "./pages/ContactPage";
-import PremadeBoxesPage from "./pages/PremadeBoxesPage";
-import CustomBoxesPage from "./pages/CustomBoxesPage";
+import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import HomePage from "./pages/HomePage";
 import { MDBFooter } from 'mdb-react-ui-kit';
@@ -22,17 +21,14 @@ function App() {
                     <Routes>
                         <Route exact path='/' exact element={<HomePage/>}/>
                         <Route path='/contact' element={<ContactPage/>}/>
-                        <Route path='/premade-boxes' element={<PremadeBoxesPage/>}/>
-                        <Route path='/custom-boxes' element={<CustomBoxesPage/>}/>
+                        <Route path='/product' element={<ProductsPage/>}/>
                         <Route path='/cart' element={<CartPage/>}/>
                     </Routes>
                 </Router>
             </div>
-            <footer  className='text-center text-lg-left'>
-                <div className='text-center p-4' style={{ backgroundColor: "#F3E5AB" }}>
+            <footer  className='text-center p-4'>
                     &copy; {new Date().getFullYear()} Copyright:{' '}
                     GiftRocket Team
-                </div>
             </footer>
         </>
     );
