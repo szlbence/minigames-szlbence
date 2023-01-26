@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import DataService from "../components/DataService";
 
 
-const PremadeBoxes = () => {
+const ProductsPage = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
@@ -60,4 +60,4 @@ const PremadeBoxes = () => {
     }
 };
 
-export default PremadeBoxes;
+export default ProductsPage;
