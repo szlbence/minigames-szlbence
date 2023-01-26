@@ -14,8 +14,7 @@ function BootstrapNavbar() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/premade-boxes">Pre-made Boxes</Nav.Link>
-                        <Nav.Link href="/custom-boxes">Custom Boxes</Nav.Link>
+                        <Nav.Link href="/product">Products</Nav.Link>
                         <Nav.Link href="/contact">Contact Us</Nav.Link>
                         <Nav.Link href="/cart">Cart</Nav.Link>
                         {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">*/}

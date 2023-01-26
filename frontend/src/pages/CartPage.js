@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import DataService from "../components/DataService"
+import Button from 'react-bootstrap/Button'
 
 const CartPage = () => {
 
@@ -14,20 +15,20 @@ const CartPage = () => {
     const CART_TOTAL_PRICE_URL = "/cart/value";
 
 
-    async function increaseProductBoxQuantity(cartId, productBoxId) {
-        await DataService.postData(`${CART_URL}/${cartId}/add/${productBoxId}`)
+    async function increaseProductQuantity(cartId, productId) {
+        await DataService.postData(`${CART_URL}/${cartId}/add/${productId}`)
         await getTotalPrice();
         await getCarts();
     }
 
-    async function decreaseProductBoxQuantity(cartId, productBoxId) {
-        await DataService.sendPut(`${CART_URL}/${cartId}/remove/${productBoxId}`);
+    async function decreaseProductQuantity(cartId, productId) {
+        await DataService.sendPut(`${CART_URL}/${cartId}/remove/${productId}`);
         await getTotalPrice();
         await getCarts();
     }
 
-    async function deleteProductBox(cartId, productBoxId) {
-        await DataService.sendDelete(`${CART_URL}/${cartId}/remove/${productBoxId}`);
+    async function deleteProduct(cartId, productId) {
+        await DataService.sendDelete(`${CART_URL}/${cartId}/remove/${productId}`);
         await getTotalPrice();
         await getCarts();
     }
@@ -53,31 +54,33 @@ const CartPage = () => {
         return <div>Loading...</div>;
     } else {
         return (
+
             <div className="container">
+
+                <h1 style={{textAlign: "center"}}>Total Price: {totalPrice}</h1>
                 <div className="grid">
                     {items[0].products.map(cartProduct => //items[0] only until we have user login. until then only 1 cart is available.
                         <Card key={cartProduct.product.id} style={{width: '36rem'}}>
                             <Card.Header></Card.Header>
                             <Card.Body>
                                 <Card.Title>{cartProduct.product.name}</Card.Title>
+                                <img className="homeImg" src={`${cartProduct.product.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
                                 <div className="grid">
                                     <p>Total quantity of products : {cartProduct.quantity} </p>
-                                    <button type="submit" onClick={async() => await increaseProductBoxQuantity(items[0].id, cartProduct.product.id)}>+</button>
-                                    <button type="submit" onClick={async() =>await decreaseProductBoxQuantity(items[0].id, cartProduct.product.id)}>-</button>
-                                    <button type="button" onClick={async() =>await deleteProductBox(items[0].id, cartProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></button>
+                                    <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, cartProduct.product.id)}>+</Button>
+                                    <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, cartProduct.product.id)}>-</Button>
+                                    <Button type="button" bsPrefix="custom-button" size="sm" onClick={async() =>await deleteProduct(items[0].id, cartProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>
                                 </div>
                             </Card.Body>
                         </Card>
                     )}
-                    <Card style={{width: '36rem'}} className="checkout">
-                        {/*<Card.Header></Card.Header>*/}
-                        <Card.Body>
-                            <Card.Title></Card.Title>
-                            <p>Total Price: {totalPrice}</p>
-                            <button type="button">Checkout</button>
-                        </Card.Body>
-                    </Card>
                 </div>
+                <div className="checkoutButton">
+                    <Button type="button" bsPrefix="custom-button" style={{text: "center"}}>Checkout</Button>
+                </div>
+                <br></br>
+                <br></br>
+                <br></br>
             </div>
         );
     }
