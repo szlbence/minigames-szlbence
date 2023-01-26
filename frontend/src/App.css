@@ -137,4 +137,11 @@ footer {
 }
 .dropdown{
   padding: 20px;
+
+}
+
+#dropdown-category{
+  background-color: #F3E5AB;
+  color: #222222;
+  border-color: #222222;
 }
