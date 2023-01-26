@@ -1,24 +1,23 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import DataService from "./DataService";
-import {useRef, useState} from "react";
+import {useRef} from "react";
 
 
-function DropDown() {
+function DropDown({props}) {
     const BASE_URL = "/product";
     const items = useRef([]);
 
 
     async function getProductsByCategory(category) {
-        console.log(`${BASE_URL}/category/${category}`);
         const products = await DataService.getProductsByCategory(`${BASE_URL}/category/${category}`);
         return products.data;
     }
 
     const handleSelect = async (e)=>{
         items.current = await getProductsByCategory(e);
-        console.log(items.current);
-        // console.log(items);
+        return props(items.current);
+
     }
 
     return (
