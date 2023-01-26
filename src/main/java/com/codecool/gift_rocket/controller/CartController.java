@@ -1,7 +1,7 @@
 package com.codecool.gift_rocket.controller;
 
 import com.codecool.gift_rocket.model.Cart;
-import com.codecool.gift_rocket.model.ProductBox;
+import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +12,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
-public class NewCartController {
+public class CartController {
 
+    private final int REMOVEPRODUCTFROMCART = -1;
+    private final int ADDPRODUCTTOCART = 1;
     @Autowired
     public CartService cartService;
 
     @GetMapping
-    public List<Cart> getAllCarts() {
+   public List<Cart> getAllCarts() {
         return cartService.getAllCarts();
     }
 
@@ -41,23 +43,23 @@ public class NewCartController {
         return cartService.getCartValue(cartId);
     }
 
-    @GetMapping("/{cartId}/product-boxes")
-    public List<ProductBox> getAllProductBoxesInCart(@PathVariable Long cartId) {
-        return cartService.getAllProductBoxesInCart(cartId);
+    @GetMapping("/{cartId}/products")
+    public List<Product> getAllProductsInCart(@PathVariable Long cartId) {
+        return cartService.getAllProductsInCart(cartId);
     }
 
-    @PostMapping("/{cartId}/add/{productBoxId}")
-    public void addProductBoxToCart(@PathVariable Long cartId, @PathVariable Long productBoxId) {
-        cartService.addProductBoxToCart(productBoxId, cartId);
+    @PostMapping("/{cartId}/add/{productId}")
+    public void addProductToCart(@PathVariable Long cartId, @PathVariable Long productId) {
+        cartService.changeProductInCart(productId, cartId, ADDPRODUCTTOCART);
     }
 
-    @DeleteMapping("/{cartId}/remove/{productBoxId}")
-    public void removeProductBoxFromCart(@PathVariable Long cartId, @PathVariable Long productBoxId) {
-        cartService.removeProductBoxFromCart(productBoxId,cartId);
+    @PutMapping("/{cartId}/remove/{productId}")
+    public void removeProductFromCart(@PathVariable Long cartId, @PathVariable Long productId) {
+        cartService.changeProductInCart(productId,cartId, REMOVEPRODUCTFROMCART);
     }
 
-    @PutMapping("/{cartId}/remove/{productBoxId}")
-    public void removeLastProductBoxFromCart(@PathVariable Long cartId, @PathVariable Long productBoxId) {
-        cartService.removeLastProductBoxFromCart(productBoxId,cartId);
+    @DeleteMapping("/{cartId}/remove/{productId}")
+    public void deleteProductFromCart(@PathVariable Long cartId, @PathVariable Long productId) {
+        cartService.deleteProductFromCart(productId,cartId);
     }
 }

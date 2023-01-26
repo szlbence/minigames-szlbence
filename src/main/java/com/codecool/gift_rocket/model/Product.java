@@ -1,77 +1,87 @@
 package com.codecool.gift_rocket.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.*;
+
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "price")
     private BigDecimal price;
-    @Column(name = "currency")
-    private static final String CURRENCY = "HUF";
+
+//    private static final String CURRENCY = "HUF";
     private String name;
     private String description;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_box_id")
-    @JsonIgnore
-    private ProductBox productBox;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
+    @Column(name="category")
     private Category category;
+
+    @OneToMany(
+            mappedBy = "product",
+            cascade = CascadeType.REFRESH,
+            orphanRemoval = true,
+            fetch = EAGER
+    )
+//    todo you may want to remove tranisent
+//    @Transient
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
+    private List<CartProduct> carts;
+
 
     public Product(BigDecimal price, String name, String description, Category category) {
         this.price = price;
         this.name = name;
         this.description = description;
+        this.carts = new ArrayList<>();
         this.category = category;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
 
-    public Long getId() {
-        return id;
-    }
+//    @Override
+//    public String toString() {
+//        return name;
+//    }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product that = (Product) o;
+        return id.equals(that.id) && price.equals(that.price) && name.equals(that.name) && description.equals(that.description) && carts.equals(that.carts);
     }
 
     @Override
-    public String toString() {
-        return name;
+    public int hashCode() {
+        return Objects.hash(id, price, name, description, carts);
     }
+
+    //    public void addProduct(Product product) {
+//        products.add(product);
+//        product.setProductBox(this);
+//        totalPrice = totalPrice.add(product.getPrice());
+//    }
+//
+//    public void removeProduct(Product product) {
+//        products.remove(product);
+//        product.setProductBox(null);
+//        totalPrice = totalPrice.subtract(product.getPrice());
+//    }
 }

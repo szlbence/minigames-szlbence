@@ -6,26 +6,24 @@ import com.codecool.gift_rocket.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/product")
-public class NewProductController {
-
+public class ProductController {
     @Autowired
     public ProductService productService;
 
     @GetMapping
     public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+        return  productService.getAllProducts();
     }
-
     @PostMapping
-    public void addProduct(@RequestBody Product newProduct) {
-        productService.addNewProduct(newProduct);
+    public void addProduct(@RequestBody Product product) {
+        productService.addNewProduct(product);
     }
-
 
     @GetMapping("/{productId}")
     public Product findProductById(@PathVariable Long productId) {
@@ -37,9 +35,13 @@ public class NewProductController {
         productService.removeProductById(productId);
     }
 
-    @GetMapping("/category/{category}")
-    public List<Product> getProductsByCategory(@PathVariable Category category) {
-        return productService.getProductsByCategory(category);
+    @GetMapping("/{productId}/value")
+    public BigDecimal getProductValue(@PathVariable Long productId) {
+        return productService.getProductValue(productId);
     }
 
+    @GetMapping("/category/{category}")
+    public List<Product> getAllProductsInBox(@PathVariable Category category) {
+        return productService.getProductsByCategory(category);
+    }
 }
