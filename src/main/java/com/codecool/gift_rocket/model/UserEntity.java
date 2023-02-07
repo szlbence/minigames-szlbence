@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Builder
 public class UserEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
@@ -20,4 +20,8 @@ public class UserEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToOne
+    private Cart cart;
+
 }

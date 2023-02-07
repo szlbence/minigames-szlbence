@@ -14,11 +14,7 @@ import java.util.*;
 @Entity
 @NoArgsConstructor
 @Data
-@Getter
-@Setter
 @NaturalIdCache
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "carts")
 public class Cart {
     @Id
@@ -29,10 +25,6 @@ public class Cart {
 
     @NaturalId
     private String name;
-//    private static final String CURRENCY = "HUF";
-
-//    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-//    private List<ProductBox> productBoxes;
 
     @OneToMany(
             mappedBy = "cart",
@@ -40,6 +32,9 @@ public class Cart {
             orphanRemoval = true
     )
     private List<CartProduct> products;
+
+    @OneToOne
+    private UserEntity user;
 
     public Cart(String name) {
         this.products = new ArrayList<>();
@@ -51,31 +46,6 @@ public class Cart {
     public String toString() {
         return name;
     }
-
-
-//    public void addProductBox(ProductBox productBox) {
-//        productBoxes.add(productBox);
-//        productBox.setCart(this);
-//        totalPrice = totalPrice.add(productBox.getTotalPrice());
-//    }
-//
-//    public void removeLastProductBox(ProductBox productBox) {
-//        productBoxes.remove(productBoxes.lastIndexOf(productBox));
-//        productBoxes.remove(productBox);
-//        productBox.setCart(this);
-//        totalPrice = totalPrice.subtract(productBox.getTotalPrice());
-//    }
-//
-//    public void removeProductBox(ProductBox productBox) {
-//        productBoxes.removeAll(List.of(productBox));
-//        //TODO set all carts to null in productboxes
-//        productBox.setCart(null);
-//        totalPrice = productBoxes.stream()
-//                .map(ProductBox::getTotalPrice)
-//                .reduce(BigDecimal::add)
-//                .orElse(BigDecimal.ZERO);
-//    }
-
 
     @Override
     public boolean equals(Object o) {
