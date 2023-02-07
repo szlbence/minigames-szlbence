@@ -6,7 +6,6 @@ import com.codecool.gift_rocket.model.CartProductId;
 import com.codecool.gift_rocket.model.Product;
 import com.codecool.gift_rocket.repository.JPA.CartProductRepository;
 import com.codecool.gift_rocket.repository.JPA.CartRepository;
-import com.codecool.gift_rocket.repository.JPA.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,17 +21,17 @@ public class CartService {
     CartRepository cartRepository;
 
     CartProductRepository cartProductRepository;
-    ProductRepository productRepository;
+    ProductService productService;
 
     @Autowired
-    public CartService(CartRepository cartRepository, ProductRepository productRepository, CartProductRepository cartProductRepository) {
+    public CartService(CartRepository cartRepository, ProductService productService, CartProductRepository cartProductRepository) {
         this.cartRepository = cartRepository;
-        this.productRepository = productRepository;
+        this.productService = productService;
         this.cartProductRepository = cartProductRepository;
     }
 
     public List<Cart> getAllCarts() {
-        return (List<Cart>) cartRepository.findAll();
+        return cartRepository.findAll();
     }
 
     public void addNewCart(Cart newCart) {
@@ -41,148 +40,65 @@ public class CartService {
     }
 
     public Cart findCartById(Long id) {
-        Optional<Cart> foundCart = cartRepository.findById(id);
-        if(foundCart.isPresent()){
-            return foundCart.get();
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
-        }
+        return cartRepository
+                .findById(id)
+                .orElseThrow(() -> new NoSuchElementException("No cart found by given id"));
     }
 
-    public void removeCartById(Long id) {
-        Optional<Cart> foundCart = cartRepository.findById(id);
-        if(foundCart.isPresent()){
-            cartRepository.delete(foundCart.get());
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
-        }
+    public void removeCartById(Long cartId) {
+        cartRepository.delete(findCartById(cartId));
     }
 
     public BigDecimal getCartValue(Long cartId) {
-        Optional<Cart> foundCart = cartRepository.findById(cartId);
-        if(foundCart.isPresent()){
-            return foundCart.get().getTotalPrice();
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
-        }
+        return findCartById(cartId).getTotalPrice();
     }
 
     public List<Product> getAllProductsInCart(Long cartId) {
-        Optional<Cart> foundCart = cartRepository.findById(cartId);
-        if(foundCart.isPresent()){
-            List<Product> products = new ArrayList<>();
-            List<CartProduct> cartProducts = foundCart.get().getProducts();
-            for (CartProduct cartProduct : cartProducts
-                 ) {
-                products.add(cartProduct.getProduct());
-            }
-            return products;
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
-        }
+        Cart foundCart = findCartById(cartId);
+        List<Product> products = new ArrayList<>();
+        List<CartProduct> cartProducts = foundCart.getProducts();
+        cartProducts.forEach(cartProduct -> products.add(cartProduct.getProduct()));
+        return products;
     }
 
     public void changeProductInCart(Long productId, Long cartId, int quantity) {
-        Optional<Cart> foundCart = cartRepository.findById(cartId);
-        Optional<Product> foundProduct = productRepository.findById(productId);
-
-        if(foundCart.isPresent()){
-            if(foundProduct.isPresent()){
-                CartProductId foundCartProductId = new CartProductId(cartId, productId);
-                Optional<CartProduct> foundCartProduct = cartProductRepository.findById(foundCartProductId);
-                if(foundCartProduct.isPresent()){
-                        foundCartProduct.get().changeQuantity(quantity);
-                        foundCart.get().setTotalPrice(foundCart.get().getTotalPrice().
-                                add(foundProduct.get().getPrice().multiply(BigDecimal.valueOf(quantity))));
-                        cartRepository.save(foundCart.get());
-                        cartProductRepository.save(foundCartProduct.get());
-                    if (foundCartProduct.get().getQuantity() == 0){
-                        cartProductRepository.deleteById(foundCartProduct.get().getId());
-                    }
-                }
-                else{
-                    if(quantity >=0){
-                    CartProduct cartProduct = new CartProduct(foundCart.get(), foundProduct.get());
-                    cartProductRepository.save(cartProduct);
-                    foundCart.get().setTotalPrice(foundCart.get().getTotalPrice().
-                            add(foundProduct.get().getPrice().multiply(BigDecimal.valueOf(quantity))));
-                    cartRepository.save(foundCart.get());}
-                }
+        Cart foundCart = findCartById(cartId);
+        Product foundProduct = productService.findProductById(productId);
+        CartProductId foundCartProductId = new CartProductId(cartId, productId);
+        Optional<CartProduct> foundCartProduct = cartProductRepository.findById(foundCartProductId);
+        if (foundCartProduct.isPresent()) {
+            foundCartProduct.get().changeQuantity(quantity);
+            foundCart.setTotalPrice(foundCart.getTotalPrice().
+                    add(foundProduct.getPrice().multiply(BigDecimal.valueOf(quantity))));
+            cartRepository.save(foundCart);
+            cartProductRepository.save(foundCartProduct.get());
+            if (foundCartProduct.get().getQuantity() == 0) {
+                cartProductRepository.deleteById(foundCartProduct.get().getId());
             }
-            else {
-                throw new NoSuchElementException("No product box found by given id");
+        } else {
+            if (quantity >= 0) {
+                CartProduct cartProduct = new CartProduct(foundCart, foundProduct);
+                cartProductRepository.save(cartProduct);
+                foundCart.setTotalPrice(foundCart.getTotalPrice().
+                        add(foundProduct.getPrice().multiply(BigDecimal.valueOf(quantity))));
+                cartRepository.save(foundCart);
             }
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
         }
     }
 
     public void deleteProductFromCart(Long productId, Long cartId) {
-        Optional<Cart> foundCart = cartRepository.findById(cartId);
-        Optional<Product> foundProduct = productRepository.findById(productId);
-
-        if(foundCart.isPresent()){
-            if(foundProduct.isPresent()){
-                CartProductId foundCartProductId = new CartProductId(cartId, productId);
-                Optional<CartProduct> foundCartProduct = cartProductRepository.findById(foundCartProductId);
-                if(foundCartProduct.isPresent()){
-                        foundCart.get().setTotalPrice(foundCart.get().getTotalPrice().subtract(foundProduct.get()
-                                .getPrice().multiply(BigDecimal.valueOf(foundCartProduct.get().getQuantity()))));
-                    cartRepository.save(foundCart.get());
-                    cartProductRepository.delete(foundCartProduct.get());
-                }
-            }
-            else {
-                throw new NoSuchElementException("No product box found by given id");
-            }
-        }
-        else {
-            throw new NoSuchElementException("No cart found by given id");
+        Cart foundCart = findCartById(cartId);
+        Product foundProduct = productService.findProductById(productId);
+        CartProductId foundCartProductId = new CartProductId(cartId, productId);
+        Optional<CartProduct> foundCartProduct = cartProductRepository.findById(foundCartProductId);
+        if (foundCartProduct.isPresent()) {
+            foundCart.setTotalPrice(foundCart
+                            .getTotalPrice()
+                            .subtract(foundProduct
+                                    .getPrice()
+                                    .multiply(BigDecimal.valueOf(foundCartProduct.get().getQuantity()))));
+            cartRepository.save(foundCart);
+            cartProductRepository.delete(foundCartProduct.get());
         }
     }
-
-    /*public void deleteProductFromCartIfQtyZero(Long productId, Long cartId) {
-
-        Optional<Cart> foundCart = cartRepository.findById(cartId);
-        Optional<Product> foundProductBox = productRepository.findById(productId);
-
-        if (foundCart.isPresent()) {
-            if (foundProductBox.isPresent()) {
-                CartBoxId foundCartBoxId = new CartBoxId(cartId, productId);
-                Optional<CartBox> foundCartBox = cartBoxRepository.findById(foundCartBoxId);
-                if(foundCartBox.isPresent()){
-                    if (foundCartBox.get().getQuantity() == 0){
-                    cartBoxRepository.delete(foundCartBox.get());}
-                }
-
-
-            }
-            else { throw new NoSuchElementException("No product box found by given id");
-            }
-        } else { throw new NoSuchElementException("No cart found by given id");
-        }
-    }*/
-
-
-//    public void removeProductBoxFromCart(Long productBoxId, Long cartId) {
-//        Optional<Cart> foundCart = cartRepository.findById(cartId);
-//        Optional<ProductBox> foundProductBox = productBoxRepository.findById(productBoxId);
-//        if(foundCart.isPresent()){
-//            if(foundProductBox.isPresent()){
-//                foundCart.get().removeProductBox(foundProductBox.get());
-//                cartRepository.save(foundCart.get());
-//            }
-//            else {
-//                throw new NoSuchElementException("No product box found by given id");
-//            }
-//        }
-//        else {
-//            throw new NoSuchElementException("No cart found by given id");
-//        }
-//    }
 }
