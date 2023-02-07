@@ -9,14 +9,13 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
     public List<Product> getAllProducts() {
-        return (List<Product>) productRepository.findAll();
+        return productRepository.findAll();
     }
 
     public void addNewProduct(Product product) {
@@ -24,33 +23,19 @@ public class ProductService {
     }
 
     public Product findProductById(Long productId) {
-        Optional<Product> foundProduct = productRepository.findById(productId);
-        if(foundProduct.isPresent()){
-            return foundProduct.get();
-        }
-        else {
-            throw new NoSuchElementException("No product found by given id");
-        }
+        return productRepository
+                .findById(productId)
+                .orElseThrow(() -> new NoSuchElementException("No product found by given id"));
     }
 
     public void removeProductById(Long productId) {
-        Optional<Product> foundProduct = productRepository.findById(productId);
-        if(foundProduct.isPresent()){
-            productRepository.delete(foundProduct.get());
-        }
-        else {
-            throw new NoSuchElementException("No product found by given id");
-        }
+        Product foundProduct = findProductById(productId);
+        productRepository.delete(foundProduct);
     }
 
     public BigDecimal getProductValue(Long productId) {
-        Optional<Product> foundProduct = productRepository.findById(productId);
-        if(foundProduct.isPresent()){
-            return foundProduct.get().getPrice();
-        }
-        else {
-            throw new NoSuchElementException("No product found by given id");
-        }
+        Product foundProduct = findProductById(productId);
+        return foundProduct.getPrice();
     }
 
     public List<Product> getProductsByCategory(Category category) {
