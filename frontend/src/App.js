@@ -6,6 +6,7 @@ import ContactPage from "./pages/ContactPage";
 import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
 import { MDBFooter } from 'mdb-react-ui-kit';
 import BootstrapNavbar from "./components/Navbar/BootstrapNavbar";
 import Nav from "react-bootstrap/Nav";
@@ -23,6 +24,7 @@ function App() {
                         <Route path='/contact' element={<ContactPage/>}/>
                         <Route path='/product' element={<ProductsPage/>}/>
                         <Route path='/cart' element={<CartPage/>}/>
+                        <Route path="/login" element={<LoginPage/>}/>
                     </Routes>
                 </Router>
             </div>

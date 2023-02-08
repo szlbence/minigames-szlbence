@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import image from "./corporation-removebg-preview.png";
 import React from "react";
+import Button from "react-bootstrap/Button";
 
 function BootstrapNavbar() {
     return (
@@ -17,6 +18,7 @@ function BootstrapNavbar() {
                         <Nav.Link href="/product">Products</Nav.Link>
                         <Nav.Link href="/contact">Contact Us</Nav.Link>
                         <Nav.Link href="/cart">Cart</Nav.Link>
+                        <Nav.Link href="/login">Login</Nav.Link>
                         {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">*/}
                         {/*    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>*/}
                         {/*    <NavDropdown.Item href="#action/3.2">*/}
