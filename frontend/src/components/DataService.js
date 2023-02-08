@@ -7,6 +7,10 @@ class DataService{
     async postData(url){
         await axios.post(url);
     }
+
+    async postWithBody(url, data) {
+        await axios.post(url,data);
+    }
     async sendDelete(url){
         await axios.delete(url)
     }

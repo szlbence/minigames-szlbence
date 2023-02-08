@@ -39,21 +39,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/cart/**").permitAll()
                 .antMatchers("/user/**").permitAll()
-                .antMatchers("/contact").permitAll()
+                .antMatchers("/contact").hasRole("ADMIN")
                 .antMatchers("/product/**").permitAll()
                 .antMatchers("/logout").hasAnyRole("ADMIN", "USER")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                .loginProcessingUrl("/user/login")
                 .defaultSuccessUrl("/");
+
 
         http.addFilter(new AuthenticationFilter(authenticationManagerBean()))
                 .addFilterBefore(new TokenVerifierFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        http.formLogin().failureUrl("/error");
     }
 
     @Override

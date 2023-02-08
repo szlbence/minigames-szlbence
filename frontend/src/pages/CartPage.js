@@ -59,7 +59,7 @@ const CartPage = () => {
 
                 <h1 style={{textAlign: "center"}}>Total Price: {totalPrice}</h1>
                 <div className="grid">
-                    {items[0].products.map(cartProduct => //items[0] only until we have user login. until then only 1 cart is available.
+                    {items.products.map(cartProduct => //items[0] only until we have user login. until then only 1 cart is available.
                         <Card key={cartProduct.product.id} style={{width: '36rem'}}>
                             <Card.Header></Card.Header>
                             <Card.Body>

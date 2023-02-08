@@ -58,5 +58,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         cookie.setMaxAge(60 * 10 * 10);
         cookie.setSecure(true);
         response.addCookie(cookie);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.sendRedirect("/");
     }
 }
