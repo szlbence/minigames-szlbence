@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/cart").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/cart/{cartId}/add/{productId}").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/cart/**").permitAll()
+//                .antMatchers("/cart/**").permitAll()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/contact").hasRole("ADMIN")
                 .antMatchers("/product/**").permitAll()
@@ -46,8 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginProcessingUrl("/user/login")
-                .defaultSuccessUrl("/");
+                .loginProcessingUrl("/user/login");
+
 
 
         http.addFilter(new AuthenticationFilter(authenticationManagerBean()))

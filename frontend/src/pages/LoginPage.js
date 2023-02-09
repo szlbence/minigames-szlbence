@@ -1,21 +1,28 @@
 import React, {useState} from 'react';
+import {useNavigate} from "react-router-dom";
 import DataService from "../components/DataService";
-
-
 
 
 const LoginPage = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
+    const navigate = useNavigate();
     const user = {
-        "username" : username,
-        "password" : password
+        "username" : "Jani",
+        "password" : "password"
     }
 
+    async function clickSend(user) {
+        console.log(user)
+        try {
+            await DataService.postWithBody("/user/login", user);
+            // navigate("/");
 
-    async function clickSend() {
-        await DataService.postWithBody("/user/login", user);
+        }
+        catch(error){
+            console.log("Error: " + error)
+        }
+
 
     }
     return (
@@ -31,7 +38,7 @@ const LoginPage = () => {
                         <td><input type='password' value={password} onChange={(e) => setPassword(e.target.value)} /></td>
                     </tr>
                     <tr>
-                        <td><input name="submit" type="submit" value="submit" onClick={clickSend}/></td>
+                        <td><button name="submit" type="button" value="submit" onClick={() => clickSend(user)}>Send</button></td>
                     </tr>
                 </table>
             </form>

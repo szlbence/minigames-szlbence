@@ -1,6 +1,7 @@
 import axios from "axios";
 
 class DataService{
+
     async getData(url){
         return await axios.get(url)
     }
