@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.codecool.gift_rocket.model.AuthenticationDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 
 
 @AllArgsConstructor
-public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class UPAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
 

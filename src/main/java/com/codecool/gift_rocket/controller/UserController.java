@@ -23,7 +23,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public void loginUser() {
+    public String loginUser() {
+        return "Hello";
     }
 
 

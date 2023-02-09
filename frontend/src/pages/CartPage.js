@@ -16,7 +16,7 @@ const CartPage = () => {
 
 
     async function increaseProductQuantity(cartId, productId) {
-        await DataService.postData(`${CART_URL}/${cartId}/add/${productId}`)
+        await DataService.postData(`${CART_URL}/${cartId}/add/${productId}`);
         await getTotalPrice();
         await getCarts();
     }

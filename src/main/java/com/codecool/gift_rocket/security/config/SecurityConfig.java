@@ -1,11 +1,9 @@
 package com.codecool.gift_rocket.security.config;
 
-import com.codecool.gift_rocket.security.filter.AuthenticationFilter;
-import com.codecool.gift_rocket.security.filter.TokenVerifierFilter;
+import com.codecool.gift_rocket.security.filter.UPAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,17 +11,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
-@RequiredArgsConstructor
+@EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
 
-    private final BCryptPasswordEncoder passwordEncoder;
+    private UserDetailsService userDetailsService;
 
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    public SecurityConfig(UserDetailsService userDetailsService, BCryptPasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -34,24 +36,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/product/**").permitAll()
                 .antMatchers("/cart").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/cart/{cartId}/add/{productId}").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/admin").hasRole("ADMIN")
 //                .antMatchers("/cart/**").permitAll()
-                .antMatchers("/user/**").permitAll()
+//                .antMatchers("/user/**").permitAll()
                 .antMatchers("/contact").hasRole("ADMIN")
-                .antMatchers("/product/**").permitAll()
                 .antMatchers("/logout").hasAnyRole("ADMIN", "USER")
                 .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginProcessingUrl("/user/login");
+                .authenticated();
 
 
-
-        http.addFilter(new AuthenticationFilter(authenticationManagerBean()))
-                .addFilterBefore(new TokenVerifierFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilter(new UPAuthenticationFilter(authenticationManager()));
+//                .addFilterBefore(new TokenVerifierFilter(), AuthenticationFilter.class);
 
     }
 
@@ -60,9 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Bean
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 }
