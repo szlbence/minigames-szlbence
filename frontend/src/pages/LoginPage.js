@@ -6,23 +6,27 @@ import DataService from "../components/DataService";
 const LoginPage = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [authenticationFailed, setAuthenticationFailed] = useState(false);
     const navigate = useNavigate();
     const user = {
-        "username" : "Jani",
-        "password" : "password"
+        username : username,
+        password : password
     }
 
     async function clickSend(user) {
-        console.log(user)
         try {
             await DataService.postWithBody("/user/login", user);
-            // navigate("/");
+            navigate("/");
 
         }
         catch(error){
-            console.log("Error: " + error)
+            if(error.response.status === 403){
+                setAuthenticationFailed(true);
+            }
+            else{
+                console.log("Error: " + error)
+            }
         }
-
 
     }
     return (
@@ -42,6 +46,11 @@ const LoginPage = () => {
                     </tr>
                 </table>
             </form>
+            {authenticationFailed &&
+                <p>
+                    Authentication failed!
+                </p>
+            }
         </div>
     );
 };
