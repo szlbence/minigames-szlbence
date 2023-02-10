@@ -1,9 +1,12 @@
 package com.codecool.gift_rocket.security.config;
 
+import com.codecool.gift_rocket.security.filter.TokenVerifierFilter;
 import com.codecool.gift_rocket.security.filter.UPAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,26 +33,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .csrf()
-                .disable()
+                .authorizeRequests()
+                .antMatchers("/product/**").permitAll()
+                //use hasAnyAuthority instead of hasAnyRole
+                .antMatchers(HttpMethod.GET, "/cart").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/cart/{cartId}/add/{productId}").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/admin").hasRole("ADMIN")
+//                .antMatchers("/contact/**").hasRole("ADMIN")
+                .antMatchers("/logout").hasAnyAuthority("ADMIN", "USER")
+                .anyRequest()
+                .authenticated()
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
-                .antMatchers("/product/**").permitAll()
-                .antMatchers("/cart").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/cart/{cartId}/add/{productId}").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/admin").hasRole("ADMIN")
-//                .antMatchers("/cart/**").permitAll()
-//                .antMatchers("/user/**").permitAll()
-                .antMatchers("/contact").hasRole("ADMIN")
-                .antMatchers("/logout").hasAnyRole("ADMIN", "USER")
-                .anyRequest()
-                .authenticated();
+                .csrf()
+                .disable()
+                .cors();
 
-
-        http.addFilter(new UPAuthenticationFilter(authenticationManager()));
-//                .addFilterBefore(new TokenVerifierFilter(), AuthenticationFilter.class);
+        http.addFilter(new UPAuthenticationFilter(authenticationManager()))
+                .addFilterAfter(new TokenVerifierFilter(), UPAuthenticationFilter.class);
 
     }
 
@@ -58,9 +61,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
-//    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 }
