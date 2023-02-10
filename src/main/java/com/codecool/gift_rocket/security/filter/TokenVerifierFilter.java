@@ -33,7 +33,6 @@ public class TokenVerifierFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
         String token = "";
         Cookie[] cookies = request.getCookies();
-        System.out.println(cookies);
         if (cookies != null) {
             for (Cookie ck : cookies) {
                 if ("token".equals(ck.getName())) {
