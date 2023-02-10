@@ -14,8 +14,8 @@ import java.util.List;
 @RequestMapping("/cart")
 public class CartController {
 
-    private final int REMOVEPRODUCTFROMCART = -1;
-    private final int ADDPRODUCTTOCART = 1;
+    private final int REMOVE_PRODUCT_FROM_CART = -1;
+    private final int ADD_PRODUCT_TO_CART = 1;
     @Autowired
     public CartService cartService;
 
@@ -50,12 +50,12 @@ public class CartController {
 
     @PostMapping("/{cartId}/add/{productId}")
     public void addProductToCart(@PathVariable Long cartId, @PathVariable Long productId) {
-        cartService.changeProductInCart(productId, cartId, ADDPRODUCTTOCART);
+        cartService.changeProductInCart(productId, cartId, ADD_PRODUCT_TO_CART);
     }
 
     @PutMapping("/{cartId}/remove/{productId}")
     public void removeProductFromCart(@PathVariable Long cartId, @PathVariable Long productId) {
-        cartService.changeProductInCart(productId,cartId, REMOVEPRODUCTFROMCART);
+        cartService.changeProductInCart(productId,cartId, REMOVE_PRODUCT_FROM_CART);
     }
 
     @DeleteMapping("/{cartId}/remove/{productId}")
