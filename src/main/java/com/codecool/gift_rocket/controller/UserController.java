@@ -1,11 +1,8 @@
 package com.codecool.gift_rocket.controller;
 
-import com.codecool.gift_rocket.model.AuthenticationDTO;
 import com.codecool.gift_rocket.model.UserEntity;
 import com.codecool.gift_rocket.service.UserEntityService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,8 +20,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser() {
-        return "Hello";
+    public void loginUser() {
     }
 
 
