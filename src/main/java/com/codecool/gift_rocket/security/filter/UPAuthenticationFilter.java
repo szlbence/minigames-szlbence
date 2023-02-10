@@ -59,18 +59,6 @@ public class UPAuthenticationFilter extends UsernamePasswordAuthenticationFilter
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-        var message = new StringBuilder()
-                .append("Inside UPAuthenticationFilter: ")
-                .append("\n")
-                .append(String.format("Request: %s\n", request.toString()))
-                .append(String.format("Response: %s\n", response.toString()))
-                .toString();
-        super.doFilter(request, response, chain);
-    }
-
-    @Override
     public void successfulAuthentication(HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain,
