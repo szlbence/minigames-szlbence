@@ -31,21 +31,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .csrf()
-                .disable()
+                  .disable()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                  .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                  .and()
                 .authorizeRequests()
-                .antMatchers("/product/**").permitAll()
-                .antMatchers("/cart").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/cart/{cartId}/add/{productId}").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/admin").hasRole("ADMIN")
+                  .antMatchers("/product/**").permitAll()
+                  .antMatchers("/cart").hasAnyRole("ADMIN", "USER")
+                  .antMatchers("/cart/{cartId}/add/{productId}").hasAnyRole("ADMIN", "USER")
+                  .antMatchers("/admin").hasRole("ADMIN")
 //                .antMatchers("/cart/**").permitAll()
 //                .antMatchers("/user/**").permitAll()
-                .antMatchers("/contact").hasRole("ADMIN")
-                .antMatchers("/logout").hasAnyRole("ADMIN", "USER")
-                .anyRequest()
-                .authenticated();
+                  .antMatchers("/contact").hasRole("ADMIN")
+                  .antMatchers("/logout").hasAnyRole("ADMIN", "USER")
+                  .anyRequest()
+                  .authenticated();
 
 
         http.addFilter(new UPAuthenticationFilter(authenticationManager()));

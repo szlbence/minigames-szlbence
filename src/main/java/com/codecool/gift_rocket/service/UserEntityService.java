@@ -6,6 +6,9 @@ import com.codecool.gift_rocket.model.UserEntity;
 import com.codecool.gift_rocket.repository.JPA.CartRepository;
 import com.codecool.gift_rocket.repository.JPA.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -20,12 +23,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
-@RequiredArgsConstructor
 public class UserEntityService implements UserDetailsService {
     private final UserEntityRepository userEntityRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Autowired
+    public UserEntityService(UserEntityRepository userEntityRepository, BCryptPasswordEncoder passwordEncoder) {
+        this.userEntityRepository = userEntityRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
