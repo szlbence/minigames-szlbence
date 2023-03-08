@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class GiftRocketApplication {
-
+	// This is the last working version of the project
 	public static void main(String[] args) {
 		SpringApplication.run(GiftRocketApplication.class, args);
 	}
