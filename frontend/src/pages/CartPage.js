@@ -16,32 +16,57 @@ const CartPage = () => {
 
 
     async function increaseProductQuantity(cartId, productId) {
-        await DataService.postData(`${CART_URL}/${cartId}/add/${productId}`)
-        await getTotalPrice();
-        await getCarts();
+        try{
+            await DataService.postData(`${CART_URL}/${cartId}/add/${productId}`);
+            await getTotalPrice();
+            await getCarts();
+        }
+        catch (error){
+            console.log("Cannot increase product quantity: " + error);
+        }
     }
 
     async function decreaseProductQuantity(cartId, productId) {
-        await DataService.sendPut(`${CART_URL}/${cartId}/remove/${productId}`);
-        await getTotalPrice();
-        await getCarts();
+        try{
+            await DataService.sendPut(`${CART_URL}/${cartId}/remove/${productId}`);
+            await getTotalPrice();
+            await getCarts();
+        }
+        catch (error){
+            console.log("Cannot decrease product quantity: " + error);
+        }
     }
 
     async function deleteProduct(cartId, productId) {
-        await DataService.sendDelete(`${CART_URL}/${cartId}/remove/${productId}`);
-        await getTotalPrice();
-        await getCarts();
+        try{
+            await DataService.sendDelete(`${CART_URL}/${cartId}/remove/${productId}`);
+            await getTotalPrice();
+            await getCarts();
+        }
+        catch (error){
+            console.log("Cannot delete product: " + error);
+        }
     }
 
     async function getCarts() {
-        const carts = await DataService.getData(CART_URL);
-        setIsLoaded(true);
-        setItems(carts.data);
+        try{
+            const carts = await DataService.getData(CART_URL);
+            setIsLoaded(true);
+            setItems(carts.data);
+        }
+        catch (error){
+            console.log("Error loading carts: " + error);
+        }
     }
 
     async function getTotalPrice() {
-        const carts = await DataService.getData(`${CART_TOTAL_PRICE_URL}/1`);
-        setTotalPrice(carts.data);
+        try{
+            const totalPrice = await DataService.getData(`${CART_TOTAL_PRICE_URL}/1`);
+            setTotalPrice(totalPrice.data);
+        }
+        catch(error){
+            console.log("Error loading total price: " + error);
+        }
     }
 
 

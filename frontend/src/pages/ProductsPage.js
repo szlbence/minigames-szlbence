@@ -16,18 +16,31 @@ const ProductsPage = () => {
     const CART_URL = "/cart";
 
     async function AddToCart(cartId, productId) {
-        await DataService.postData(`${CART_URL}/${cartId}/add/${productId}`)
+        try {
+            await DataService.postData(`${CART_URL}/${cartId}/add/${productId}`);
+        }
+        catch (error) {
+            console.log("Cannot add to cart: " + error);
+        }
     }
 
     async function getCarts() {
-        const carts = await DataService.getData(CART_URL);
-        setCarts(carts.data);
+        try {
+            const carts = await DataService.getData(CART_URL);
+            setCarts(carts.data);
+        } catch (error) {
+            console.log("Error loading carts: " + error);
+        }
     }
 
     async function getProducts() {
-        const products = await DataService.getData(PRODUCT_URL);
-        setIsLoaded(true);
-        setItems(products.data);
+        try {
+            const products = await DataService.getData(PRODUCT_URL);
+            setIsLoaded(true);
+            setItems(products.data);
+        } catch (error) {
+            console.log("Error loading products: " + error);
+        }
     }
 
     useEffect(() => {
@@ -48,7 +61,8 @@ const ProductsPage = () => {
                                 <Card.Header></Card.Header>
                                 <Card.Body>
                                     <Card.Title>{item.name}</Card.Title>
-                                    <img className="homeImg" src={`${item.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
+                                    <img className="homeImg" src={`${item.name.replace(" ", "_")}.jpeg`}
+                                         style={{objectFit: "cover", width: 2000}}/>
                                     <p className="price">Total price: {item.price}</p>
                                     <p className="description">Description: {item.description}</p>
                                     <Button type="submit" bsPrefix="product-button" onClick={() => {

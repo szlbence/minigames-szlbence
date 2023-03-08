@@ -1,6 +1,8 @@
 package com.codecool.gift_rocket.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,8 +35,6 @@ public class Cart {
     )
     private List<CartProduct> products;
 
-    @OneToOne
-    private UserEntity user;
 
     public Cart(String name) {
         this.products = new ArrayList<>();
