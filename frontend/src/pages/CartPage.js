@@ -69,7 +69,6 @@ const CartPage = () => {
         }
     }
 
-
     useEffect(() => {
         getCarts();
         getTotalPrice();
