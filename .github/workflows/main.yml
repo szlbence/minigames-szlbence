@@ -46,7 +46,7 @@ jobs:
 
       # install application dependencies
       - name: Install dependencies
-        uses: ./frontend
+        #uses: ./frontend
         run: |
           npm install
           npm ci
