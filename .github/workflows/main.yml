@@ -53,5 +53,6 @@ jobs:
       # build and test the apps
       - name: build & test
         run: |
+          cd frontend
           npm run lint
       #TODO: check if github actions works, delete this line afterwards.
