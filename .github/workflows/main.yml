@@ -3,10 +3,10 @@ name: CI-CD
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ 64-github-actions ]
+  #push:
+  #  branches: [ 64-github-actions ]
   pull_request:
-    branches: [ 64-github-actions ]
+    branches: [ development ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -54,4 +54,3 @@ jobs:
         run: |
           npm run lint
 
-      #TODO: check for test, this line should be deleted
