@@ -54,4 +54,4 @@ jobs:
       - name: build & test
         run: |
           npm run lint
-
+      #TODO: check if github actions works, delete this line afterwards.
