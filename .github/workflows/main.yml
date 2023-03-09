@@ -53,3 +53,5 @@ jobs:
       - name: build & test
         run: |
           npm run lint
+
+      #TODO: check for test, this line should be deleted
