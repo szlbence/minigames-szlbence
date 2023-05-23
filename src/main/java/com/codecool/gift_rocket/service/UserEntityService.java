@@ -16,8 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NameAlreadyBoundException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -53,5 +55,15 @@ public class UserEntityService implements UserDetailsService {
 
         }
 
+    }
+
+
+    public UserEntity findUserByName(String userName) {
+        return userEntityRepository
+                .findByUsername(userName)
+                .orElseThrow(() -> new NoSuchElementException("No user found by given name"));
+    }
+    public int getUsersCoin(String userName) {
+        return findUserByName(userName).getCoin();
     }
 }

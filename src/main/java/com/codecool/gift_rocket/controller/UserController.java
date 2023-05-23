@@ -5,6 +5,8 @@ import com.codecool.gift_rocket.service.UserEntityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -21,6 +23,11 @@ public class UserController {
 
     @PostMapping("/login")
     public void loginUser() {
+    }
+
+    @GetMapping("/{userName}/coin")
+    public int getCartValue(@PathVariable String userName) {
+        return userEntityService.getUsersCoin(userName);
     }
 
 

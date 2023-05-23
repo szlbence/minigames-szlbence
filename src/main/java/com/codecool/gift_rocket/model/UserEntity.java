@@ -18,6 +18,8 @@ public class UserEntity {
 
     private String password;
 
+    private int coin;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

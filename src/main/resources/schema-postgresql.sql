@@ -1,6 +1,6 @@
 INSERT INTO carts(name, total_price) VALUES ('cart', 0.00);
-INSERT INTO userentity(username, password, role, cart_id) VALUES ('Jani', '$2a$10$oJ.GBBo9zBsSkoi00atoSO8.j1ICheLGVOKGTaeJZId7kRrfGQZoG', 'ADMIN', 1);
-INSERT INTO userentity(username, password, role, cart_id) VALUES ('Bence', '$2a$10$oJ.GBBo9zBsSkoi00atoSO8.j1ICheLGVOKGTaeJZId7kRrfGQZoG', 'USER', 1);
+INSERT INTO userentity(username, password, role, cart_id, coin) VALUES ('Jani', '$2a$10$oJ.GBBo9zBsSkoi00atoSO8.j1ICheLGVOKGTaeJZId7kRrfGQZoG', 'ADMIN', 1, 10000);
+INSERT INTO userentity(username, password, role, cart_id, coin) VALUES ('Bence', '$2a$10$oJ.GBBo9zBsSkoi00atoSO8.j1ICheLGVOKGTaeJZId7kRrfGQZoG', 'USER', 1, 15000);
 INSERT INTO products(price, name, description, category) VALUES (2000, 'Chocolate Box', 'A tasty selection of the finest chocolates.', 'SWEET');
 INSERT INTO products(price, name, description, category) VALUES (3200, 'Wine', 'For the evenings. Or mornings, the choice is yours.', 'ALCOHOL');
 INSERT INTO products(price, name, description, category) VALUES (4000, 'Horse Mask', 'A great mask for creating TikTok videos.', 'KID');
