@@ -32,7 +32,7 @@ function App() {
             </div>
             <footer  className='text-center p-4'>
                     &copy; {new Date().getFullYear()} Copyright:{' '}
-                    GiftRocket Team
+                    Minigames
             </footer>
         </>
     );

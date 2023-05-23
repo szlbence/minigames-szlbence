@@ -1,6 +1,6 @@
 import React from 'react';
 import "../App.css";
-import image from "../pexels-andrea-piacquadio-1050256.jpg"
+import image from "../minigames-logo"
 import Card from 'react-bootstrap/Card';
 import Nav from "react-bootstrap/Nav";
 
@@ -11,10 +11,9 @@ const Home = () => {
                 <img className="homeImg" src={image} style={{objectFit: "cover", width: 2000}}/>
             </div>
             <div className="page">
-                <h1 align="center" style={{fontSize: 50}}>Welcome to GiftRocket</h1>
+                <h1 align="center" style={{fontSize: 50}}></h1>
                 <br/>
-                <p style={{fontSize: 35}}>Our company is established to make sure that every person can
-                    choose their desired gifts which can be given to their person of choice</p>
+                <p style={{fontSize: 35, textAlign:"center"}}>Play your favorite Games, collect Coins and become THE KING OF MINIGAMES!</p>
                 <div className="homeGrid">
                     <Card className="homeCard" style={{ width: '36rem' }}>
                         <Card.Header></Card.Header>

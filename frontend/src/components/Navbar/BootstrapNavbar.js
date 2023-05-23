@@ -31,15 +31,14 @@ function BootstrapNavbar() {
             <Navbar className="navbarColor">
                 <Container fluid>
                     <img src={image} style={{width:100, height:100}}/>
-                    <Navbar.Brand>Gift Rocket</Navbar.Brand>
+                    <Navbar.Brand>Minigames</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="/product">Products</Nav.Link>
                             <Nav.Link href="/contact">Contact Us</Nav.Link>
-                            <Nav.Link href="/cart">Cart</Nav.Link>
-                            <Nav.Link href="/login">Login</Nav.Link>
+                            <Nav.Link href="/product">Shop</Nav.Link>
+                            <Nav.Link href="/cart">Upgrades</Nav.Link>
                             <Nav.Link href="/logout">Log Out</Nav.Link>
 
                             <h2 className="welcomeUser"> Welcome back to Minigames, {user}!</h2>
@@ -65,14 +64,14 @@ function BootstrapNavbar() {
             <Navbar className="navbarColor">
                 <Container fluid>
                     <img src={image} style={{width:100, height:100}}/>
-                    <Navbar.Brand>Gift Rocket</Navbar.Brand>
+                    <Navbar.Brand>Minigames</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="/product">Products</Nav.Link>
                             <Nav.Link href="/contact">Contact Us</Nav.Link>
-                            <Nav.Link href="/cart">Cart</Nav.Link>
+                            <Nav.Link href="/product">Shop</Nav.Link>
+                            <Nav.Link href="/cart">Upgrades</Nav.Link>
                             <Nav.Link href="/login">Login</Nav.Link>
                             {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">*/}
                             {/*    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>*/}
