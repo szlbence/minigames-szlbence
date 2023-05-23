@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/research")
 public class ProductController {
     @Autowired
     public ProductService productService;

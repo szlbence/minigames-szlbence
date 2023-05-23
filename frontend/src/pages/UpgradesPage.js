@@ -6,23 +6,23 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import DataService from "../components/DataService"
 import Button from 'react-bootstrap/Button'
 
-const CartPage = () => {
+const UpgradesPage = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState([]);
     const [totalCoin, setTotalCoin] = useState([]);
-    const CART_URL = "/cart";
-    const CART_TOTAL_PRICE_URL = "/cart/value";
+    const UPGRADES_URL = "/upgrades";
+    const UPGRADES_TOTAL_PRICE_URL = "/upgrades/value";
     const USER_URL = "/user";
 
-    async function increaseProductQuantity(cartId, productId, productPrice) {
+    async function increaseProductQuantity(upgradesId, productId, productPrice) {
 
         if (totalPrice + productPrice <= totalCoin ) {
             try {
-                await DataService.postData(`${CART_URL}/${cartId}/add/${productId}`);
+                await DataService.postData(`${UPGRADES_URL}/${upgradesId}/add/${productId}`);
                 await getTotalPrice();
-                await getCarts();
+                await getUpgrades();
             } catch (error) {
                 console.log("Cannot increase product quantity: " + error);
             }
@@ -33,42 +33,42 @@ const CartPage = () => {
         }
     }
 
-    async function decreaseProductQuantity(cartId, productId) {
+    async function decreaseProductQuantity(upgradesId, productId) {
         try{
-            await DataService.sendPut(`${CART_URL}/${cartId}/remove/${productId}`);
+            await DataService.sendPut(`${UPGRADES_URL}/${upgradesId}/remove/${productId}`);
             await getTotalPrice();
-            await getCarts();
+            await getUpgrades();
         }
         catch (error){
             console.log("Cannot decrease product quantity: " + error);
         }
     }
 
-    async function deleteProduct(cartId, productId) {
+    async function deleteProduct(upgradesId, productId) {
         try{
-            await DataService.sendDelete(`${CART_URL}/${cartId}/remove/${productId}`);
+            await DataService.sendDelete(`${UPGRADES_URL}/${upgradesId}/remove/${productId}`);
             await getTotalPrice();
-            await getCarts();
+            await getUpgrades();
         }
         catch (error){
             console.log("Cannot delete product: " + error);
         }
     }
 
-    async function getCarts() {
+    async function getUpgrades() {
         try{
-            const carts = await DataService.getData(CART_URL);
+            const upgrades = await DataService.getData(UPGRADES_URL);
             setIsLoaded(true);
-            setItems(carts.data);
+            setItems(upgrades.data);
         }
         catch (error){
-            console.log("Error loading carts: " + error);
+            console.log("Error loading upgrades: " + error);
         }
     }
 
     async function getTotalPrice() {
         try{
-            const totalPrice = await DataService.getData(`${CART_TOTAL_PRICE_URL}/1`);
+            const totalPrice = await DataService.getData(`${UPGRADES_TOTAL_PRICE_URL}/1`);
             setTotalPrice(totalPrice.data);
         }
         catch(error){
@@ -108,7 +108,7 @@ const CartPage = () => {
 
 
     useEffect(() => {
-        getCarts();
+        getUpgrades();
         getTotalPrice();
         getTotalCoin();
     }, [])
@@ -122,18 +122,18 @@ const CartPage = () => {
 
                 <h1 style={{textAlign: "center"}}>Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>
                 <div className="grid">
-                    {items[0].products.map(cartProduct => //items[0] only until we have user login. until then only 1 cart is available.
-                        <Card key={cartProduct.product.id} style={{width: '36rem'}}>
+                    {items[0].products.map(upgradesProduct => //items[0] only until we have user login. until then only 1 upgrades is available.
+                        <Card key={upgradesProduct.product.id} style={{width: '36rem'}}>
                             <Card.Header></Card.Header>
                             <Card.Body>
-                                <Card.Title>{cartProduct.product.name}</Card.Title>
-                                <img className="homeImg" src={`${cartProduct.product.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
+                                <Card.Title>{upgradesProduct.product.name}</Card.Title>
+                                <img className="homeImg" src={`${upgradesProduct.product.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
                                 <div className="grid">
-                                    <p>Total quantity of products : {cartProduct.quantity} </p>
-                                    <p>Price of product: {cartProduct.product.price}</p>
-                                    <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, cartProduct.product.id, cartProduct.product.price)}>+</Button>
-                                    <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, cartProduct.product.id)}>-</Button>
-                                    <Button type="button" bsPrefix="custom-button" size="sm" onClick={async() =>await deleteProduct(items[0].id, cartProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>
+                                    <p>Total quantity of products : {upgradesProduct.quantity} </p>
+                                    <p>Price of product: {upgradesProduct.product.price}</p>
+                                    <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.price)}>+</Button>
+                                    <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, upgradesProduct.product.id)}>-</Button>
+                                    <Button type="button" bsPrefix="custom-button" size="sm" onClick={async() =>await deleteProduct(items[0].id, upgradesProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>
                                 </div>
                             </Card.Body>
                         </Card>
@@ -150,4 +150,4 @@ const CartPage = () => {
     }
 };
 
-export default CartPage;
+export default UpgradesPage;

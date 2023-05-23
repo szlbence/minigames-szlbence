@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/upgrades")
 public class CartController {
 
     private final int REMOVE_PRODUCT_FROM_CART = -1;

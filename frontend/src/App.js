@@ -3,8 +3,8 @@ import './App.css';
 import {BrowserRouter as Router, Routes, Route}
     from 'react-router-dom';
 import ContactPage from "./pages/ContactPage";
-import ProductsPage from "./pages/ProductsPage";
-import CartPage from "./pages/CartPage";
+import ResearchPage from "./pages/ResearchPage";
+import UpgradesPage from "./pages/UpgradesPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
@@ -23,8 +23,8 @@ function App() {
                     <Routes>
                         <Route exact path='/' exact element={<HomePage/>}/>
                         <Route path='/contact' element={<ContactPage/>}/>
-                        <Route path='/product' element={<ProductsPage/>}/>
-                        <Route path='/cart' element={<CartPage/>}/>
+                        <Route path='/research' element={<ResearchPage/>}/>
+                        <Route path='/upgrades' element={<UpgradesPage/>}/>
                         <Route path="/login" element={<LoginPage/>}/>
                         <Route path="/logout" element={<LogoutPage/>}/>
                     </Routes>
