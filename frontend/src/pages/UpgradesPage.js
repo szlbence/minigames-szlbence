@@ -103,50 +103,54 @@ const UpgradesPage = () => {
 
     let cookie = document.cookie;
     let cookieValue = cookie.slice(6);
-    let user = (parseJwt(cookieValue)).sub;
-    console.log(user);
+    let user = null;
+    if (cookie){
+        user = (parseJwt(cookieValue)).sub;}
 
 
     useEffect(() => {
+        if (cookie){
         getUpgrades();
         getTotalPrice();
         getTotalCoin();
-    }, [])
+    }}, [])
+    if (cookie) {
+        if (!isLoaded) {
+            return <div>Loading...</div>;
+        } else {
+            return (
 
-    if (!isLoaded) {
-        return <div>Loading...</div>;
-    } else {
-        return (
+                <div className="container">
 
-            <div className="container">
+                    <h1 style={{textAlign: "center"}}>Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>
+                    <div className="grid">
+                        {items[0].products.map(upgradesProduct => //items[0] only until we have user login. until then only 1 upgrades is available.
+                            <Card key={upgradesProduct.product.id} style={{width: '36rem'}}>
+                                <Card.Header></Card.Header>
+                                <Card.Body>
+                                    <Card.Title>{upgradesProduct.product.name}</Card.Title>
+                                    <img className="homeImg" src={`${upgradesProduct.product.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
+                                    <div className="grid">
+                                        <p>Total quantity of products : {upgradesProduct.quantity} </p>
+                                        <p>Price of product: {upgradesProduct.product.price}</p>
+                                        <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.price)}>+</Button>
+                                        <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, upgradesProduct.product.id)}>-</Button>
+                                        <Button type="button" bsPrefix="custom-button" size="sm" onClick={async() =>await deleteProduct(items[0].id, upgradesProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        )}
+                    </div>
 
-                <h1 style={{textAlign: "center"}}>Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>
-                <div className="grid">
-                    {items[0].products.map(upgradesProduct => //items[0] only until we have user login. until then only 1 upgrades is available.
-                        <Card key={upgradesProduct.product.id} style={{width: '36rem'}}>
-                            <Card.Header></Card.Header>
-                            <Card.Body>
-                                <Card.Title>{upgradesProduct.product.name}</Card.Title>
-                                <img className="homeImg" src={`${upgradesProduct.product.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
-                                <div className="grid">
-                                    <p>Total quantity of products : {upgradesProduct.quantity} </p>
-                                    <p>Price of product: {upgradesProduct.product.price}</p>
-                                    <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.price)}>+</Button>
-                                    <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, upgradesProduct.product.id)}>-</Button>
-                                    <Button type="button" bsPrefix="custom-button" size="sm" onClick={async() =>await deleteProduct(items[0].id, upgradesProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    )}
+                    <br></br>
+                    <br></br>
+                    <br></br>
                 </div>
-                <div className="checkoutButton">
-                    <Button type="button" bsPrefix="custom-button" style={{text: "center"}}>Checkout</Button>
-                </div>
-                <br></br>
-                <br></br>
-                <br></br>
-            </div>
-        );
+            );
+        }
+    }
+    else{
+        location.replace("/login");
     }
 };
 
