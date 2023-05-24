@@ -20,7 +20,7 @@ const UpgradesPage = () => {
 
         if (totalPrice + productPrice <= totalCoin ) {
             try {
-                await DataService.postData(`${UPGRADES_URL}/${upgradesId}/add/${productId}`);
+                await DataService.sendPut(`${UPGRADES_URL}/${upgradesId}/add/${productId}`);
                 await getTotalPrice();
                 await getUpgrades();
             } catch (error) {
@@ -132,8 +132,8 @@ const UpgradesPage = () => {
                                     <img className="homeImg" src={`${upgradesProduct.product.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
                                     <div className="grid">
                                         <p>Total quantity of products : {upgradesProduct.quantity} </p>
-                                        <p>Price of product: {upgradesProduct.product.price}</p>
-                                        <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.price)}>+</Button>
+                                        <p>Price of product: {upgradesProduct.product.upgradePrice}</p>
+                                        <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.upgradePrice)}>+</Button>
                                         <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, upgradesProduct.product.id)}>-</Button>
                                         <Button type="button" bsPrefix="custom-button" size="sm" onClick={async() =>await deleteProduct(items[0].id, upgradesProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>
                                     </div>
