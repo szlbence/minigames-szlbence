@@ -12,6 +12,7 @@ const UpgradesPage = () => {
     const [items, setItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState([]);
     const [totalCoin, setTotalCoin] = useState([]);
+    const [totalCpC, setTotalCpC] = useState([]);
     const UPGRADES_URL = "/upgrades";
     const UPGRADES_TOTAL_PRICE_URL = "/upgrades/value";
     const USER_URL = "/user";
@@ -86,6 +87,16 @@ const UpgradesPage = () => {
         }
     }
 
+    async function getTotalCpC() {
+        try{
+            const totalCpC = await DataService.getData(`${USER_URL}/${user}/cpc`);
+            setTotalCpC(totalCpC.data);
+        }
+        catch(error){
+            console.log("Error loading total price: " + error);
+        }
+    }
+
 
     function parseJwt(token) {
         if (!token) { return; }
@@ -113,6 +124,7 @@ const UpgradesPage = () => {
         getUpgrades();
         getTotalPrice();
         getTotalCoin();
+        getTotalCpC();
     }}, [])
     if (cookie) {
         if (!isLoaded) {
@@ -122,7 +134,7 @@ const UpgradesPage = () => {
 
                 <div className="container">
 
-                    <h1 style={{textAlign: "center"}}>Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>
+                    <h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC},Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>
                     <div className="grid">
                         {items[0].products.map(upgradesProduct => //items[0] only until we have user login. until then only 1 upgrades is available.
                             <Card key={upgradesProduct.product.id} style={{width: '36rem'}}>

@@ -26,11 +26,14 @@ public class UserController {
     }
 
     @GetMapping("/{userName}/coin")
-    public int getCartValue(@PathVariable String userName) {
+    public int getTotalCoin(@PathVariable String userName) {
         return userEntityService.getUsersCoin(userName);
     }
 
-
+    @GetMapping("/{userName}/cpc")
+    public BigDecimal getUserCpC(@PathVariable String userName) {
+        return userEntityService.getUsersCpC(userName);
+    }
 
 }
 

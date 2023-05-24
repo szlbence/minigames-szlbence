@@ -66,4 +66,8 @@ public class UserEntityService implements UserDetailsService {
     public int getUsersCoin(String userName) {
         return findUserByName(userName).getCoin();
     }
+
+    public BigDecimal getUsersCpC(String userName) {
+        return findUserByName(userName).getCpc();
+    }
 }
