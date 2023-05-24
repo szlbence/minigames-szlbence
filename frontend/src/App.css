@@ -149,3 +149,17 @@ footer {
 .welcomeUser{
   margin-left: 300px;
 }
+
+.gold-ore-button {
+  background-color: #e6c200;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.gold-ore-button:hover {
+  background-color: #ffd700;
+}

@@ -17,13 +17,15 @@ const UpgradesPage = () => {
     const UPGRADES_TOTAL_PRICE_URL = "/upgrades/value";
     const USER_URL = "/user";
 
-    async function increaseProductQuantity(upgradesId, productId, productPrice) {
+    async function increaseProductQuantity(upgradesId, productId, productPrice, user) {
 
         if (totalPrice + productPrice <= totalCoin ) {
             try {
                 await DataService.sendPut(`${UPGRADES_URL}/${upgradesId}/add/${productId}`);
+                await  DataService.sendPut(`${USER_URL}/${user}/add/${productId}`);
                 await getTotalPrice();
                 await getUpgrades();
+                await getTotalCpC();
             } catch (error) {
                 console.log("Cannot increase product quantity: " + error);
             }
@@ -37,8 +39,10 @@ const UpgradesPage = () => {
     async function decreaseProductQuantity(upgradesId, productId) {
         try{
             await DataService.sendPut(`${UPGRADES_URL}/${upgradesId}/remove/${productId}`);
+            await  DataService.sendPut(`${USER_URL}/${user}/remove/${productId}`);
             await getTotalPrice();
             await getUpgrades();
+            await getTotalCpC();
         }
         catch (error){
             console.log("Cannot decrease product quantity: " + error);
@@ -48,8 +52,10 @@ const UpgradesPage = () => {
     async function deleteProduct(upgradesId, productId) {
         try{
             await DataService.sendDelete(`${UPGRADES_URL}/${upgradesId}/remove/${productId}`);
+            await  DataService.sendDelete(`${USER_URL}/${user}/remove/${productId}`);
             await getTotalPrice();
             await getUpgrades();
+            await getTotalCpC();
         }
         catch (error){
             console.log("Cannot delete product: " + error);
@@ -145,7 +151,7 @@ const UpgradesPage = () => {
                                     <div className="grid">
                                         <p>Total quantity of products : {upgradesProduct.quantity} </p>
                                         <p>Price of product: {upgradesProduct.product.upgradePrice}</p>
-                                        <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.upgradePrice)}>+</Button>
+                                        <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.upgradePrice, user)}>+</Button>
                                         <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, upgradesProduct.product.id)}>-</Button>
                                         <Button type="button" bsPrefix="custom-button" size="sm" onClick={async() =>await deleteProduct(items[0].id, upgradesProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>
                                     </div>

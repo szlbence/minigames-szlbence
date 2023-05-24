@@ -121,7 +121,12 @@ public class CartService {
         Cart foundCart = findCartById(cartId);
         Product foundProduct = productService.findProductById(productId);
         CartProductId foundCartProductId = new CartProductId(cartId, productId);
+        System.out.println("Ez van a CARTnál");
+        System.out.println(foundCartProductId.getCartId());
+        System.out.println(foundCartProductId.getProductId());
+        System.out.println(foundCartProductId);
         Optional<CartProduct> foundCartProduct = cartProductRepository.findById(foundCartProductId);
+        System.out.println(foundCartProduct);
         if (foundCartProduct.isPresent()) {
             foundCart.setTotalPrice(foundCart
                             .getTotalPrice()
