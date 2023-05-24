@@ -134,7 +134,7 @@ const UpgradesPage = () => {
 
                 <div className="container">
 
-                    <h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC},Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>
+                    <h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>
                     <div className="grid">
                         {items[0].products.map(upgradesProduct => //items[0] only until we have user login. until then only 1 upgrades is available.
                             <Card key={upgradesProduct.product.id} style={{width: '36rem'}}>

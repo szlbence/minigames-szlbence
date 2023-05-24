@@ -13,14 +13,15 @@ const ResearchPage = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
-    const [upgrades, setUpgrades] = useState([])
+    const [upgrades, setUpgrades] = useState([]);
+    const [totalPrice, setTotalPrice] = useState([]);
+    const [totalCoin, setTotalCoin] = useState([]);
+    const [totalCpC, setTotalCpC] = useState([]);
     const RESEARCH_URL = "/research";
     const UPGRADES_URL = "/upgrades";
     const UPGRADES_TOTAL_PRICE_URL = "/upgrades/value";
-    const USER_URL = "/user";
 
-    const [totalPrice, setTotalPrice] = useState([]);
-    const [totalCoin, setTotalCoin] = useState([]);
+    const USER_URL = "/user";
 
     async function AddToUpgrades(upgradesId, researchId, researchPrice) {
         if (totalPrice + researchPrice <= totalCoin ) {
@@ -110,12 +111,23 @@ const ResearchPage = () => {
         }
     }
 
+    async function getTotalCpC() {
+        try{
+            const totalCpC = await DataService.getData(`${USER_URL}/${user}/cpc`);
+            setTotalCpC(totalCpC.data);
+        }
+        catch(error){
+            console.log("Error loading total price: " + error);
+        }
+    }
+
     useEffect(() => {
         if (cookie){
         getUpgrades();
         getResearchs();
         getTotalPrice();
         getTotalCoin();
+        getTotalCpC();
     }}, [])
     if (cookie) {
         if (!isLoaded) {
@@ -125,7 +137,7 @@ const ResearchPage = () => {
                 <>
                     <DropDown props={setItems}/>
                     <div className="container">
-                        <h1 style={{textAlign: "center"}}>Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available
+                        <h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available
                             coins: {totalCoin - totalPrice}</h1>
                         <div className="grid">
                             {items.map(item =>
