@@ -118,6 +118,10 @@ const UpgradesPage = () => {
         });
     }
 
+    function getTotalCpCForUpgrade(quantity, cpc){
+        return quantity*cpc;
+    }
+
     let cookie = document.cookie;
     let cookieValue = cookie.slice(6);
     let user = null;
@@ -148,9 +152,13 @@ const UpgradesPage = () => {
                                 <Card.Body>
                                     <Card.Title>{upgradesProduct.product.name}</Card.Title>
                                     <img className="homeImg" src={`${upgradesProduct.product.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
-                                    <div className="grid">
+                                    <div className="container">
                                         <p>Total quantity of products : {upgradesProduct.quantity} </p>
                                         <p>Price of product: {upgradesProduct.product.upgradePrice}</p>
+                                        <p>CpC increase: {upgradesProduct.product.cpc}</p>
+                                        <p>Total CpC generation: {getTotalCpCForUpgrade(upgradesProduct.quantity, upgradesProduct.product.cpc)}</p>
+                                    </div>
+                                    <div>
                                         <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.upgradePrice, user)}>+</Button>
                                         <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, upgradesProduct.product.id)}>-</Button>
                                         <Button type="button" bsPrefix="custom-button" size="sm" onClick={async() =>await deleteProduct(items[0].id, upgradesProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>

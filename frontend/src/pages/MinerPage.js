@@ -152,7 +152,7 @@ const Contact = () => {
                     <h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>
                     <div className="gold-ore-button-container">
                         <button className="gold-ore-button" onClick={async() => await increaseCoinQuantity(user)}>
-                            <img width="300" height="400" src={`Gold_Ore.jpeg`} alt="animal"></img>
+                            <img width="450" height="300" src={`Gold_Ore.jpeg`} alt="A beautiful Golden Ore"></img>
                         </button>
                         {renderParticles}
                     </div>

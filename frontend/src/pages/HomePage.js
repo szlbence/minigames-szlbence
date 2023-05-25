@@ -18,10 +18,10 @@ const Home = () => {
                     <Card className="homeCard" style={{ width: '36rem' }}>
                         <Card.Header></Card.Header>
                         <Card.Body className="homeCardBody">
-                            <Card.Title><Nav.Link href="/product">Products</Nav.Link></Card.Title>
-                            <img className="homeImg" src="premade.png" style={{objectFit: "cover", width: 2000}}/>
+                            <Card.Title><Nav.Link href="/miner">Miner's Paradise</Nav.Link></Card.Title>
+                            <img className="homeImg" src={`Gold_Ore.jpeg`} alt="A beautiful Golden Ore" style={{objectFit: "cover", width: 2000}}/>
                             <Card.Text>
-                                Here you can find all of our amazing products. Hopefully you find something that suits your taste!
+                                Start your Mining Adventure now! Collect Ores, Research helpful accessories and you will reach the Miner's Paradise!
                             </Card.Text>
                         </Card.Body>
                     </Card>

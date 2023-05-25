@@ -71,6 +71,7 @@
   text-align: center;
   align-content: center;
   justify-content: center;
+  background-color: #bd957a !important;
 }
 
 .homeCard {
@@ -178,6 +179,4 @@ footer {
 
 
 
-.gold-ore-button:hover {
-  background-color: #93938f;
-}
+
