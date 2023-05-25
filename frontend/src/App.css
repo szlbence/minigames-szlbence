@@ -150,6 +150,14 @@ footer {
   margin-left: 300px;
 }
 
+
+.gold-ore-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .gold-ore-button {
   background-color: #e6c200;
   color: #fff;
@@ -159,6 +167,16 @@ footer {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.particle {
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+  transition: transform 1s linear;
+}
+
+
+
 
 .gold-ore-button:hover {
   background-color: #ffd700;
