@@ -40,7 +40,7 @@ const Contact = () => {
 
         setTimeout(() => {
             setParticles((prevState) => prevState.filter((p) => p !== particle));
-        }, 1000);
+        }, 200);
     };
 
     const renderParticles = particles.map((particle) => (
@@ -55,50 +55,21 @@ const Contact = () => {
 
 
 
-    async function increaseProductQuantity(upgradesId, productId, productPrice, user) {
+    async function increaseCoinQuantity(user) {
 
-        if (totalPrice + productPrice <= totalCoin ) {
+
             try {
-                await DataService.sendPut(`${UPGRADES_URL}/${upgradesId}/add/${productId}`);
-                await  DataService.sendPut(`${USER_URL}/${user}/add/${productId}`);
+                await  DataService.sendPut(`${USER_URL}/${user}/coin`);
                 await getTotalPrice();
                 await getUpgrades();
                 await getTotalCpC();
+                await getTotalCoin();
             } catch (error) {
-                console.log("Cannot increase product quantity: " + error);
+                console.log("Cannot increase coin quantity: " + error);
             }
-        }
-        else{
-            alert("Insufficient coins! Keep on clickin'! ")
 
-        }
     }
 
-    async function decreaseProductQuantity(upgradesId, productId) {
-        try{
-            await DataService.sendPut(`${UPGRADES_URL}/${upgradesId}/remove/${productId}`);
-            await  DataService.sendPut(`${USER_URL}/${user}/remove/${productId}`);
-            await getTotalPrice();
-            await getUpgrades();
-            await getTotalCpC();
-        }
-        catch (error){
-            console.log("Cannot decrease product quantity: " + error);
-        }
-    }
-
-    async function deleteProduct(upgradesId, productId) {
-        try{
-            await DataService.sendDelete(`${UPGRADES_URL}/${upgradesId}/remove/${productId}`);
-            await  DataService.sendDelete(`${USER_URL}/${user}/remove/${productId}`);
-            await getTotalPrice();
-            await getUpgrades();
-            await getTotalCpC();
-        }
-        catch (error){
-            console.log("Cannot delete product: " + error);
-        }
-    }
 
     async function getUpgrades() {
         try{
@@ -180,8 +151,8 @@ const Contact = () => {
 
                     <h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>
                     <div className="gold-ore-button-container">
-                        <button className="gold-ore-button" onClick={handleClick}>
-                            Gold Ore
+                        <button className="gold-ore-button" onClick={async() => await increaseCoinQuantity(user)}>
+                            <img width="300" height="400" src={`Gold_Ore.jpeg`} alt="animal"></img>
                         </button>
                         {renderParticles}
                     </div>
@@ -199,8 +170,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-
-// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYW5pIiwicm9sZSI6WyJBRE1JTiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvdXNlci9sb2dpbiJ9.TcbXvaiCaxqYiWx6M-sSKPJIVecu92eKf8_c3U1xHZw
-// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYW5pIiwicm9sZSI6WyJBRE1JTiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvdXNlci9sb2dpbiJ9.TcbXvaiCaxqYiWx6M-sSKPJIVecu92eKf8_c3U1xHZw
-// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJCZW5jZSIsInJvbGUiOlsiVVNFUiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvdXNlci9sb2dpbiJ9.h9NNJz0rFI_JJakXZUVUpOyffrBbI65TauHUjBSi2T8

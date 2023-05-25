@@ -19,7 +19,7 @@ public class UserEntity {
 
     private String password;
 
-    private int coin;
+    private BigDecimal coin;
 
     private BigDecimal cpc;
 

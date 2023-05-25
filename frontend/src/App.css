@@ -24,7 +24,7 @@
 }
 
 .navbarColor {
-  background-color: #F3E5AB;
+  background-color: #e8ae8c;
 }
 
 .grid {
@@ -159,7 +159,7 @@ footer {
 }
 
 .gold-ore-button {
-  background-color: #e6c200;
+  background-color: rgba(239, 238, 233, 0.03);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -179,5 +179,5 @@ footer {
 
 
 .gold-ore-button:hover {
-  background-color: #ffd700;
+  background-color: #93938f;
 }

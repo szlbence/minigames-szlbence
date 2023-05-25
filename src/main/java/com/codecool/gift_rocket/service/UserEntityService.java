@@ -73,7 +73,7 @@ public class UserEntityService implements UserDetailsService {
                 .findByUsername(userName)
                 .orElseThrow(() -> new NoSuchElementException("No user found by given name"));
     }
-    public int getUsersCoin(String userName) {
+    public BigDecimal getUsersCoin(String userName) {
         return findUserByName(userName).getCoin();
     }
 
@@ -84,8 +84,8 @@ public class UserEntityService implements UserDetailsService {
     public void add1OrRemove1CpCFromUpgrade(String userName, Long productId, int quantity) {
         UserEntity currentUser = findUserByName(userName);
         Product foundProduct = productService.findProductById(productId);
-        currentUser.setCpc(currentUser.getCpc().
-                add(foundProduct.getCpc()
+        currentUser.setCpc(currentUser.getCpc()
+                        .add(foundProduct.getCpc()
                         .multiply(BigDecimal.valueOf(quantity))
                         .multiply(currentUser.getMultiplier())
                 ));
@@ -113,6 +113,15 @@ public class UserEntityService implements UserDetailsService {
                         .multiply(BigDecimal.valueOf(foundCartProduct.get().getQuantity()))
                         .multiply(currentUser.getMultiplier())));
         }
+        userEntityRepository.save(currentUser);
+    }
+
+    public void increaseCoinQuantity (String userName){
+        UserEntity currentUser = findUserByName(userName);
+        currentUser.setCoin(currentUser.getCoin()
+                .add(currentUser.getCpc()
+                .multiply(currentUser.getMultiplier())
+                ));
         userEntityRepository.save(currentUser);
     }
 }

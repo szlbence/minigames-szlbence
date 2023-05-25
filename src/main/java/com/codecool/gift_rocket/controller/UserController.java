@@ -28,8 +28,14 @@ public class UserController {
     }
 
     @GetMapping("/{userName}/coin")
-    public int getTotalCoin(@PathVariable String userName) {
+    public BigDecimal getTotalCoin(@PathVariable String userName) {
         return userEntityService.getUsersCoin(userName);
+    }
+
+    @PutMapping("/{userName}/coin")
+    public void increaseCoinQuantity(@PathVariable String userName) {
+        System.out.println("Controller lefut");
+        userEntityService.increaseCoinQuantity(userName);
     }
 
     @GetMapping("/{userName}/cpc")
