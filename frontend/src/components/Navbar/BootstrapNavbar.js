@@ -36,7 +36,7 @@ function BootstrapNavbar() {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="/miner">Miner's Paradise</Nav.Link>
+                            <Nav.Link href="/miner">Miner's Treasure</Nav.Link>
                             <Nav.Link href="/research">Research Facility</Nav.Link>
                             <Nav.Link href="/upgrades">Upgrades</Nav.Link>
                             <Nav.Link href="/logout">Log Out</Nav.Link>
@@ -69,7 +69,7 @@ function BootstrapNavbar() {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="/miner">Miner's Paradise</Nav.Link>
+                            <Nav.Link href="/miner">Miner's Treasure</Nav.Link>
                             <Nav.Link href="/research">Research Facility</Nav.Link>
                             <Nav.Link href="/upgrades">Upgrades</Nav.Link>
                             <Nav.Link href="/login">Login</Nav.Link>

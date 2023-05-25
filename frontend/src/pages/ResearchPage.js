@@ -137,10 +137,31 @@ const ResearchPage = () => {
         } else {
             return (
                 <>
-                    <DropDown props={setItems}/>
+                    {/*<DropDown props={setItems}/> */}
                     <div className="container">
-                        <h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available
-                            coins: {totalCoin - totalPrice}</h1>
+                        {/*}  <h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available
+                            coins: {totalCoin - totalPrice}</h1>*/}
+
+                        <table style={{marginLeft: 500}}>
+                            <tbody>
+                            <tr>
+                                <td><strong>TOTAL CPC</strong></td>
+                                <td><strong>{totalCpC}</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coins mined</strong></td>
+                                <td><strong>{totalCoin}</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coins spent</strong></td>
+                                <td><strong>{totalPrice}</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Available coins</strong></td>
+                                <td><strong>{totalCoin - totalPrice}</strong></td>
+                            </tr>
+                            </tbody>
+                        </table>
                         <div className="grid">
                             {items.map(item =>
                                     <Card key={item.id} style={{width: '36rem'}}>

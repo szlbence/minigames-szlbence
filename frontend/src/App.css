@@ -48,14 +48,14 @@
 }
 
 .custom-button {
-  background-color: #F3E5AB;
+  background-color: #e8ae8c;
   border-radius: 5px;
-  border-color: #F3E5AB;
+  border-color: #e8ae8c;
 }
 .product-button {
-  background-color: #F3E5AB;
+  background-color: #e8ae8c;
   border-radius: 5px;
-  border-color: #F3E5AB;
+  border-color: #e8ae8c;
   margin-top: auto;
 }
 
@@ -134,7 +134,7 @@ footer {
   bottom: 0;
   width: 100%;
   height: 2rem ;
-  background-color: #F3E5AB;
+  background-color: #e8ae8c;
 }
 .dropdown{
   padding: 20px;

@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import DataService from "../components/DataService"
 import Button from 'react-bootstrap/Button'
+import upgradesPage from "./UpgradesPage";
 
 const Contact = () => {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -16,7 +17,7 @@ const Contact = () => {
     const UPGRADES_URL = "/upgrades";
     const UPGRADES_TOTAL_PRICE_URL = "/upgrades/value";
     const USER_URL = "/user";
-
+    const [showPlusSign, setShowPlusSign] = useState(false);
 
     const [particles, setParticles] = useState([]);
 
@@ -52,13 +53,9 @@ const Contact = () => {
 
 
 
-
-
-
     async function increaseCoinQuantity(user) {
 
-
-            try {
+        try {
                 await  DataService.sendPut(`${USER_URL}/${user}/coin`);
                 await getTotalPrice();
                 await getUpgrades();
@@ -67,7 +64,10 @@ const Contact = () => {
             } catch (error) {
                 console.log("Cannot increase coin quantity: " + error);
             }
-
+        setShowPlusSign(true);
+        setTimeout(() => {
+            setShowPlusSign(false);
+        }, 1000);
     }
 
 
@@ -112,6 +112,38 @@ const Contact = () => {
         }
     }
 
+     function checkForGoldOre(){
+        console.log("Ez lesz az items")
+        console.log(items);
+        let goldOreFound = false;
+        console.log("Ez lesz a products array")
+        console.log(items[0].products)
+        for (let i=0;i<items[0].products.length;i++){
+            console.log("Ez lesz a név")
+            console.log(items[0].products[i].name);
+            if (items[0].products[i].name == "Gold Mine"){
+                goldOreFound = true;
+            }
+        }
+
+        if (goldOreFound){
+            return(
+                <div className="gold-ore-button-container">
+                    <button className="gold-ore-button" onClick={async() => await increaseCoinQuantity(user)}>
+                        <img width="450" height="300" src={`Gold_Ore.jpeg`} alt="A beautiful Golden Ore"></img>
+                    </button>
+                </div>)
+        }
+        else{
+            return(
+                <div className="gold-ore-button-container">
+                    <button className="gold-ore-button" onClick={async() => await increaseCoinQuantity(user)}>
+                    <img width="450" height="300" src={`Silver_Ore.jpeg`} alt="A beautiful Silver Ore"></img>
+                    </button>
+            </div>)
+        }
+    }
+
 
     function parseJwt(token) {
         if (!token) { return; }
@@ -149,12 +181,38 @@ const Contact = () => {
 
                 <div className="container">
 
-                    <h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>
+                    {/*<h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>*/}
+                    <table style={{marginLeft: 500}}>
+                        <tbody>
+                        <tr>
+                            <td style={{ fontSize: "28px" }}><strong>TOTAL CPC</strong></td>
+                            <td style={{ fontSize: "28px" }}><strong>{totalCpC}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style={{ fontSize: "28px" }}><strong>Coins mined</strong></td>
+                            <td style={{ fontSize: "28px" }}><strong>{totalCoin}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style={{ fontSize: "28px" }}><strong>Coins spent</strong></td>
+                            <td style={{ fontSize: "28px" }}><strong>{totalPrice}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style={{ fontSize: "28px" }}><strong>Available coins</strong></td>
+                            <td style={{ fontSize: "28px" }}><strong>{totalCoin - totalPrice}</strong></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    {/*{checkForGoldOre()}*/}
                     <div className="gold-ore-button-container">
-                        <button className="gold-ore-button" onClick={async() => await increaseCoinQuantity(user)}>
+                        <button className="gold-ore-button" onClick={async () => await increaseCoinQuantity(user)}>
+                            {showPlusSign && (
+                                <div className="plus-sign" style={{ top: '400px', left: '50%', position: 'absolute', transform: 'translateX(-50%)', fontSize: '24px', color: 'green' }}>
+                                    + {totalCpC}
+                                </div>
+                            )}
                             <img width="450" height="300" src={`Gold_Ore.jpeg`} alt="A beautiful Golden Ore"></img>
                         </button>
-                        {renderParticles}
                     </div>
 
                     <br></br>
