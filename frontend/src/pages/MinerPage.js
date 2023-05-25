@@ -113,15 +113,9 @@ const Contact = () => {
     }
 
      function checkForGoldOre(){
-        console.log("Ez lesz az items")
-        console.log(items);
         let goldOreFound = false;
-        console.log("Ez lesz a products array")
-        console.log(items[0].products)
         for (let i=0;i<items[0].products.length;i++){
-            console.log("Ez lesz a név")
-            console.log(items[0].products[i].name);
-            if (items[0].products[i].name == "Gold Mine"){
+            if (items[0].products[i].product.name == "Gold Mine"){
                 goldOreFound = true;
             }
         }
@@ -129,7 +123,12 @@ const Contact = () => {
         if (goldOreFound){
             return(
                 <div className="gold-ore-button-container">
-                    <button className="gold-ore-button" onClick={async() => await increaseCoinQuantity(user)}>
+                    <button className="gold-ore-button" onClick={async () => await increaseCoinQuantity(user)}>
+                        {showPlusSign && (
+                            <div className="plus-sign" style={{ top: '400px', left: '50%', position: 'absolute', transform: 'translateX(-50%)', fontSize: '24px', color: 'green' }}>
+                                + {totalCpC}
+                            </div>
+                        )}
                         <img width="450" height="300" src={`Gold_Ore.jpeg`} alt="A beautiful Golden Ore"></img>
                     </button>
                 </div>)
@@ -137,10 +136,15 @@ const Contact = () => {
         else{
             return(
                 <div className="gold-ore-button-container">
-                    <button className="gold-ore-button" onClick={async() => await increaseCoinQuantity(user)}>
-                    <img width="450" height="300" src={`Silver_Ore.jpeg`} alt="A beautiful Silver Ore"></img>
+                    <button className="gold-ore-button" onClick={async () => await increaseCoinQuantity(user)}>
+                        {showPlusSign && (
+                            <div className="plus-sign" style={{ top: '400px', left: '50%', position: 'absolute', transform: 'translateX(-50%)', fontSize: '24px', color: 'green' }}>
+                                + {totalCpC}
+                            </div>
+                        )}
+                        <img width="450" height="300" src={`Silver_Ore.jpeg`} alt="A beautiful Golden Ore"></img>
                     </button>
-            </div>)
+                </div>)
         }
     }
 
@@ -203,8 +207,8 @@ const Contact = () => {
                         </tbody>
                     </table>
 
-                    {/*{checkForGoldOre()}*/}
-                    <div className="gold-ore-button-container">
+                    {checkForGoldOre()}
+                    {/*<div className="gold-ore-button-container">
                         <button className="gold-ore-button" onClick={async () => await increaseCoinQuantity(user)}>
                             {showPlusSign && (
                                 <div className="plus-sign" style={{ top: '400px', left: '50%', position: 'absolute', transform: 'translateX(-50%)', fontSize: '24px', color: 'green' }}>
@@ -213,7 +217,7 @@ const Contact = () => {
                             )}
                             <img width="450" height="300" src={`Gold_Ore.jpeg`} alt="A beautiful Golden Ore"></img>
                         </button>
-                    </div>
+                    </div>*/}
 
                     <br></br>
                     <br></br>
