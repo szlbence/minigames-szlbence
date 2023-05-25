@@ -27,9 +27,11 @@ const ResearchPage = () => {
         if (totalPrice + researchPrice <= totalCoin ) {
             try {
                 await DataService.postData(`${UPGRADES_URL}/${upgradesId}/add/${researchId}`);
+                await  DataService.sendPut(`${USER_URL}/${user}/add/${researchId}`);
                 await getTotalPrice();
                 await getUpgrades();
                 await getResearchs();
+                await getTotalCpC();
             }
         catch (error) {
             console.log("Cannot add to upgrades: " + error);
