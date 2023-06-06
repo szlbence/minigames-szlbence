@@ -186,7 +186,7 @@ const Contact = () => {
                 <div className="container">
 
                     {/*<h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>*/}
-                    <table style={{marginLeft: 500}}>
+                    <table style={{marginLeft: 525}}>
                         <tbody>
                         <tr>
                             <td style={{ fontSize: "28px" }}><strong>TOTAL CPC</strong></td>
@@ -201,7 +201,7 @@ const Contact = () => {
                             <td style={{ fontSize: "28px" }}><strong>{totalPrice}</strong></td>
                         </tr>
                         <tr>
-                            <td style={{ fontSize: "28px" }}><strong>Available coins</strong></td>
+                            <td style={{ fontSize: "28px" }}><strong>Available coins </strong></td>
                             <td style={{ fontSize: "28px" }}><strong>{totalCoin - totalPrice}</strong></td>
                         </tr>
                         </tbody>

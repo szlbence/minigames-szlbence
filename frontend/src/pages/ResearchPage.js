@@ -142,7 +142,7 @@ const ResearchPage = () => {
                         {/*}  <h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available
                             coins: {totalCoin - totalPrice}</h1>*/}
 
-                        <table style={{marginLeft: 500}}>
+                        <table style={{marginLeft: 525}}>
                             <tbody>
                             <tr>
                                 <td><strong>TOTAL CPC</strong></td>
