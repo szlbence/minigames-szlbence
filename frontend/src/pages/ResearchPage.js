@@ -48,6 +48,7 @@ const ResearchPage = () => {
         return JSON.parse(window.atob(base64));
     }
 
+
     let cookie = document.cookie;
     let cookieValue = cookie.slice(6);
     let user = null;
