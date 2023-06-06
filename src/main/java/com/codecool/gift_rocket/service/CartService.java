@@ -61,7 +61,7 @@ public class CartService {
         return products;
     }
 
-    public void changeProductInCart(Long productId, Long cartId, int quantity) {
+    public void addResearchToUpgrade(Long productId, Long cartId, int quantity) {
         Cart foundCart = findCartById(cartId);
         Product foundProduct = productService.findProductById(productId);
         CartProductId foundCartProductId = new CartProductId(cartId, productId);
@@ -86,16 +86,53 @@ public class CartService {
         }
     }
 
-    public void deleteProductFromCart(Long productId, Long cartId) {
+
+    public void changeUpgradeQty(Long productId, Long cartId, int quantity) {
         Cart foundCart = findCartById(cartId);
         Product foundProduct = productService.findProductById(productId);
         CartProductId foundCartProductId = new CartProductId(cartId, productId);
         Optional<CartProduct> foundCartProduct = cartProductRepository.findById(foundCartProductId);
         if (foundCartProduct.isPresent()) {
+            foundCartProduct.get().changeQuantity(quantity);
+            if (quantity > 0) {
+                foundCart.setTotalPrice(foundCart.getTotalPrice().
+                        add(foundProduct.getUpgradePrice().multiply(BigDecimal.valueOf(quantity))));
+            }
+            else{
+                foundCart.setTotalPrice(foundCart.getTotalPrice().
+                        add(foundProduct.getUpgradePrice().divide(BigDecimal.valueOf(2)).multiply(BigDecimal.valueOf(quantity))));
+            }
+            cartRepository.save(foundCart);
+            cartProductRepository.save(foundCartProduct.get());
+            if (foundCartProduct.get().getQuantity() == 0) {
+                cartProductRepository.deleteById(foundCartProduct.get().getId());
+            }
+        } else {
+            if (quantity >= 0) {
+                CartProduct cartProduct = new CartProduct(foundCart, foundProduct);
+                cartProductRepository.save(cartProduct);
+                foundCart.setTotalPrice(foundCart.getTotalPrice().
+                        add(foundProduct.getUpgradePrice().multiply(BigDecimal.valueOf(quantity))));
+                cartRepository.save(foundCart);
+            }
+        }
+    }
+    public void deleteProductFromCart(Long productId, Long cartId) {
+        Cart foundCart = findCartById(cartId);
+        Product foundProduct = productService.findProductById(productId);
+        CartProductId foundCartProductId = new CartProductId(cartId, productId);
+        System.out.println("Ez van a CARTnál");
+        System.out.println(foundCartProductId.getCartId());
+        System.out.println(foundCartProductId.getProductId());
+        System.out.println(foundCartProductId);
+        Optional<CartProduct> foundCartProduct = cartProductRepository.findById(foundCartProductId);
+        System.out.println(foundCartProduct);
+        if (foundCartProduct.isPresent()) {
             foundCart.setTotalPrice(foundCart
                             .getTotalPrice()
                             .subtract(foundProduct
-                                    .getPrice()
+                                    .getUpgradePrice()
+                                    .divide(BigDecimal.valueOf(2))
                                     .multiply(BigDecimal.valueOf(foundCartProduct.get().getQuantity()))));
             cartRepository.save(foundCart);
             cartProductRepository.delete(foundCartProduct.get());

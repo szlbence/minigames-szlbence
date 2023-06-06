@@ -3,6 +3,7 @@ package com.codecool.gift_rocket.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -17,6 +18,12 @@ public class UserEntity {
     private String username;
 
     private String password;
+
+    private BigDecimal coin;
+
+    private BigDecimal cpc;
+
+    private BigDecimal multiplier;
 
     @Enumerated(EnumType.STRING)
     private Role role;

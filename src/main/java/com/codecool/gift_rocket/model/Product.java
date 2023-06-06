@@ -26,7 +26,13 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
-//    private static final String CURRENCY = "HUF";
+
+    @Column(name = "upgradeprice")
+    private BigDecimal upgradePrice;
+
+
+    @Column(name = "cpc")
+    private BigDecimal cpc;
     private String name;
     private String description;
     @Enumerated(value = EnumType.STRING)
@@ -46,12 +52,14 @@ public class Product {
     private List<CartProduct> carts;
 
 
-    public Product(BigDecimal price, String name, String description, Category category) {
+    public Product(BigDecimal price,BigDecimal upgradePrice,BigDecimal cpc, String name, String description, Category category) {
         this.price = price;
         this.name = name;
         this.description = description;
         this.carts = new ArrayList<>();
         this.category = category;
+        this.upgradePrice = upgradePrice;
+        this.cpc = cpc;
     }
 
 
@@ -65,12 +73,12 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product that = (Product) o;
-        return id.equals(that.id) && price.equals(that.price) && name.equals(that.name) && description.equals(that.description) && carts.equals(that.carts);
+        return id.equals(that.id) && price.equals(that.price) && upgradePrice.equals(that.upgradePrice) && cpc.equals(that.cpc) && name.equals(that.name) && description.equals(that.description) && carts.equals(that.carts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, price, name, description, carts);
+        return Objects.hash(id, price, upgradePrice, cpc, name, description, carts);
     }
 
     //    public void addProduct(Product product) {

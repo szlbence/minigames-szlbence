@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/upgrades")
 public class CartController {
 
     private final int REMOVE_PRODUCT_FROM_CART = -1;
@@ -50,12 +50,17 @@ public class CartController {
 
     @PostMapping("/{cartId}/add/{productId}")
     public void addProductToCart(@PathVariable Long cartId, @PathVariable Long productId) {
-        cartService.changeProductInCart(productId, cartId, ADD_PRODUCT_TO_CART);
+        cartService.addResearchToUpgrade(productId, cartId, ADD_PRODUCT_TO_CART);
+    }
+
+    @PutMapping("/{cartId}/add/{productId}")
+    public void changeUpgradeQty(@PathVariable Long cartId, @PathVariable Long productId) {
+        cartService.changeUpgradeQty(productId, cartId, ADD_PRODUCT_TO_CART);
     }
 
     @PutMapping("/{cartId}/remove/{productId}")
     public void removeProductFromCart(@PathVariable Long cartId, @PathVariable Long productId) {
-        cartService.changeProductInCart(productId,cartId, REMOVE_PRODUCT_FROM_CART);
+        cartService.changeUpgradeQty(productId,cartId, REMOVE_PRODUCT_FROM_CART);
     }
 
     @DeleteMapping("/{cartId}/remove/{productId}")

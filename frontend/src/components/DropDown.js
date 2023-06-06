@@ -5,7 +5,7 @@ import {useRef} from "react";
 
 
 function DropDown({props}) {
-    const BASE_URL = "/product";
+    const BASE_URL = "/research";
     const items = useRef([]);
 
 
@@ -25,9 +25,8 @@ function DropDown({props}) {
                         title="Select category"
                         onSelect={handleSelect}
         >
-            <Dropdown.Item eventKey="ALCOHOL">Alcohol</Dropdown.Item>
-            <Dropdown.Item eventKey="SWEET">Sweet</Dropdown.Item>
-            <Dropdown.Item eventKey="KID">Kid</Dropdown.Item>
+            <Dropdown.Item eventKey="ORE">Ores</Dropdown.Item>
+            <Dropdown.Item eventKey="ACCESSORIES">Accessories</Dropdown.Item>
         </DropdownButton>
     );
 }
