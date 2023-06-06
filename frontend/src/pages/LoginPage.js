@@ -42,7 +42,7 @@ const LoginPage = () => {
                         <td><input type='password' value={password} onChange={(e) => setPassword(e.target.value)} /></td>
                     </tr>
                     <tr>
-                        <td><button name="submit" type="button" value="submit" onClick={() => clickSend(user)}>Send</button></td>
+                        <td><button className="my-purple-button" name="submit" type="button" value="submit" onClick={() => clickSend(user)}>Send</button></td>
                     </tr>
                 </table>
             </form>

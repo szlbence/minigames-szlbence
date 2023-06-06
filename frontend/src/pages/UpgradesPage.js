@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import DataService from "../components/DataService"
 import Button from 'react-bootstrap/Button'
+import {MinerScoreboard} from "../components/MinerScoreboard";
 
 const UpgradesPage = () => {
 
@@ -18,7 +19,6 @@ const UpgradesPage = () => {
     const USER_URL = "/user";
 
     async function increaseProductQuantity(upgradesId, productId, productPrice, user) {
-
         if (totalPrice + productPrice <= totalCoin ) {
             try {
                 await DataService.sendPut(`${UPGRADES_URL}/${upgradesId}/add/${productId}`);
@@ -142,36 +142,18 @@ const UpgradesPage = () => {
         } else {
             return (
 
-                <div className="container" >
+                <div className="container">
+                    <MinerScoreboard
+                        totalCpC={totalCpC}
+                        totalCoin={totalCoin}
+                        totalPrice={totalPrice}
+                    />
 
-                    {/*<h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>*/}
-
-                    <table style={{marginLeft: 525}}>
-                        <tbody>
-                        <tr>
-                            <td><strong>TOTAL CPC</strong></td>
-                            <td><strong>{totalCpC}</strong></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Coins mined</strong></td>
-                            <td><strong>{totalCoin}</strong></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Coins spent</strong></td>
-                            <td><strong>{totalPrice}</strong></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Available coins</strong></td>
-                            <td><strong>{totalCoin - totalPrice}</strong></td>
-                        </tr>
-                        </tbody>
-                    </table>
                     <div className="grid">
                         {items[0].products.map(upgradesProduct => //items[0] only until we have user login. until then only 1 upgrades is available.
-                            <Card key={upgradesProduct.product.id} style={{width: '36rem'}}>
-                                <Card.Header></Card.Header>
+                            <Card key={upgradesProduct.product.id}>
+                                <Card.Header className="bg-danger text-light">{upgradesProduct.product.name}</Card.Header>
                                 <Card.Body>
-                                    <Card.Title>{upgradesProduct.product.name}</Card.Title>
                                     <img className="homeImg" src={`${upgradesProduct.product.name.replace(" ", "_")}.jpeg`} style={{objectFit: "cover", width: 2000}}/>
                                     <div className="container">
                                         <p>Total quantity of products : {upgradesProduct.quantity} </p>
@@ -180,18 +162,14 @@ const UpgradesPage = () => {
                                         <p>Total CpC generation: {getTotalCpCForUpgrade(upgradesProduct.quantity, upgradesProduct.product.cpc)}</p>
                                     </div>
                                     <div>
-                                        <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.upgradePrice, user)}>+</Button>
-                                        <Button type="submit" bsPrefix="custom-button" size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, upgradesProduct.product.id)}>-</Button>
-                                        <Button type="button" bsPrefix="custom-button" size="sm" onClick={async() =>await deleteProduct(items[0].id, upgradesProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>
+                                        <Button type="submit" bsPrefix="my-purple-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.upgradePrice, user)}>+</Button>
+                                        <Button type="submit" bsPrefix="my-purple-button" size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, upgradesProduct.product.id)}>-</Button>
+                                        <Button type="button" bsPrefix="my-purple-button" size="sm" onClick={async() =>await deleteProduct(items[0].id, upgradesProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>
                                     </div>
                                 </Card.Body>
                             </Card>
                         )}
                     </div>
-
-                    <br></br>
-                    <br></br>
-                    <br></br>
                 </div>
             );
         }
