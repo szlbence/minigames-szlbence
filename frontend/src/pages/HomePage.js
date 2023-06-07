@@ -1,6 +1,5 @@
 import React from 'react';
 import "../App.css";
-import image from "../minigames-logo"
 import Card from 'react-bootstrap/Card';
 import Nav from "react-bootstrap/Nav";
 

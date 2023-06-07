@@ -6,6 +6,8 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import DataService from "../components/DataService"
 import Button from 'react-bootstrap/Button'
 import {MinerScoreboard} from "../components/MinerScoreboard";
+import {Loader} from "../components/Loader";
+import {parseJwt} from "../utils/authentications";
 
 const UpgradesPage = () => {
 
@@ -103,21 +105,6 @@ const UpgradesPage = () => {
         }
     }
 
-
-    function parseJwt(token) {
-        if (!token) { return; }
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace('-', '+').replace('_', '/');
-        return JSON.parse(window.atob(base64));
-    }
-
-
-    function get_cookie(name){
-        return document.cookie.split(';').some(c => {
-            return c.trim().startsWith(name + '=');
-        });
-    }
-
     function getTotalCpCForUpgrade(quantity, cpc){
         return quantity*cpc;
     }
@@ -128,7 +115,6 @@ const UpgradesPage = () => {
     if (cookie){
         user = (parseJwt(cookieValue)).sub;}
 
-
     useEffect(() => {
         if (cookie){
         getUpgrades();
@@ -136,9 +122,10 @@ const UpgradesPage = () => {
         getTotalCoin();
         getTotalCpC();
     }}, [])
+
     if (cookie) {
         if (!isLoaded) {
-            return <div>Loading...</div>;
+            return <Loader/>;
         } else {
             return (
 
@@ -149,7 +136,7 @@ const UpgradesPage = () => {
                         totalPrice={totalPrice}
                     />
 
-                    <div className="grid">
+                    <div className="grid d-flex justify-content-center">
                         {items[0].products.map(upgradesProduct => //items[0] only until we have user login. until then only 1 upgrades is available.
                             <Card key={upgradesProduct.product.id}>
                                 <Card.Header className="bg-danger text-light">{upgradesProduct.product.name}</Card.Header>
@@ -162,9 +149,9 @@ const UpgradesPage = () => {
                                         <p>Total CpC generation: {getTotalCpCForUpgrade(upgradesProduct.quantity, upgradesProduct.product.cpc)}</p>
                                     </div>
                                     <div>
-                                        <Button type="submit" bsPrefix="my-purple-button" size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.upgradePrice, user)}>+</Button>
-                                        <Button type="submit" bsPrefix="my-purple-button" size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, upgradesProduct.product.id)}>-</Button>
-                                        <Button type="button" bsPrefix="my-purple-button" size="sm" onClick={async() =>await deleteProduct(items[0].id, upgradesProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>
+                                        <Button type="submit" bsPrefix="my-purple-button bg-danger" style={{borderColor: '#dc3545'}} size="sm" onClick={async() => await increaseProductQuantity(items[0].id, upgradesProduct.product.id, upgradesProduct.product.upgradePrice, user)}>+</Button>
+                                        <Button type="submit" bsPrefix="my-purple-button bg-danger" style={{borderColor: '#dc3545'}} size="sm" onClick={async() =>await decreaseProductQuantity(items[0].id, upgradesProduct.product.id)}>-</Button>
+                                        <Button type="button" bsPrefix="my-purple-button bg-danger" style={{borderColor: '#dc3545'}} size="sm" onClick={async() =>await deleteProduct(items[0].id, upgradesProduct.product.id)}><FontAwesomeIcon icon={faTrash}/></Button>
                                     </div>
                                 </Card.Body>
                             </Card>

@@ -3,6 +3,7 @@ import "../App.css"
 import DataService from "../components/DataService"
 import {MinerScoreboard} from "../components/MinerScoreboard";
 import {getTotalCoin, getTotalCpC, getTotalPrice, getUpgrades} from "../utils/apis";
+import {Loader} from "../components/Loader";
 
 const Contact = () => {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -127,13 +128,11 @@ const Contact = () => {
 
     if (cookie) {
         if (!isLoaded) {
-            return <div>Loading...</div>;
+            return <Loader/>;
         } else {
             return (
 
                 <div className="container">
-
-                    {/*<h1 style={{textAlign: "center"}}>TOTAL CPC: {totalCpC}, Coins spent: {totalPrice}, Coins mined: {totalCoin}, Available coins: {totalCoin-totalPrice}</h1>*/}
                     <MinerScoreboard
                         totalCpC={totalCpC}
                         totalCoin={totalCoin}

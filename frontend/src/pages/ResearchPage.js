@@ -7,6 +7,8 @@ import DataService from "../components/DataService";
 import Button from "react-bootstrap/Button";
 import {MinerScoreboard} from "../components/MinerScoreboard";
 import {getResearches, getUpgrades, getTotalCoin, getTotalPrice, getTotalCpC} from "../utils/apis";
+import {Loader} from "../components/Loader";
+import {parseJwt} from "../utils/authentications";
 
 const ResearchPage = () => {
 
@@ -25,10 +27,11 @@ const ResearchPage = () => {
     async function AddToUpgrades(upgradesId, researchId, researchPrice) {
         if (totalPrice + researchPrice <= totalCoin ) {
             try {
+
                 await DataService.postData(`${UPGRADES_URL}/${upgradesId}/add/${researchId}`);
                 await  DataService.sendPut(`${USER_URL}/${user}/add/${researchId}`);
 
-                await getUpgrades(UPGRADES_URL, setIsLoaded, setItems);
+                await getUpgrades(UPGRADES_URL, setIsLoaded, setUpgrades);
                 await getResearches(RESEARCH_URL, UPGRADES_URL,setIsLoaded, setItems);
                 await getTotalPrice(UPGRADES_TOTAL_PRICE_URL,setTotalPrice);
                 await getTotalCoin(USER_URL,user, setTotalCoin);
@@ -41,14 +44,6 @@ const ResearchPage = () => {
         else{alert("Insufficient coins! Keep on clickin'! ")};
     }
 
-    function parseJwt(token) {
-        if (!token) { return; }
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace('-', '+').replace('_', '/');
-        return JSON.parse(window.atob(base64));
-    }
-
-
     let cookie = document.cookie;
     let cookieValue = cookie.slice(6);
     let user = null;
@@ -58,8 +53,9 @@ const ResearchPage = () => {
 
     useEffect(() => {
         if (cookie){
-        getUpgrades(UPGRADES_URL, setIsLoaded, setItems);
+        getUpgrades(UPGRADES_URL, setIsLoaded, setUpgrades);
         getResearches(RESEARCH_URL, UPGRADES_URL,setIsLoaded, setItems);
+
         getTotalPrice(UPGRADES_TOTAL_PRICE_URL,setTotalPrice);
         getTotalCoin(USER_URL,user, setTotalCoin);
         getTotalCpC(USER_URL, user, setTotalCpC);
@@ -67,7 +63,7 @@ const ResearchPage = () => {
 
     if (cookie) {
         if (!isLoaded) {
-            return <div>Loading...</div>;
+            return <Loader/>;
         } else {
             return (
 
@@ -78,28 +74,23 @@ const ResearchPage = () => {
                             totalPrice={totalPrice}
                         />
 
-                        <div className="grid">
+                        <div className="grid d-flex justify-content-center">
                             {items.map(item =>
-                                    <Card key={item.id} style={{width: '36rem'}}>
-                                    <Card.Header></Card.Header>
+                                    <Card key={item.id}>
+                                    <Card.Header className="bg-success text-light ">{item.name}</Card.Header>
                                     <Card.Body>
-                                    <Card.Title>{item.name}</Card.Title>
                                     <img className="homeImg" src={`${item.name.replace(" ", "_")}.jpeg`}
-                                    style={{objectFit: "cover", width: 2000}}/>
+                                    />
                                     <p className="price">Research price: {item.price} Coins</p>
                                     <p className="cpc">CpC increase: {item.cpc}</p>
                                     <p className="description">{item.description}</p>
-                                    <Button type="submit" bsPrefix="my-purple-button" onClick={() => {
+                                    <Button type="submit" bsPrefix="my-purple-button bg-success" style={{borderColor: '#198754'}} onClick={() => {
                                     AddToUpgrades(upgrades[0].id, item.id, item.price)
-                                }}>Research
-                                    </Button>
+                                }}>Research</Button>
                                     </Card.Body>
                                     </Card>
-
                             )}
                         </div>
-                        <br></br>
-                        <br></br>
                     </div>
             );
         }

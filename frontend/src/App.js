@@ -8,16 +8,12 @@ import UpgradesPage from "./pages/UpgradesPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
-import { MDBFooter } from 'mdb-react-ui-kit';
 import BootstrapNavbar from "./components/Navbar/BootstrapNavbar";
-import Nav from "react-bootstrap/Nav";
-import DropDown from "./components/DropDown";
 
 
 function App() {
     return (
         <>
-            <div>
                 <Router>
                     <BootstrapNavbar/>
                     <Routes>
@@ -29,8 +25,7 @@ function App() {
                         <Route path="/logout" element={<LogoutPage/>}/>
                     </Routes>
                 </Router>
-            </div>
-            <footer  className='text-center p-4'>
+            <footer  className='text-center'>
                     &copy; {new Date().getFullYear()} Copyright:{' '}
                     Minigames
             </footer>

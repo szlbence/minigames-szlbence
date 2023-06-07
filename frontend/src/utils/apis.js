@@ -30,11 +30,11 @@ export async function getTotalCpC(USER_URL, user, setTotalCpC) {
     }
 }
 
-export async function getUpgrades(UPGRADES_URL, setIsLoaded, setItems) {
+export async function getUpgrades(UPGRADES_URL, setIsLoaded, setUpgrades) {
     try{
         const upgrades = await DataService.getData(UPGRADES_URL);
         setIsLoaded(true);
-        setItems(upgrades.data);
+        setUpgrades(upgrades.data);
     }
     catch (error){
         console.log("Error loading upgrades: " + error);
